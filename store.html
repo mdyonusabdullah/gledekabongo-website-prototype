@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Store — Gledé Browne Kabongo</title>
+<meta name="description" content="Glede's Bookstore — e-book editions of the award-winning psychological thrillers by Gledé Browne Kabongo.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ==========================================================================
+   GLEDÉ BROWNE KABONGO — STORE PROTOTYPE
+   Shares the site-wide design system. Static front-end only: no cart, no
+   checkout, no commerce logic. Every "Buy Now" is a visual element.
+   01  Tokens
+   02  Reset & base
+   03  Typography primitives
+   04  Buttons & links
+   05  Header / navigation
+   06  Store hero
+   07  Category rail
+   08  Cover system
+   09  Featured product
+   10  Product grid
+   11  Promotional band
+   12  Footer
+   13  Responsive
+   ========================================================================== */
+
+/* --- 01 Tokens ----------------------------------------------------------- */
+:root{
+  /* Brand */
+  --navy:#05347E;
+  --blue:#3E7FE6;
+  --gold:#FFDB4F;
+
+  /* Extended neutrals derived from the brand */
+  --navy-deep:#042457;
+  --navy-ink:#031A3F;
+  --blue-wash:#EDF2FB;
+
+  --paper:#FCFBF8;
+  --paper-warm:#F4F1E9;
+  --ink:#15181D;
+  --ink-soft:#4E5663;
+  --ink-mute:#7B8493;
+
+  --rule:rgba(5,52,126,.14);
+  --rule-strong:rgba(5,52,126,.26);
+
+  /* Rhythm */
+  --shell:1280px;
+  --gutter:clamp(20px,5vw,64px);
+  --section:clamp(72px,8.5vw,128px);
+
+  /* Type */
+  --serif:"Cormorant Garamond",Garamond,"Times New Roman",serif;
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+}
+
+/* --- 02 Reset & base ----------------------------------------------------- */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+a:not([href]){cursor:pointer}
+h1,h2,h3,h4,p,figure,ul,ol{margin:0;padding:0}
+ul,ol{list-style:none}
+button{font:inherit;color:inherit}
+::selection{background:var(--navy);color:var(--gold)}
+:focus-visible{outline:2px solid var(--blue);outline-offset:4px}
+
+.shell{
+  width:100%;
+  max-width:var(--shell);
+  margin-inline:auto;
+  padding-inline:var(--gutter);
+}
+.section{padding-block:var(--section)}
+
+/* --- 03 Typography primitives -------------------------------------------- */
+.eyebrow{
+  display:inline-flex;
+  align-items:flex-start;
+  gap:14px;
+  font-size:.6875rem;
+  font-weight:600;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  line-height:1.55;
+  color:var(--blue);
+}
+.eyebrow::before{
+  content:"";
+  width:26px;
+  height:1px;
+  margin-top:.72em;
+  background:var(--gold);
+  flex:none;
+}
+.eyebrow--light{color:rgba(255,255,255,.72)}
+
+.display{
+  font-family:var(--serif);
+  font-weight:300;
+  line-height:1.04;
+  letter-spacing:-.012em;
+  font-size:clamp(2.6rem,5.2vw,4.4rem);
+}
+.h2{
+  font-family:var(--serif);
+  font-weight:300;
+  line-height:1.08;
+  letter-spacing:-.008em;
+  font-size:clamp(2rem,3.5vw,3.1rem);
+}
+
+.lede{font-size:1.0625rem;line-height:1.72;color:var(--ink-soft)}
+.body{font-size:.9375rem;line-height:1.85;color:var(--ink-soft)}
+.body--light{color:rgba(255,255,255,.74)}
+.meta{
+  font-size:.6875rem;
+  font-weight:600;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--ink-mute);
+}
+.meta--blue{color:var(--blue)}
+.meta--light{color:rgba(255,255,255,.55)}
+
+/* --- 04 Buttons & links -------------------------------------------------- */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  min-height:52px;
+  padding:0 30px;
+  border:1px solid transparent;
+  font-size:.6875rem;
+  font-weight:600;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  line-height:1;
+  cursor:pointer;
+  transition:background-color .28s ease,color .28s ease,border-color .28s ease;
+}
+.btn--gold{background:var(--gold);color:var(--navy-ink);border-color:var(--gold)}
+.btn--gold:hover{background:#F6CE2E;border-color:#F6CE2E}
+.btn--navy{background:var(--navy);color:#fff;border-color:var(--navy)}
+.btn--navy:hover{background:var(--navy-deep);border-color:var(--navy-deep)}
+.btn--ghost-navy{border-color:var(--rule-strong);color:var(--navy)}
+.btn--ghost-navy:hover{border-color:var(--navy);background:var(--navy);color:#fff}
+.btn--ghost-light{border-color:rgba(255,255,255,.42);color:#fff}
+.btn--ghost-light:hover{border-color:var(--gold);color:var(--gold)}
+/* Compact variant used inside product cards */
+.btn--sm{min-height:42px;padding:0 18px;font-size:.625rem;letter-spacing:.14em;width:100%}
+
+.link-arrow{
+  display:inline-flex;
+  align-items:center;
+  gap:12px;
+  font-size:.6875rem;
+  font-weight:600;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--navy);
+  padding-bottom:7px;
+  border-bottom:1px solid var(--rule-strong);
+  transition:color .28s ease,border-color .28s ease;
+}
+.link-arrow .arw{transition:transform .28s ease}
+.link-arrow:hover{color:var(--blue);border-color:var(--blue)}
+.link-arrow:hover .arw{transform:translateX(6px)}
+
+/* --- 05 Header / navigation ---------------------------------------------- */
+.site-header{background:var(--navy);color:#fff;position:relative;z-index:60}
+.site-header__inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:40px;
+  min-height:84px;
+}
+.wordmark{
+  font-family:var(--serif);
+  font-weight:500;
+  font-size:1.1875rem;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  line-height:1;
+  white-space:nowrap;
+  color:#fff;
+}
+.wordmark span{color:var(--gold)}
+
+.nav{display:flex;align-items:center;gap:clamp(16px,2vw,30px)}
+.nav__item{position:relative}
+.nav__link{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  font-size:.6875rem;
+  font-weight:500;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.82);
+  padding:31px 0;
+  border-bottom:2px solid transparent;
+  transition:color .25s ease,border-color .25s ease;
+}
+.nav__link:hover,.nav__item:hover > .nav__link{color:#fff;border-bottom-color:var(--gold)}
+.nav__link[aria-current="page"]{color:#fff;border-bottom-color:var(--gold)}
+.nav__caret{width:7px;height:7px;fill:none;stroke:currentColor;stroke-width:1.6;opacity:.75}
+
+.submenu{
+  position:absolute;
+  top:100%;
+  left:-26px;
+  min-width:246px;
+  background:var(--navy-deep);
+  border-top:2px solid var(--gold);
+  padding:14px 0 18px;
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(6px);
+  transition:opacity .22s ease,transform .22s ease,visibility .22s;
+  box-shadow:0 18px 40px rgba(3,20,50,.28);
+}
+.nav__item:hover .submenu,
+.nav__item:focus-within .submenu{opacity:1;visibility:visible;transform:translateY(0)}
+.submenu__label{
+  display:block;
+  padding:6px 26px 10px;
+  font-size:.625rem;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.4);
+}
+.submenu a{
+  display:block;
+  padding:9px 26px;
+  font-size:.75rem;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.78);
+  transition:color .2s ease,background-color .2s ease;
+}
+.submenu a:hover{color:var(--gold);background:rgba(255,255,255,.05)}
+
+.nav-toggle{
+  display:none;
+  align-items:center;
+  gap:11px;
+  background:none;
+  border:0;
+  padding:10px 0;
+  cursor:pointer;
+  color:#fff;
+  font-size:.625rem;
+  font-weight:600;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+}
+.nav-toggle__bars{display:block;width:22px}
+.nav-toggle__bars i{display:block;height:1px;background:currentColor;margin:5px 0}
+.nav-toggle__bars i:first-child{margin-top:0}
+.nav-toggle__bars i:last-child{width:14px;margin-bottom:0}
+.mobile-nav{display:none}
+
+/* --- 06 Store hero --------------------------------------------------------- */
+.hero{padding-block:clamp(52px,6.5vw,92px) clamp(40px,4.5vw,62px)}
+.hero__inner{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,.94fr);
+  gap:clamp(38px,6vw,84px);
+  align-items:end;
+}
+.hero__title{margin-top:24px;max-width:12ch}
+.hero__copy{margin-top:26px;max-width:44ch}
+
+/* Three covers on a thin gold shelf rule — a bookshop motif, not a literal one */
+.shelf{display:flex;align-items:flex-end;gap:clamp(14px,2.2vw,30px);padding-bottom:16px;border-bottom:1px solid var(--gold)}
+.shelf .cover{flex:1 1 0;min-width:0}
+
+/* --- 07 Category rail ------------------------------------------------------- */
+.rail{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.rail__scroll{
+  display:flex;
+  align-items:stretch;
+  overflow-x:auto;
+  scrollbar-width:none;
+  -ms-overflow-style:none;
+}
+.rail__scroll::-webkit-scrollbar{display:none}
+.rail__item{
+  flex:1 0 auto;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  white-space:nowrap;
+  padding:20px clamp(14px,2vw,28px);
+  font-size:.6875rem;
+  font-weight:600;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--ink-mute);
+  border-bottom:2px solid transparent;
+  transition:color .25s ease,border-color .25s ease;
+}
+.rail__item + .rail__item{border-left:1px solid var(--rule)}
+.rail__item[aria-current="true"]{color:var(--navy);border-bottom-color:var(--gold)}
+.rail__item:hover{color:var(--navy)}
+/* Categories the store is built to hold but does not stock yet */
+.rail__item--soon{color:rgba(123,132,147,.62);cursor:default}
+.rail__item--soon:hover{color:rgba(123,132,147,.62)}
+.rail__soon{
+  font-size:.5625rem;
+  letter-spacing:.14em;
+  color:var(--blue);
+  border:1px solid var(--rule);
+  padding:2px 7px;
+}
+
+/* --- 08 Cover system --------------------------------------------------------
+   One 71:100 stage everywhere, so every cover reads at the same scale.
+   -------------------------------------------------------------------------- */
+.cover{position:relative;display:block;aspect-ratio:71/100;width:100%}
+.cover img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center bottom;
+  transition:transform .4s cubic-bezier(.22,.61,.36,1);
+}
+.product:hover .cover img,a.cover:hover img{transform:translateY(-6px)}
+
+/* --- 09 Featured product ------------------------------------------------------ */
+.featured{background:var(--paper-warm)}
+.featured__inner{
+  display:grid;
+  grid-template-columns:minmax(0,300px) minmax(0,1fr);
+  gap:clamp(32px,5vw,76px);
+  align-items:center;
+}
+.featured__kicker{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+.featured__title{margin-bottom:16px}
+.featured__hook{
+  margin-bottom:22px;
+  padding-left:20px;
+  border-left:1px solid var(--gold);
+  font-family:var(--serif);
+  font-style:italic;
+  font-weight:400;
+  font-size:clamp(1.15rem,1.8vw,1.4rem);
+  line-height:1.45;
+  color:var(--navy);
+  max-width:34ch;
+}
+.featured__actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px}
+
+/* --- 10 Product grid ----------------------------------------------------------- */
+.shop__head{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,auto);
+  align-items:end;
+  gap:clamp(22px,4vw,56px);
+  margin-bottom:clamp(38px,4.5vw,60px);
+}
+.shop__title{margin-top:20px}
+.shop__count{padding-bottom:8px}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:clamp(30px,3.2vw,54px) clamp(22px,2.6vw,40px);
+}
+.product{display:flex;flex-direction:column}
+.product__cover{margin-bottom:22px}
+.product__type{margin-bottom:10px}
+.product__title{
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:clamp(1.2rem,1.5vw,1.4rem);
+  line-height:1.16;
+  color:var(--ink);
+  margin-bottom:10px;
+}
+.product__desc{
+  /* clamp must not be stretched by flex-grow — auto margin pushes the foot down */
+  flex:0 0 auto;
+  margin-bottom:auto;
+  font-size:.8438rem;
+  line-height:1.7;
+  color:var(--ink-soft);
+  display:-webkit-box;
+  -webkit-line-clamp:3;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+.product__foot{
+  margin-top:18px;
+  padding-top:14px;
+  border-top:1px solid var(--rule);
+}
+.product__price{
+  font-size:.9375rem;
+  font-weight:600;
+  letter-spacing:.04em;
+  color:var(--navy);
+  margin-bottom:14px;
+}
+
+/* --- 11 Promotional band --------------------------------------------------------- */
+.promo{
+  position:relative;
+  background:var(--navy-ink);
+  color:#fff;
+  overflow:hidden;
+  isolation:isolate;
+  text-align:center;
+}
+.promo__bg{
+  position:absolute;
+  inset:0;
+  background-image:url("https://static.wixstatic.com/media/461d77_8ca5863fe3e74731a9a38d3379cfda80~mv2.png/v1/crop/x_1760,y_286,w_1240,h_446/fill/w_1240,h_446,al_c,q_90,enc_auto/gbk-atmosphere.png");
+  background-size:cover;
+  background-position:60% 60%;
+  opacity:.5;
+  z-index:-2;
+}
+.promo__scrim{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,rgba(3,26,63,.92) 0%,rgba(3,26,63,.8) 50%,rgba(3,26,63,.94) 100%);
+  z-index:-1;
+}
+.promo__inner{padding-block:clamp(72px,9vw,124px)}
+.promo__mark{
+  width:1px;height:52px;
+  background:linear-gradient(180deg,transparent,var(--gold));
+  margin:0 auto 30px;
+}
+.promo__title{color:#fff;margin-top:26px}
+.promo__title em{font-style:italic;color:var(--gold)}
+.promo__copy{margin:26px auto 0;max-width:48ch;color:rgba(255,255,255,.72)}
+.promo__actions{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:40px}
+
+/* --- 12 Footer ---------------------------------------------------------------------- */
+.site-footer{background:var(--navy-deep);color:#fff}
+.site-footer__grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1.05fr);
+  gap:clamp(34px,4.5vw,64px);
+  padding-block:clamp(58px,7vw,88px);
+}
+.site-footer .wordmark{font-size:1.0625rem}
+.site-footer__blurb{
+  margin-top:22px;
+  max-width:34ch;
+  font-size:.875rem;
+  line-height:1.8;
+  color:rgba(255,255,255,.6);
+}
+.footer-col__title{
+  font-size:.625rem;
+  font-weight:600;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--gold);
+  padding-bottom:16px;
+  margin-bottom:18px;
+  border-bottom:1px solid rgba(255,255,255,.16);
+}
+.footer-col li + li{margin-top:11px}
+.footer-col a{
+  font-size:.8125rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.72);
+  transition:color .22s ease;
+}
+.footer-col a:hover{color:var(--gold)}
+.site-footer__bar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  flex-wrap:wrap;
+  padding-block:26px;
+  border-top:1px solid rgba(255,255,255,.14);
+  font-size:.75rem;
+  letter-spacing:.06em;
+  color:rgba(255,255,255,.5);
+}
+.site-footer__bar a{transition:color .22s ease}
+.site-footer__bar a:hover{color:var(--gold)}
+
+/* --- 13 Responsive -------------------------------------------------------------------- */
+@media (max-width:1200px){
+  .grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+
+@media (max-width:1180px){
+  .nav{gap:16px}
+  .nav__link{letter-spacing:.1em}
+}
+
+@media (max-width:1024px){
+  .site-header__inner{min-height:72px}
+  .nav{display:none}
+  .nav-toggle{display:inline-flex}
+
+  .mobile-nav{
+    display:block;
+    background:var(--navy-deep);
+    border-top:1px solid rgba(255,255,255,.14);
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .38s cubic-bezier(.4,0,.2,1);
+  }
+  .mobile-nav[data-open="true"]{max-height:660px}
+  .mobile-nav ul{padding-block:12px 26px}
+  .mobile-nav li{border-bottom:1px solid rgba(255,255,255,.09)}
+  .mobile-nav li:last-child{border-bottom:0}
+  .mobile-nav a{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:17px 0;
+    font-size:.75rem;
+    font-weight:500;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,.82);
+  }
+  .mobile-nav a small{
+    font-size:.625rem;
+    letter-spacing:.14em;
+    color:rgba(255,255,255,.38);
+    text-transform:none;
+  }
+
+  .hero__inner{grid-template-columns:minmax(0,1fr);gap:38px;align-items:start}
+  .shelf{max-width:460px}
+  .featured__inner{grid-template-columns:minmax(0,240px) minmax(0,1fr);gap:34px}
+}
+
+@media (max-width:860px){
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .featured__inner{grid-template-columns:minmax(0,1fr);gap:30px;justify-items:start}
+  .featured .cover{max-width:230px}
+  .shop__head{grid-template-columns:minmax(0,1fr)}
+  .shop__count{padding-bottom:0}
+}
+
+@media (max-width:640px){
+  :root{--section:clamp(56px,12vw,80px)}
+
+  .wordmark{font-size:.9375rem;letter-spacing:.14em}
+  .nav-toggle span:not(.nav-toggle__bars){display:none}
+
+  .hero{padding-block:38px 32px}
+  .hero__title{max-width:none}
+  .shelf{max-width:none;gap:12px;padding-bottom:12px}
+
+  .rail__scroll{margin-inline:calc(var(--gutter) * -1);padding-inline:var(--gutter)}
+  .rail__item{flex:0 0 auto;padding:16px 18px}
+  .rail__item:first-child{padding-left:0}
+  .rail__item + .rail__item{border-left:0}
+
+  .featured .cover{max-width:190px}
+  .featured__hook{padding-left:16px;max-width:none}
+  .featured__actions{width:100%}
+  .featured__actions .btn{flex:1 1 100%}
+
+  /* Two-up keeps every cover recognisable; the blurb steps aside for it */
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:32px 16px}
+  .product__cover{margin-bottom:16px}
+  /* reserve two lines so one- and two-line labels keep titles aligned */
+  .product__type{min-height:2.6em}
+  .product__desc{display:none}
+  .product__title{font-size:1.0625rem;margin-bottom:8px}
+  .product__foot{padding-top:12px}
+  .product__price{margin-bottom:10px}
+
+  .promo__actions{flex-direction:column}
+  .promo__actions .btn{width:100%}
+
+  .site-footer__grid{grid-template-columns:minmax(0,1fr);gap:34px}
+  .site-footer__bar{flex-direction:column;align-items:flex-start;gap:10px}
+}
+
+@media (max-width:400px){
+  .wordmark{font-size:.8125rem;letter-spacing:.1em}
+  .grid{gap:28px 14px}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ============================ HEADER ============================ -->
+<header class="site-header">
+  <div class="shell site-header__inner">
+    <a class="wordmark" href="index.html" aria-label="Gledé Browne Kabongo — home">Gledé Browne <span>Kabongo</span></a>
+
+    <nav class="nav" aria-label="Primary">
+      <div class="nav__item"><a class="nav__link" href="index.html">Home</a></div>
+
+      <div class="nav__item">
+        <a class="nav__link" href="books.html">
+          Books
+          <svg class="nav__caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>
+        </a>
+        <div class="submenu">
+          <span class="submenu__label">Browse the collection</span>
+          <a href="books.html#standalones">Standalones</a>
+          <a href="books.html#fearless">Fearless Series</a>
+          <a href="books.html#miami">Miami Elite</a>
+          <a href="books.html#malicious">Malicious Games</a>
+          <a href="books.html#novellas">Novellas</a>
+          <a href="books.html#audiobooks">Audiobooks</a>
+        </div>
+      </div>
+
+      <div class="nav__item"><a class="nav__link" href="about.html">About</a></div>
+      <div class="nav__item"><a class="nav__link" href="speaker.html">Speaker Profile</a></div>
+      <div class="nav__item"><a class="nav__link" href="newsletter.html">Newsletter</a></div>
+      <div class="nav__item"><a class="nav__link">Rights</a></div>
+      <div class="nav__item"><a class="nav__link" href="store.html" aria-current="page">Store</a></div>
+      <div class="nav__item"><a class="nav__link">Contact</a></div>
+    </nav>
+
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav">
+      <span>Menu</span>
+      <span class="nav-toggle__bars" aria-hidden="true"><i></i><i></i><i></i></span>
+    </button>
+  </div>
+
+  <nav class="mobile-nav" id="mobile-nav" data-open="false" aria-label="Mobile">
+    <ul class="shell">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="books.html">Books <small>Standalones · Series · Novellas · Audiobooks</small></a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="speaker.html">Speaker Profile</a></li>
+      <li><a href="newsletter.html">Newsletter</a></li>
+      <li><a>Rights</a></li>
+      <li><a href="store.html">Store</a></li>
+      <li><a>Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+
+<!-- ============================ HERO ============================ -->
+<section class="hero" aria-labelledby="store-title">
+  <div class="shell hero__inner">
+    <div>
+      <p class="eyebrow">The Collection</p>
+      <h1 class="display hero__title" id="store-title">Books worth keeping close.</h1>
+      <p class="lede hero__copy">
+        Glede's Bookstore — e-book editions of the award-winning psychological thrillers,
+        delivered straight to your reader.
+      </p>
+    </div>
+
+    <div class="shelf" aria-hidden="true">
+      <span class="cover">
+        <img src="https://static.wixstatic.com/media/461d77_ac134f9b70444664adaa68409eb3b644~mv2.png/v1/crop/x_7,y_1,w_317,h_461/fill/w_619,h_900,al_c,q_90,enc_auto/our-wicked-lies.png"
+             width="619" height="900" alt="">
+      </span>
+      <span class="cover">
+        <img src="https://static.wixstatic.com/media/461d77_d41eb83df18644ff99e4d4d1d0c38622~mv2.png/v1/crop/x_363,y_135,w_750,h_1081/fill/w_624,h_900,al_c,q_90,enc_auto/the-forbidden-heiress.png"
+             width="624" height="900" alt="">
+      </span>
+      <span class="cover">
+        <img src="https://static.wixstatic.com/media/461d77_5b19373a046b4d92809e4dcd2d23007f~mv2.png/v1/crop/x_120,y_10,w_719,h_985/fill/w_657,h_900,al_c,q_90,enc_auto/reign-of-fear.png"
+             width="657" height="900" alt="">
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ CATEGORY RAIL ============================ -->
+<nav class="rail" aria-label="Store categories">
+  <div class="shell">
+    <div class="rail__scroll">
+      <a class="rail__item" aria-current="true">All</a>
+      <a class="rail__item">E-Books</a>
+      <span class="rail__item rail__item--soon">Signed Editions <span class="rail__soon">Soon</span></span>
+      <span class="rail__item rail__item--soon">Masterclasses <span class="rail__soon">Soon</span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- ============================ FEATURED ============================ -->
+<section class="section featured" aria-labelledby="featured-title">
+  <div class="shell featured__inner">
+    <a class="cover" href="books.html#miami" aria-label="Fatal Match">
+      <img src="https://static.wixstatic.com/media/461d77_116199661bcf4fc6b597cfefd129c2c4~mv2.png/v1/crop/x_120,y_10,w_719,h_985/fill/w_657,h_900,al_c,q_90,enc_auto/fatal-match.png"
+           width="657" height="900"
+           alt="Fatal Match by Gledé Browne Kabongo — book cover">
+    </a>
+
+    <div>
+      <div class="featured__kicker">
+        <span class="meta">Featured</span>
+        <span class="meta meta--blue">Miami Elite Novellas · Published May 2026</span>
+      </div>
+
+      <h2 class="h2 featured__title" id="featured-title">Fatal Match</h2>
+
+      <p class="featured__hook">She built a matchmaking empire. Then she matched a monster.</p>
+
+      <p class="body">
+        Harvard-trained psychologist Dr. Sabrina Ambrose built her Miami elite matchmaking empire on a
+        near-perfect algorithm and a 98% success rate pairing the powerful, wealthy, and famous.
+        But perfection can hide monsters.
+      </p>
+
+      <div class="featured__actions">
+        <a class="btn btn--navy" href="books.html#miami">Learn More</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ PRODUCT GRID ============================ -->
+<section class="section" id="ebooks" aria-labelledby="shop-title">
+  <div class="shell">
+    <div class="shop__head">
+      <div>
+        <p class="eyebrow">E-Books</p>
+        <h2 class="h2 shop__title" id="shop-title">Glede's Bookstore.</h2>
+      </div>
+      <p class="meta shop__count">10 titles</p>
+    </div>
+
+    <div class="grid">
+
+      <article class="product">
+        <a class="cover product__cover" href="books.html#standalones" aria-label="Conspiracy of Silence">
+          <img src="https://static.wixstatic.com/media/461d77_4275d29fe0144ec9b4da34ec4050ad20~mv2.png/v1/crop/x_115,y_30,w_840,h_1207/fill/w_626,h_900,al_c,q_90,enc_auto/conspiracy-of-silence.png"
+               width="626" height="900" loading="lazy"
+               alt="Conspiracy of Silence by Gledé Browne Kabongo — e-book cover">
+        </a>
+        <p class="meta product__type">E-Book · Debut Novel</p>
+        <h3 class="product__title">Conspiracy of Silence</h3>
+        <p class="product__desc">
+          Marketing executive Nina Kasai is thrust into a brutal game of blackmail, betrayal, and
+          escalating danger when she refuses to support her powerful father's run for governor.
+        </p>
+        <div class="product__foot">
+          <p class="product__price">$2.99</p>
+          <a class="btn btn--ghost-navy btn--sm">Buy Now</a>
+        </div>
+      </article>
+
+      <article class="product">
+        <a class="cover product__cover" href="books.html#novellas" aria-label="Inside Girl">
+          <img src="https://static.wixstatic.com/media/461d77_1a0687d293f74f1daa85eb017643d634~mv2.png/v1/crop/x_363,y_135,w_750,h_1081/fill/w_624,h_900,al_c,q_90,enc_auto/the-inside-girl.png"
+               width="624" height="900" loading="lazy"
+               alt="The Inside Girl by Gledé Browne Kabongo — e-book cover">
+        </a>
+        <p class="meta product__type">E-Book · Novella</p>
+        <h3 class="product__title">Inside Girl</h3>
+        <p class="product__desc">
+          When an ambitious executive overhears her CEO orchestrating financial fraud and inherits a
+          flash drive from a murdered CFO, she becomes the target of a ruthless conspiracy.
+        </p>
+        <div class="product__foot">
+          <p class="product__price">$1.99</p>
+          <a class="btn btn--ghost-navy btn--sm">Buy Now</a>
+        </div>
+      </article>
+
+      <article class="product">
+        <a class="cover product__cover" href="books.html#fearless" aria-label="Winds of Fear">
+          <img src="https://static.wixstatic.com/media/461d77_96e44b0d05b34be990dc41996483e536~mv2.png/v1/crop/x_363,y_135,w_750,h_1081/fill/w_624,h_900,al_c,q_90,enc_auto/winds-of-fear.png"
+               width="624" height="900" loading="lazy"
+               alt="Winds of Fear by Gledé Browne Kabongo — e-book cover">
+        </a>
+        <p class="meta product__type">E-Book · Fearless Series</p>
+        <h3 class="product__title">Winds of Fear</h3>
+        <p class="product__desc">
+          Stay-at-home mom and Ph.D. candidate Abbie Rambally suspects something is terribly wrong when
+          the Paynes, her charming new neighbors, take an unnerving interest in her son.
+        </p>
+        <div class="product__foot">
+          <p class="product__price">$2.99</p>
+          <a class="btn btn--ghost-navy btn--sm">Buy Now</a>
+        </div>
+      </article>
+
+      <article class="product">
+        <a class="cover product__cover" href="books.html#fearless" aria-label="Autumn of Fear">
+          <img src="https://static.wixstatic.com/media/461d77_c158fdccb0ea4b6fa56357139252f7af~mv2.png/v1/crop/x_363,y_135,w_750,h_1081/fill/w_624,h_900,al_c,q_90,enc_auto/autumn-of-fear.png"
+               width="624" height="900" loading="lazy"
+               alt="Autumn of Fear by Gledé Browne Kabongo — e-book cover">
+        </a>
+        <p class="meta product__type">E-Book · Fearless Series</p>
+        <h3 class="product__title">Autumn of Fear</h3>
+        <p class="product__desc">
+          As her second year at Yale University begins, Abbie Cooper's dream is upended when she wakes
+          up in the hospital after a violent assault, with no memory of the attack.
+        </p>
+        <div class="product__foot">
+          <p class="product__price">$2.99</p>
+          <a class="btn btn--ghost-navy btn--sm">Buy Now</a>
+        </div>
+      </article>
+
+      <article class="product">
+        <a class="cover product__cover" href="books.html#fearless" aria-label="Game of Fear">
+          <img src="https://static.wixstatic.com/media/461d77_0afad7297444483e89e949083904b7f8~mv2.png/v1/crop/x_363,y_135,w_750,h_1081/fill/w_624,h_900,al_c,q_90,enc_auto/game-of-fear.png"
+               width="624" height="900" loading="lazy"
+               alt="Game of Fear by Gledé Browne Kabongo — e-book cover">
+        </a>
+        <p class="meta product__type">E-Book · Fearless Series</p>
+        <h3 class="product__title">Game of Fear</h3>
+        <p class="product__desc">
+          Haunted by a mistake she's desperate to keep hidden, high school senior Abbie Cooper takes on
+          a determined stalker bent on exposing her secret.
+        </p>
+        <div class="product__foot">
+          <p class="product__price">$2.99</p>
+          <a class="btn btn--ghost-navy btn--sm">Buy Now</a>
+        </div>
+      </article>
+
+      <article class="product">
+        <a class="cover product__cover" href="books.html#malicious" aria-label="A Game of Malice">
+          <img src="https://static.wixstatic.com/media/461d77_6ea1a3617099419a99311d170d987f6a~mv2.png/v1/crop/x_120,y_10,w_719,h_985/fill/w_657,h_900,al_c,q_90,enc_auto/a-game-of-malice.png"
+               width="657" height="900" loading="lazy"
+               alt="A Game of Malice by Gledé Browne Kabongo — e-book cover">
+        </a>
+        <p class="meta product__type">E-Book · Malicious Games</p>
+        <h3 class="product__title">A Game of Malice</h3>
+        <p class="product__desc">
+          When his best friend vanishes from their elite boarding school, honors student and soccer star
+          Lucas Rambally uncovers a deadly conspiracy involving a secret society blackmailing powerful alumni.
+        </p>
+        <div class="product__foot">
+          <p class="product__price">$2.99</p>
+          <a class="btn btn--ghost-navy btn--sm">Buy Now</a>
+        </div>
+      </article>
+
+      <article class="product">
+        <a class="cover product__cover" href="books.html#standalones" aria-label="Fool Me Twice">
+          <img src="https://static.wixstatic.com/media/461d77_c74e1193748346afadb72819c7fffff9~mv2.png/v1/crop/x_363,y_135,w_750,h_1081/fill/w_624,h_900,al_c,q_90,enc_auto/fool-me-twice.png"
+               width="624" height="900" loading="lazy"
+               alt="Fool Me Twice by Gledé Browne Kabongo — e-book cover">
+        </a>
+        <p class="meta product__type">E-Book · Standalone</p>
+        <h3 class="product__title">Fool Me Twice</h3>
+        <p class="product__desc">
+          Shelby Cooper's life begins to unravel when she's arrested for the murder of her former lover
+          and physical therapist. While she fights to prove her innocence, the killer hides in plain sight.
+        </p>
+        <div class="product__foot">
+          <p class="product__price">$2.99</p>
+          <a class="btn btn--ghost-navy btn--sm">Buy Now</a>
+        </div>
+      </article>
+
+      <article class="product">
+        <a class="cover product__cover" href="books.html#standalones" aria-label="Our Wicked Lies">
+          <img src="https://static.wixstatic.com/media/461d77_ac134f9b70444664adaa68409eb3b644~mv2.png/v1/crop/x_7,y_1,w_317,h_461/fill/w_619,h_900,al_c,q_90,enc_auto/our-wicked-lies.png"
+               width="619" height="900" loading="lazy"
+               alt="Our Wicked Lies by Gledé Browne Kabongo — e-book cover">
+        </a>
+        <p class="meta product__type">E-Book · Standalone</p>
+        <h3 class="product__title">Our Wicked Lies</h3>
+        <p class="product__desc">
+          When wealthy suburban housewife Alicia Gray discovers her husband's affair, she's determined to
+          uncover the identity of the other woman. But nothing prepares her for the deadly consequences.
+        </p>
+        <div class="product__foot">
+          <p class="product__price">$2.99</p>
+          <a class="btn btn--ghost-navy btn--sm">Buy Now</a>
+        </div>
+      </article>
+
+      <article class="product">
+        <a class="cover product__cover" href="books.html#standalones" aria-label="The Forbidden Heiress">
+          <img src="https://static.wixstatic.com/media/461d77_d41eb83df18644ff99e4d4d1d0c38622~mv2.png/v1/crop/x_363,y_135,w_750,h_1081/fill/w_624,h_900,al_c,q_90,enc_auto/the-forbidden-heiress.png"
+               width="624" height="900" loading="lazy"
+               alt="The Forbidden Heiress by Gledé Browne Kabongo — e-book cover">
+        </a>
+        <p class="meta product__type">E-Book · Standalone</p>
+        <h3 class="product__title">The Forbidden Heiress</h3>
+        <p class="product__desc">
+          Brilliant cancer researcher Sabree Warner is thrilled when she's recruited by the powerful CEO
+          of Montague pharma. But when she uncovers a chilling pattern of corporate espionage, her
+          survival is at stake.
+        </p>
+        <div class="product__foot">
+          <p class="product__price">$2.99</p>
+          <a class="btn btn--ghost-navy btn--sm">Buy Now</a>
+        </div>
+      </article>
+
+      <article class="product">
+        <a class="cover product__cover" href="books.html#fearless" aria-label="Reign of Fear">
+          <img src="https://static.wixstatic.com/media/461d77_5b19373a046b4d92809e4dcd2d23007f~mv2.png/v1/crop/x_120,y_10,w_719,h_985/fill/w_657,h_900,al_c,q_90,enc_auto/reign-of-fear.png"
+               width="657" height="900" loading="lazy"
+               alt="Reign of Fear by Gledé Browne Kabongo — e-book cover">
+        </a>
+        <p class="meta product__type">E-Book · Fearless Series</p>
+        <h3 class="product__title">Reign of Fear</h3>
+        <p class="product__desc">
+          When Kristina Hayward, her husband's glamorous ex reappears, determined to settle old scores
+          and dismantle the life she's built, Abbie crosses unthinkable lines to protect her family.
+        </p>
+        <div class="product__foot">
+          <p class="product__price">$2.99</p>
+          <a class="btn btn--ghost-navy btn--sm">Buy Now</a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================ PROMOTIONAL BAND ============================ -->
+<section class="promo" aria-labelledby="promo-title">
+  <div class="promo__bg" aria-hidden="true"></div>
+  <div class="promo__scrim" aria-hidden="true"></div>
+
+  <div class="shell promo__inner">
+    <div class="promo__mark" aria-hidden="true"></div>
+    <p class="eyebrow eyebrow--light" style="justify-content:center">Want More Suspense and Thrills?</p>
+
+    <h2 class="h2 promo__title" id="promo-title">Your next thriller <em>awaits.</em></h2>
+
+    <p class="lede promo__copy">
+      Addictive thrillers. Dangerous secrets. Underestimated women forced to confront the darkness
+      beneath power, privilege, and success.
+    </p>
+
+    <div class="promo__actions">
+      <a class="btn btn--gold" href="books.html">Explore the Books</a>
+      <a class="btn btn--ghost-light" href="newsletter.html">Join the Inner Circle</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============================ FOOTER ============================ -->
+<footer class="site-footer">
+  <div class="shell">
+    <div class="site-footer__grid">
+      <div>
+        <a class="wordmark" href="index.html">Gledé Browne <span>Kabongo</span></a>
+        <p class="site-footer__blurb">
+          Award-winning psychological thrillers about power, privilege, secrets,
+          and the women who refuse to be underestimated.
+        </p>
+      </div>
+
+      <nav class="footer-col" aria-label="Quick links">
+        <p class="footer-col__title">Quick Links</p>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="books.html">Books</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="speaker.html">Speaker Profile</a></li>
+        </ul>
+      </nav>
+
+      <nav class="footer-col" aria-label="More">
+        <p class="footer-col__title">More</p>
+        <ul>
+          <li><a href="newsletter.html">Newsletter</a></li>
+          <li><a>Rights</a></li>
+          <li><a href="store.html">Store</a></li>
+          <li><a>Contact</a></li>
+        </ul>
+      </nav>
+
+      <nav class="footer-col" aria-label="Connect">
+        <p class="footer-col__title">Connect</p>
+        <ul>
+          <li><a>Instagram</a></li>
+          <li><a>Facebook</a></li>
+          <li><a>News &amp; Events</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="site-footer__bar">
+      <p>© 2026 Gledé Browne Kabongo. All Rights Reserved.</p>
+      <p><a>Privacy Statement</a></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /* Mobile menu — the only script on the page, purely for visual demonstration. */
+  (function () {
+    var btn = document.querySelector('.nav-toggle');
+    var panel = document.getElementById('mobile-nav');
+    if (!btn || !panel) return;
+
+    btn.addEventListener('click', function () {
+      var open = panel.dataset.open === 'true';
+      panel.dataset.open = String(!open);
+      btn.setAttribute('aria-expanded', String(!open));
+    });
+  })();
+</script>
+
+</body>
+</html>
