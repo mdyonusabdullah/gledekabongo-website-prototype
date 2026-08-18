@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gledé Browne Kabongo — Award-Winning Psychological Thrillers</title>
+<meta name="description" content="Addictive thrillers. Dangerous secrets. Underestimated women forced to confront the darkness beneath power, privilege, and success.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ==========================================================================
+   GLEDÉ BROWNE KABONGO — HOMEPAGE PROTOTYPE
+   Static front-end design. No frameworks, no build step.
+   01  Tokens
+   02  Reset & base
+   03  Typography primitives
+   04  Buttons & links
+   05  Header / navigation
+   06  Hero
+   07  Featured books
+   08  Recognition band
+   09  Inner circle (newsletter)
+   10  Series
+   11  Beyond the page
+   12  Closing statement
+   13  Footer
+   14  Responsive
+   ========================================================================== */
+
+/* --- 01 Tokens ----------------------------------------------------------- */
+:root{
+  /* Brand */
+  --navy:#05347E;
+  --blue:#3E7FE6;
+  --gold:#FFDB4F;
+
+  /* Extended neutrals derived from the brand */
+  --navy-deep:#042457;
+  --navy-ink:#031A3F;
+
+  --paper:#FCFBF8;
+  --paper-warm:#F4F1E9;
+  --ink:#15181D;
+  --ink-soft:#4E5663;
+  --ink-mute:#7B8493;
+
+  --rule:rgba(5,52,126,.14);
+  --rule-strong:rgba(5,52,126,.26);
+
+  /* Rhythm */
+  --shell:1280px;
+  --gutter:clamp(20px,5vw,64px);
+  --section:clamp(76px,9vw,138px);
+
+  /* Type */
+  --serif:"Cormorant Garamond",Garamond,"Times New Roman",serif;
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+}
+
+/* --- 02 Reset & base ----------------------------------------------------- */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4,p,figure,ul,ol{margin:0;padding:0}
+ul,ol{list-style:none}
+button,input{font:inherit;color:inherit}
+::selection{background:var(--navy);color:var(--gold)}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+
+.shell{
+  width:100%;
+  max-width:var(--shell);
+  margin-inline:auto;
+  padding-inline:var(--gutter);
+}
+.section{padding-block:var(--section)}
+
+/* --- 03 Typography primitives -------------------------------------------- */
+.eyebrow{
+  display:inline-flex;
+  align-items:flex-start;
+  gap:14px;
+  font-size:.6875rem;
+  font-weight:600;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  line-height:1.55;
+  color:var(--blue);
+}
+.eyebrow::before{
+  content:"";
+  width:26px;
+  height:1px;
+  margin-top:.72em;
+  background:var(--gold);
+  flex:none;
+}
+.eyebrow--plain::before{display:none}
+.eyebrow--light{color:rgba(255,255,255,.72)}
+
+.display{
+  font-family:var(--serif);
+  font-weight:300;
+  line-height:1.02;
+  letter-spacing:-.012em;
+  font-size:clamp(2.85rem,6vw,5rem);
+}
+.h2{
+  font-family:var(--serif);
+  font-weight:300;
+  line-height:1.08;
+  letter-spacing:-.008em;
+  font-size:clamp(2.05rem,3.7vw,3.35rem);
+}
+.h3{
+  font-family:var(--serif);
+  font-weight:400;
+  line-height:1.12;
+  letter-spacing:-.005em;
+  font-size:clamp(1.65rem,2.4vw,2.3rem);
+}
+.serif-italic{font-family:var(--serif);font-style:italic;font-weight:300}
+
+.lede{
+  font-size:1.0625rem;
+  line-height:1.7;
+  color:var(--ink-soft);
+  max-width:56ch;
+}
+.body{
+  font-size:.9688rem;
+  line-height:1.8;
+  color:var(--ink-soft);
+  max-width:62ch;
+}
+.body--light{color:rgba(255,255,255,.74)}
+.meta{
+  font-size:.6875rem;
+  font-weight:600;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--ink-mute);
+}
+.meta--light{color:rgba(255,255,255,.55)}
+.meta--blue{color:var(--blue)}
+
+.index-num{
+  font-family:var(--serif);
+  font-weight:300;
+  font-size:1.05rem;
+  letter-spacing:.14em;
+  color:var(--blue);
+}
+
+/* --- 04 Buttons & links -------------------------------------------------- */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  min-height:52px;
+  padding:0 30px;
+  border:1px solid transparent;
+  font-size:.6875rem;
+  font-weight:600;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  line-height:1;
+  cursor:pointer;
+  transition:background-color .28s ease,color .28s ease,border-color .28s ease;
+}
+.btn--gold{background:var(--gold);color:var(--navy-ink);border-color:var(--gold)}
+.btn--gold:hover{background:#F6CE2E;border-color:#F6CE2E}
+.btn--ghost-light{border-color:rgba(255,255,255,.42);color:#fff}
+.btn--ghost-light:hover{border-color:var(--gold);color:var(--gold)}
+.btn--navy{background:var(--navy);color:#fff;border-color:var(--navy)}
+.btn--navy:hover{background:var(--navy-deep);border-color:var(--navy-deep)}
+
+/* Editorial arrow link */
+.link-arrow{
+  display:inline-flex;
+  align-items:center;
+  gap:12px;
+  font-size:.6875rem;
+  font-weight:600;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--navy);
+  padding-bottom:7px;
+  border-bottom:1px solid var(--rule-strong);
+  transition:color .28s ease,border-color .28s ease;
+}
+.link-arrow .arw{transition:transform .28s ease}
+.link-arrow:hover{color:var(--blue);border-color:var(--blue)}
+.link-arrow:hover .arw{transform:translateX(6px)}
+
+/* --- 05 Header / navigation ---------------------------------------------- */
+.site-header{
+  background:var(--navy);
+  color:#fff;
+  position:relative;
+  z-index:60;
+}
+.site-header__inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:40px;
+  min-height:84px;
+}
+.wordmark{
+  font-family:var(--serif);
+  font-weight:500;
+  font-size:1.1875rem;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  line-height:1;
+  white-space:nowrap;
+  color:#fff;
+}
+.wordmark span{color:var(--gold)}
+
+.nav{display:flex;align-items:center;gap:clamp(16px,2vw,30px)}
+.nav__item{position:relative}
+.nav__link{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  font-size:.6875rem;
+  font-weight:500;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.82);
+  padding:31px 0;
+  border-bottom:2px solid transparent;
+  transition:color .25s ease,border-color .25s ease;
+}
+.nav__link:hover,.nav__item:hover > .nav__link{color:#fff;border-bottom-color:var(--gold)}
+.nav__link[aria-current="page"]{color:#fff;border-bottom-color:var(--gold)}
+.nav__caret{width:7px;height:7px;fill:none;stroke:currentColor;stroke-width:1.6;opacity:.75}
+
+/* Books submenu — visual state only */
+.submenu{
+  position:absolute;
+  top:100%;
+  left:-26px;
+  min-width:246px;
+  background:var(--navy-deep);
+  border-top:2px solid var(--gold);
+  padding:14px 0 18px;
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(6px);
+  transition:opacity .22s ease,transform .22s ease,visibility .22s;
+  box-shadow:0 18px 40px rgba(3,20,50,.28);
+}
+.nav__item:hover .submenu,
+.nav__item:focus-within .submenu{opacity:1;visibility:visible;transform:translateY(0)}
+.submenu__label{
+  display:block;
+  padding:6px 26px 10px;
+  font-size:.625rem;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.4);
+}
+.submenu a{
+  display:block;
+  padding:9px 26px;
+  font-size:.75rem;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.78);
+  transition:color .2s ease,background-color .2s ease;
+}
+.submenu a:hover{color:var(--gold);background:rgba(255,255,255,.05)}
+
+/* Mobile trigger */
+.nav-toggle{
+  display:none;
+  align-items:center;
+  gap:11px;
+  background:none;
+  border:0;
+  padding:10px 0;
+  cursor:pointer;
+  color:#fff;
+  font-size:.625rem;
+  font-weight:600;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+}
+.nav-toggle__bars{display:block;width:22px}
+.nav-toggle__bars i{
+  display:block;
+  height:1px;
+  background:currentColor;
+  margin:5px 0;
+}
+.nav-toggle__bars i:last-child{width:14px;margin-bottom:0}
+.nav-toggle__bars i:first-child{margin-top:0}
+
+.mobile-nav{display:none}
+
+/* --- 06 Hero -------------------------------------------------------------- */
+.hero{
+  position:relative;
+  background:var(--navy-ink);
+  color:#fff;
+  overflow:hidden;
+  isolation:isolate;
+}
+.hero__bg{
+  position:absolute;
+  inset:0;
+  background-image:url("https://static.wixstatic.com/media/461d77_8ca5863fe3e74731a9a38d3379cfda80~mv2.png/v1/crop/x_1760,y_286,w_1240,h_446/fill/w_1240,h_446,al_c,q_90,enc_auto/gbk-hero-atmosphere.png");
+  background-size:cover;
+  background-position:72% 60%;
+  z-index:-2;
+}
+.hero__scrim{
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(100deg,rgba(3,20,50,.96) 0%,rgba(3,20,50,.9) 42%,rgba(4,36,87,.7) 100%);
+  z-index:-1;
+}
+.hero__inner{
+  display:grid;
+  grid-template-columns:minmax(0,1.06fr) minmax(0,.72fr);
+  gap:clamp(40px,6vw,90px);
+  align-items:center;
+  padding-block:clamp(72px,8.5vw,120px);
+}
+.hero__display{
+  color:#fff;
+  margin-top:26px;
+}
+.hero__display em{display:block;font-style:italic;font-weight:300;color:var(--gold)}
+.hero__copy{margin-top:30px;max-width:44ch}
+.hero__actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:14px;
+  margin-top:40px;
+}
+.hero__figure{justify-self:end;width:100%;max-width:430px}
+.hero__plate{position:relative;display:block}
+.hero__plate img{width:100%;height:auto;position:relative;z-index:1}
+.hero__plate::after{
+  content:"";
+  position:absolute;
+  top:20px;left:20px;right:-20px;bottom:-20px;
+  border:1px solid rgba(255,219,79,.5);
+  z-index:0;
+}
+.hero__caption{
+  margin-top:26px;
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+  position:relative;
+  z-index:1;
+}
+.hero__caption::before{content:"";width:22px;height:1px;margin-top:.85em;background:rgba(255,255,255,.35);flex:none}
+.hero__strap{
+  border-top:1px solid rgba(255,255,255,.16);
+  padding-block:26px;
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:28px;
+  flex-wrap:wrap;
+}
+.hero__tagline{
+  font-family:var(--serif);
+  font-style:italic;
+  font-weight:300;
+  font-size:clamp(1.15rem,2vw,1.5rem);
+  color:rgba(255,255,255,.9);
+}
+.hero__scroll{
+  font-size:.625rem;
+  font-weight:600;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.45);
+}
+
+/* --- 07 Featured books ---------------------------------------------------- */
+.section-head{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,auto);
+  align-items:end;
+  gap:clamp(24px,4vw,60px);
+  margin-bottom:clamp(46px,5.5vw,78px);
+}
+.section-head__title{margin-top:22px;max-width:16ch}
+.section-head--solo{grid-template-columns:minmax(0,1fr)}
+
+.book{
+  display:grid;
+  grid-template-columns:minmax(0,430px) minmax(0,1fr);
+  gap:clamp(34px,5.5vw,86px);
+  align-items:center;
+}
+.book--reverse .book__figure{order:2}
+.book--reverse .book__body{order:1}
+.book__figure{align-self:center}
+.book__figure img{width:100%;height:auto}
+.book__kicker{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  flex-wrap:wrap;
+  margin-bottom:20px;
+}
+.book__title{margin-bottom:18px;font-size:clamp(1.9rem,3vw,2.75rem)}
+.book__hook{
+  font-family:var(--serif);
+  font-style:italic;
+  font-weight:400;
+  font-size:clamp(1.1rem,1.6vw,1.35rem);
+  line-height:1.45;
+  color:var(--navy);
+  max-width:38ch;
+  padding-left:20px;
+  border-left:1px solid var(--gold);
+  margin-bottom:24px;
+}
+.book__actions{margin-top:32px}
+.book-band{background:var(--paper-warm)}
+
+.all-books{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:28px;
+  flex-wrap:wrap;
+  padding-block:clamp(34px,4vw,52px);
+  border-top:1px solid var(--rule);
+}
+.all-books__text{
+  font-family:var(--serif);
+  font-weight:300;
+  font-size:clamp(1.45rem,2.4vw,2.05rem);
+  line-height:1.2;
+  color:var(--navy);
+  max-width:24ch;
+}
+
+/* --- 08 Recognition band -------------------------------------------------- */
+.recognition{background:var(--blue);color:#fff;padding-block:clamp(42px,5vw,64px)}
+.recognition__head{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:24px;
+  flex-wrap:wrap;
+  padding-bottom:28px;
+  margin-bottom:32px;
+  border-bottom:1px solid rgba(255,255,255,.28);
+}
+.recognition__head .eyebrow{color:#fff}
+.recognition__head .eyebrow::before{background:var(--gold);width:34px}
+.recognition__note{
+  font-family:var(--serif);
+  font-style:italic;
+  font-weight:300;
+  font-size:1.1rem;
+  color:rgba(255,255,255,.85);
+}
+.awards{display:grid;grid-template-columns:repeat(5,minmax(0,1fr))}
+.award{
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  padding-inline:clamp(14px,2vw,28px);
+}
+.award + .award{border-left:1px solid rgba(255,255,255,.28)}
+.award:first-child{padding-left:0}
+.award:last-child{padding-right:0}
+.award__name{
+  font-size:.75rem;
+  font-weight:600;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  line-height:1.5;
+  color:#fff;
+}
+.award__status{
+  margin-top:8px;
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:1.0625rem;
+  color:var(--gold);
+}
+
+/* --- 09 Inner circle ------------------------------------------------------ */
+.circle{background:var(--navy);color:#fff}
+.circle__inner{
+  display:grid;
+  grid-template-columns:minmax(0,.82fr) minmax(0,1fr);
+  gap:clamp(40px,6vw,96px);
+  align-items:center;
+}
+.circle__figure{position:relative;max-width:400px;justify-self:center;width:100%}
+.circle__figure img{width:100%;height:auto}
+.circle__free{
+  margin-top:14px;
+  text-align:center;
+  font-size:.625rem;
+  font-weight:600;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--gold);
+}
+.circle__hook{
+  margin-top:34px;
+  font-family:var(--serif);
+  font-style:italic;
+  font-weight:300;
+  font-size:1.25rem;
+  line-height:1.5;
+  color:rgba(255,255,255,.82);
+  padding-left:20px;
+  border-left:1px solid rgba(255,219,79,.6);
+}
+.circle__title{color:#fff;margin-top:22px;max-width:13ch}
+.circle__copy{margin-top:26px}
+.form{
+  margin-top:38px;
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  max-width:530px;
+}
+.form__field{flex:1 1 250px;min-width:0}
+.form__label{
+  display:block;
+  font-size:.625rem;
+  font-weight:600;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.5);
+  margin-bottom:10px;
+}
+.form__input{
+  width:100%;
+  min-height:52px;
+  background:transparent;
+  border:1px solid rgba(255,255,255,.3);
+  padding:0 18px;
+  font-size:.9375rem;
+  color:#fff;
+}
+.form__input::placeholder{color:rgba(255,255,255,.38)}
+.form__submit{align-self:flex-end}
+.form__note{
+  margin-top:20px;
+  font-size:.75rem;
+  letter-spacing:.02em;
+  color:rgba(255,255,255,.42);
+}
+
+/* --- 10 Series ------------------------------------------------------------ */
+.series-list{border-bottom:1px solid var(--rule)}
+.series-item{
+  display:grid;
+  grid-template-columns:104px minmax(0,1fr);
+  grid-template-areas:
+    "cover head"
+    "copy  copy"
+    "cta   cta";
+  gap:22px 24px;
+  padding-block:clamp(38px,4.4vw,58px);
+  border-top:1px solid var(--rule);
+}
+.series-item__figure{grid-area:cover;align-self:start}
+.series-item__figure img{width:100%;height:auto}
+.series-item__head{grid-area:head;align-self:center}
+.series-item__copy{grid-area:copy}
+.series-item__cta{grid-area:cta}
+.series-item__index{
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:.8125rem;
+  letter-spacing:.26em;
+  text-transform:uppercase;
+  color:var(--blue);
+}
+.series-item__title{margin-top:12px}
+.series-item__kicker{
+  margin-top:10px;
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:1.0625rem;
+  color:var(--blue);
+}
+.series-item__copy p + p{margin-top:14px}
+
+/* --- 11 Beyond the page --------------------------------------------------- */
+.beyond{background:var(--paper-warm)}
+.beyond__inner{
+  display:grid;
+  grid-template-columns:minmax(0,.66fr) minmax(0,1fr);
+  gap:clamp(38px,5.5vw,84px);
+  align-items:start;
+}
+.beyond__figure{position:relative}
+.beyond__figure img{width:100%;height:auto}
+.beyond__figure::after{
+  content:"";
+  position:absolute;
+  top:-18px;left:-18px;
+  width:74px;height:74px;
+  border-top:1px solid var(--gold);
+  border-left:1px solid var(--gold);
+}
+.beyond__caption{margin-top:18px}
+.beyond__title{
+  margin-top:24px;
+  max-width:24ch;
+  font-size:clamp(1.8rem,2.9vw,2.7rem);
+}
+.bridge{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px 22px;
+  align-items:center;
+  margin-top:30px;
+  padding-top:26px;
+  border-top:1px solid var(--rule);
+  font-size:.6875rem;
+  font-weight:600;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--navy);
+}
+.bridge span{display:inline-flex;align-items:center;gap:22px}
+.bridge span:not(:last-child)::after{content:"";width:22px;height:1px;background:var(--rule-strong)}
+.expertise{margin-top:38px}
+.expertise li{
+  display:flex;
+  align-items:baseline;
+  gap:20px;
+  padding-block:16px;
+  border-top:1px solid var(--rule);
+}
+.expertise li:last-child{border-bottom:1px solid var(--rule)}
+.expertise__num{
+  font-family:var(--serif);
+  font-size:.9375rem;
+  letter-spacing:.1em;
+  color:var(--blue);
+  flex:none;
+}
+.expertise__name{
+  font-family:var(--serif);
+  font-size:clamp(1.15rem,1.7vw,1.45rem);
+  font-weight:400;
+  color:var(--ink);
+}
+.beyond__actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:16px 34px;
+  align-items:center;
+  margin-top:38px;
+}
+
+/* --- 12 Closing statement ------------------------------------------------- */
+.closing{
+  position:relative;
+  background:var(--navy-ink);
+  color:#fff;
+  overflow:hidden;
+  isolation:isolate;
+  text-align:center;
+}
+.closing__bg{
+  position:absolute;
+  inset:0;
+  background-image:url("https://static.wixstatic.com/media/461d77_a30851481f4e4a77966bd34ad54a3d07~mv2.jpg/v1/fill/w_1800,h_620,al_c,q_85,enc_auto/miami-skyline.jpg");
+  background-size:cover;
+  background-position:center 62%;
+  opacity:.3;
+  z-index:-2;
+}
+.closing__scrim{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,rgba(3,26,63,.9) 0%,rgba(3,26,63,.78) 45%,rgba(3,26,63,.95) 100%);
+  z-index:-1;
+}
+.closing__inner{padding-block:clamp(86px,10vw,150px)}
+.closing__lines{
+  font-family:var(--serif);
+  font-weight:300;
+  line-height:1.14;
+  letter-spacing:-.01em;
+  font-size:clamp(2.35rem,5.2vw,4.35rem);
+  margin-top:30px;
+}
+.closing__lines span{display:block;font-weight:300}
+.closing__lines span + span{margin-top:4px}
+.closing__lines .accent{color:var(--gold)}
+.closing__tail{
+  margin:30px auto 0;
+  max-width:44ch;
+  font-size:1.0625rem;
+  line-height:1.65;
+  color:rgba(255,255,255,.7);
+}
+.closing__actions{margin-top:44px}
+.closing__mark{
+  width:1px;height:56px;
+  background:linear-gradient(180deg,transparent,var(--gold));
+  margin:0 auto 34px;
+}
+
+/* --- 13 Footer ------------------------------------------------------------ */
+.site-footer{background:var(--navy-deep);color:#fff}
+.site-footer__grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1.05fr);
+  gap:clamp(34px,4.5vw,64px);
+  padding-block:clamp(60px,7vw,92px);
+}
+.site-footer .wordmark{font-size:1.0625rem}
+.site-footer__blurb{
+  margin-top:22px;
+  max-width:34ch;
+  font-size:.875rem;
+  line-height:1.8;
+  color:rgba(255,255,255,.6);
+}
+.footer-col__title{
+  font-size:.625rem;
+  font-weight:600;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--gold);
+  padding-bottom:16px;
+  margin-bottom:18px;
+  border-bottom:1px solid rgba(255,255,255,.16);
+}
+.footer-col li + li{margin-top:11px}
+.footer-col a{
+  font-size:.8125rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.72);
+  transition:color .22s ease;
+}
+.footer-col a:hover{color:var(--gold)}
+.site-footer__bar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  flex-wrap:wrap;
+  padding-block:26px;
+  border-top:1px solid rgba(255,255,255,.14);
+  font-size:.75rem;
+  letter-spacing:.06em;
+  color:rgba(255,255,255,.5);
+}
+.site-footer__bar a{transition:color .22s ease}
+.site-footer__bar a:hover{color:var(--gold)}
+
+/* --- 14 Responsive -------------------------------------------------------- */
+@media (max-width:1180px){
+  .nav{gap:16px}
+  .nav__link{letter-spacing:.1em}
+  .hero__inner{grid-template-columns:minmax(0,1fr) minmax(0,.62fr)}
+}
+
+@media (max-width:1080px){
+  .book{grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:clamp(30px,4vw,54px)}
+  .book--reverse{grid-template-columns:minmax(0,1fr) minmax(0,300px)}
+  .circle__inner{gap:clamp(34px,4.5vw,56px)}
+  .circle__figure{max-width:320px}
+  .beyond__inner{gap:clamp(32px,4vw,54px)}
+}
+
+@media (max-width:1024px){
+  .site-header__inner{min-height:72px}
+  .nav{display:none}
+  .nav-toggle{display:inline-flex}
+
+  .mobile-nav{
+    display:block;
+    background:var(--navy-deep);
+    border-top:1px solid rgba(255,255,255,.14);
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .38s cubic-bezier(.4,0,.2,1);
+  }
+  .mobile-nav[data-open="true"]{max-height:660px}
+  .mobile-nav ul{padding-block:12px 26px}
+  .mobile-nav li{border-bottom:1px solid rgba(255,255,255,.09)}
+  .mobile-nav li:last-child{border-bottom:0}
+  .mobile-nav a{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:17px 0;
+    font-size:.75rem;
+    font-weight:500;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,.82);
+  }
+  .mobile-nav a small{
+    font-size:.625rem;
+    letter-spacing:.14em;
+    color:rgba(255,255,255,.38);
+    text-transform:none;
+  }
+
+  .hero__inner{
+    grid-template-columns:minmax(0,1fr);
+    gap:clamp(44px,7vw,64px);
+    padding-block:clamp(60px,8vw,88px);
+  }
+  .hero__figure{justify-self:stretch;max-width:none;width:auto}
+  .hero__plate img{
+    width:100%;
+    height:clamp(300px,44vw,420px);
+    object-fit:cover;
+    object-position:50% 22%;
+  }
+  .hero__plate::after{top:16px;left:16px;right:-16px;bottom:-16px}
+  .hero__display{max-width:18ch}
+
+  .section-head{grid-template-columns:minmax(0,1fr)}
+}
+
+@media (min-width:901px){
+  .series-item{
+    grid-template-columns:150px minmax(0,1fr) minmax(0,190px);
+    grid-template-areas:
+      "cover head cta"
+      "cover copy cta";
+    gap:16px clamp(34px,4.5vw,70px);
+    align-items:start;
+  }
+  .series-item__cta{align-self:center;justify-self:end;text-align:right}
+  .series-item__figure{align-self:center}
+}
+
+@media (max-width:900px){
+  .awards{grid-template-columns:repeat(2,minmax(0,1fr));gap:0}
+  .award{padding:18px 0;border-top:1px solid rgba(255,255,255,.24)}
+  .award + .award{border-left:0}
+  .award:nth-child(even){padding-left:clamp(16px,4vw,32px);border-left:1px solid rgba(255,255,255,.24)}
+  .award:nth-child(-n+2){border-top:0;padding-top:0}
+  .award:last-child{grid-column:1 / -1}
+}
+
+@media (max-width:860px){
+  .book,.book--reverse{grid-template-columns:minmax(0,1fr);gap:clamp(30px,5vw,44px)}
+  .book--reverse .book__figure,.book--reverse .book__body{order:0}
+  .book__figure{max-width:300px}
+
+  .circle__inner{grid-template-columns:minmax(0,1fr);gap:50px}
+  .circle__figure{justify-self:start;max-width:280px}
+
+  .beyond__inner{grid-template-columns:minmax(0,1fr);gap:44px}
+  .beyond__figure{max-width:360px}
+}
+
+@media (max-width:640px){
+  :root{--section:clamp(58px,13vw,84px)}
+
+  .wordmark{font-size:.9375rem;letter-spacing:.14em}
+  .nav-toggle span:not(.nav-toggle__bars){display:none}
+
+  .hero__inner{padding-block:52px 0}
+  .hero__display{margin-top:20px;max-width:none}
+  .hero__actions{margin-top:32px;gap:12px}
+  .hero__actions .btn{flex:1 1 100%}
+  .hero__figure{margin-inline:calc(var(--gutter) * -1);width:auto}
+  .hero__plate::after{display:none}
+  .hero__plate img{height:clamp(280px,72vw,360px);object-position:50% 20%}
+  .hero__caption{padding-inline:var(--gutter)}
+  .hero__strap{padding-block:24px;gap:10px}
+  .hero__scroll{display:none}
+
+  .section-head{margin-bottom:38px}
+  .section-head__title{max-width:none}
+  .book{gap:30px}
+  .book__figure{max-width:250px}
+  .book__hook{font-size:1.0625rem;padding-left:16px}
+  .book__actions .btn{width:100%}
+
+  .all-books{flex-direction:column;align-items:flex-start;gap:22px}
+  .all-books__text{max-width:none}
+
+  .recognition__head{padding-bottom:22px;margin-bottom:24px}
+  .recognition__note{font-size:1rem}
+  .awards{grid-template-columns:minmax(0,1fr)}
+  .award,.award:nth-child(even){padding:15px 0;border-left:0;border-top:1px solid rgba(255,255,255,.24)}
+  .award:first-child{border-top:0;padding-top:0}
+
+  .circle__figure{max-width:220px}
+  .circle__hook{font-size:1.125rem}
+  .form{gap:14px}
+  .form__field{flex:1 1 100%}
+  .form__submit{width:100%}
+
+  .series-item{
+    grid-template-columns:84px minmax(0,1fr);
+    gap:18px 20px;
+    padding-block:34px;
+  }
+  .series-item__cta .link-arrow{width:100%;justify-content:space-between}
+
+  .beyond__figure{max-width:none}
+  .bridge{gap:8px 18px}
+  .bridge span:not(:last-child)::after{display:none}
+  .beyond__figure::after{display:none}
+  .beyond__actions{flex-direction:column;align-items:flex-start;gap:18px}
+
+  .closing__lines{font-size:clamp(2.1rem,10vw,2.9rem)}
+  .closing__actions .btn{width:100%}
+  .closing__mark{height:40px;margin-bottom:26px}
+
+  .site-footer__grid{grid-template-columns:minmax(0,1fr);gap:34px}
+  .site-footer__bar{flex-direction:column;align-items:flex-start;gap:10px}
+}
+
+@media (max-width:400px){
+  .wordmark{font-size:.8125rem;letter-spacing:.1em}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ============================ HEADER ============================ -->
+<header class="site-header">
+  <div class="shell site-header__inner">
+    <a class="wordmark" href="#" aria-label="Gledé Browne Kabongo — home">Gledé Browne <span>Kabongo</span></a>
+
+    <nav class="nav" aria-label="Primary">
+      <div class="nav__item"><a class="nav__link" href="#" aria-current="page">Home</a></div>
+
+      <div class="nav__item">
+        <a class="nav__link" href="https://www.gledekabongo.com/books">
+          Books
+          <svg class="nav__caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>
+        </a>
+        <div class="submenu">
+          <span class="submenu__label">Browse the library</span>
+          <a href="https://www.gledekabongo.com/books">All Books</a>
+          <a href="https://www.gledekabongo.com/books">Standalones</a>
+          <a href="https://www.gledekabongo.com/fearless-series">Series</a>
+          <a href="https://www.gledekabongo.com/audiobooks">Audiobooks</a>
+          <a href="https://www.gledekabongo.com/fatal-match">Novellas</a>
+        </div>
+      </div>
+
+      <div class="nav__item"><a class="nav__link" href="https://www.gledekabongo.com/bio">About</a></div>
+      <div class="nav__item"><a class="nav__link" href="https://www.gledekabongo.com/speaker-profile">Speaker Profile</a></div>
+      <div class="nav__item"><a class="nav__link" href="https://www.gledekabongo.com/newsletter">Newsletter</a></div>
+      <div class="nav__item"><a class="nav__link" href="https://www.gledekabongo.com/rightsinquiries">Rights</a></div>
+      <div class="nav__item"><a class="nav__link" href="https://www.gledekabongo.com/store">Store</a></div>
+      <div class="nav__item"><a class="nav__link" href="https://www.gledekabongo.com/contact">Contact</a></div>
+    </nav>
+
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav">
+      <span>Menu</span>
+      <span class="nav-toggle__bars" aria-hidden="true"><i></i><i></i><i></i></span>
+    </button>
+  </div>
+
+  <nav class="mobile-nav" id="mobile-nav" data-open="false" aria-label="Mobile">
+    <ul class="shell">
+      <li><a href="#">Home</a></li>
+      <li><a href="https://www.gledekabongo.com/books">Books <small>All · Standalones · Series · Audiobooks · Novellas</small></a></li>
+      <li><a href="https://www.gledekabongo.com/bio">About</a></li>
+      <li><a href="https://www.gledekabongo.com/speaker-profile">Speaker Profile</a></li>
+      <li><a href="https://www.gledekabongo.com/newsletter">Newsletter</a></li>
+      <li><a href="https://www.gledekabongo.com/rightsinquiries">Rights</a></li>
+      <li><a href="https://www.gledekabongo.com/store">Store</a></li>
+      <li><a href="https://www.gledekabongo.com/contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+
+<!-- ============================ HERO ============================ -->
+<section class="hero">
+  <div class="hero__bg" aria-hidden="true"></div>
+  <div class="hero__scrim" aria-hidden="true"></div>
+
+  <div class="shell hero__inner">
+    <div class="hero__body">
+      <p class="eyebrow eyebrow--light">Award-Winning Psychological Thrillers</p>
+
+      <h1 class="display hero__display">Stories of power, privilege and <em>deadly secrets.</em></h1>
+
+      <p class="lede body--light hero__copy">
+        Addictive thrillers. Dangerous secrets. Underestimated women forced to confront
+        the darkness beneath power, privilege, and success.
+      </p>
+
+      <div class="hero__actions">
+        <a class="btn btn--gold" href="https://www.gledekabongo.com/books">Explore the Books</a>
+        <a class="btn btn--ghost-light" href="https://www.gledekabongo.com/bio">Meet Gledé</a>
+      </div>
+    </div>
+
+    <figure class="hero__figure">
+      <span class="hero__plate">
+        <img
+          src="https://static.wixstatic.com/media/461d77_8ca5863fe3e74731a9a38d3379cfda80~mv2.png/v1/crop/x_408,y_14,w_680,h_706/fill/w_680,h_706,al_c,q_90,enc_auto/glede-browne-kabongo.png"
+          width="680" height="706"
+          alt="Author Gledé Browne Kabongo">
+      </span>
+      <figcaption class="hero__caption meta meta--light">
+        Author · Speaker · Strategic Comms Leader
+      </figcaption>
+    </figure>
+  </div>
+
+  <div class="shell">
+    <div class="hero__strap">
+      <p class="hero__tagline">“Where the coverup is more sophisticated than the crime.”</p>
+      <p class="hero__scroll">Latest Releases Below</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ FEATURED BOOKS ============================ -->
+<section class="section" aria-labelledby="releases-title">
+  <div class="shell">
+    <div class="section-head section-head--solo">
+      <div>
+        <p class="eyebrow">Latest Releases</p>
+        <h2 class="h2 section-head__title" id="releases-title">Stories worth getting lost in.</h2>
+      </div>
+    </div>
+
+    <!-- Book 01 -->
+    <article class="book">
+      <figure class="book__figure">
+        <img
+          src="https://static.wixstatic.com/media/461d77_116199661bcf4fc6b597cfefd129c2c4~mv2.png/v1/fit/w_620,h_700,q_90,enc_auto/fatal-match.png"
+          width="620" height="620"
+          alt="Fatal Match by Gledé Browne Kabongo — book cover">
+      </figure>
+
+      <div class="book__body">
+        <div class="book__kicker">
+          <span class="index-num">01</span>
+          <span class="meta">Latest Release</span>
+          <span class="meta meta--blue">Miami Elite Novellas</span>
+        </div>
+
+        <h3 class="h3 book__title">Fatal Match</h3>
+
+        <p class="book__hook">
+          She built a matchmaking empire on her Harvard credentials and a near perfect algorithm.
+          Then she matched a monster.
+        </p>
+
+        <p class="body">
+          Dr. Sabrina Ambrose built a matchmaking empire helping the rich and powerful find love.
+          But when she discovers that one of her most sought-after bachelors has been secretly
+          destroying the successful women she matches him with, she vows to expose him—until his
+          murder turns her into the prime suspect and forces her to uncover which of his many
+          victims struck first.
+        </p>
+
+        <div class="book__actions">
+          <a class="btn btn--navy" href="https://www.gledekabongo.com/fatal-match">Explore Fatal Match</a>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- Book 02 sits in a warm band so the two presentations never read as a card pair -->
+<section class="section book-band" aria-label="The Forbidden Heiress">
+  <div class="shell">
+    <article class="book book--reverse">
+      <figure class="book__figure">
+        <img
+          src="https://static.wixstatic.com/media/461d77_d41eb83df18644ff99e4d4d1d0c38622~mv2.png/v1/fit/w_620,h_700,q_90,enc_auto/the-forbidden-heiress.png"
+          width="620" height="571"
+          alt="The Forbidden Heiress by Gledé Browne Kabongo — book cover">
+      </figure>
+
+      <div class="book__body">
+        <div class="book__kicker">
+          <span class="index-num">02</span>
+          <span class="meta">Award-Winning Thriller</span>
+          <span class="meta meta--blue">Recognized for Excellence · 3X Award Finalist</span>
+        </div>
+
+        <h3 class="h3 book__title">The Forbidden Heiress</h3>
+
+        <p class="book__hook">
+          There are two ways to bury secrets. Six feet under, or beneath billions of dollars.
+        </p>
+
+        <p class="body">
+          Brilliant cancer researcher Sabree Warner is thrilled when she's recruited by the powerful
+          CEO of Montague pharma. But when she uncovers a chilling pattern of corporate espionage,
+          and the explosive truth about her own identity comes to light, her survival is at stake.
+          Because in the Montague family, secrets don't stay hidden. They get eliminated.
+        </p>
+
+        <div class="book__actions">
+          <a class="btn btn--navy" href="https://www.gledekabongo.com/the-forbidden-heiress">Explore The Forbidden Heiress</a>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="shell" aria-label="All books">
+  <div class="all-books">
+    <p class="all-books__text">The complete library — standalones, series, novellas and audiobooks.</p>
+    <a class="link-arrow" href="https://www.gledekabongo.com/books">
+      Explore All Books <span class="arw" aria-hidden="true">&rarr;</span>
+    </a>
+  </div>
+</section>
+
+<!-- ============================ RECOGNITION ============================ -->
+<section class="recognition" aria-labelledby="recognition-title">
+  <div class="shell">
+    <div class="recognition__head">
+      <p class="eyebrow" id="recognition-title">Award-Winning Suspense</p>
+      <p class="recognition__note">National and international literary honors.</p>
+    </div>
+
+    <ul class="awards">
+      <li class="award">
+        <p class="award__name">Silver Falchion</p>
+        <p class="award__status">Finalist</p>
+      </li>
+      <li class="award">
+        <p class="award__name">IPPY Award</p>
+        <p class="award__status">Winner</p>
+      </li>
+      <li class="award">
+        <p class="award__name">Eric Hoffer Award</p>
+        <p class="award__status">Winner</p>
+      </li>
+      <li class="award">
+        <p class="award__name">Next Generation Indie Book Awards</p>
+        <p class="award__status">Winner + Finalist</p>
+      </li>
+      <li class="award">
+        <p class="award__name">National Indie Excellence Awards</p>
+        <p class="award__status">Winner</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================ INNER CIRCLE ============================ -->
+<section class="section circle" aria-labelledby="circle-title">
+  <div class="shell circle__inner">
+    <figure class="circle__figure">
+      <img
+        src="https://static.wixstatic.com/media/461d77_68097ada36334126a4d4064c5b0ece49~mv2.png/v1/fit/w_620,h_700,q_90,enc_auto/conspiracy-of-silence.png"
+        width="620" height="571"
+        alt="Conspiracy of Silence by Gledé Browne Kabongo — book cover">
+      <figcaption class="circle__free">Free for new subscribers</figcaption>
+    </figure>
+
+    <div>
+      <p class="eyebrow eyebrow--light">Partners in Crime</p>
+      <h2 class="h2 circle__title" id="circle-title">Join the Inner Circle.</h2>
+
+      <p class="lede body--light circle__copy">
+        Sign up for my newsletter for book news, exclusive content, special deals, giveaways and more.
+        As a thank you, I'll send you a free copy of my debut novel, <em class="serif-italic">Conspiracy of Silence</em>.
+      </p>
+
+      <p class="circle__hook">She survived him once. Now she'll have to take him down.</p>
+
+      <!-- Visual representation only — this prototype submits nowhere. -->
+      <div class="form">
+        <div class="form__field">
+          <span class="form__label" id="email-label">Email Address</span>
+          <input class="form__input" type="email" placeholder="you@example.com" aria-labelledby="email-label" readonly>
+        </div>
+        <span class="btn btn--gold form__submit">Join the Inner Circle</span>
+      </div>
+
+      <p class="form__note">No spam. Unsubscribe at any time.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ SERIES ============================ -->
+<section class="section" aria-labelledby="series-title">
+  <div class="shell">
+    <div class="section-head section-head--solo">
+      <div>
+        <p class="eyebrow">The Series</p>
+        <h2 class="h2 section-head__title" id="series-title">Explore award-winning series.</h2>
+      </div>
+    </div>
+
+    <div class="series-list">
+
+      <!-- Series 01 -->
+      <article class="series-item">
+        <figure class="series-item__figure">
+          <img
+            src="https://static.wixstatic.com/media/461d77_8172981fa14049c3aa94413a5a00fda6~mv2.png/v1/fit/w_360,h_380,q_90,enc_auto/reign-of-fear.png"
+            width="360" height="360" loading="lazy"
+            alt="Reign of Fear — Fearless series book cover">
+        </figure>
+
+        <header class="series-item__head">
+          <span class="series-item__index">Series 01</span>
+          <h3 class="h3 series-item__title">Fearless</h3>
+          <p class="series-item__kicker">Four-time award-winning thriller series</p>
+        </header>
+
+        <div class="series-item__copy">
+          <p class="body">Meet Abbie Cooper. She's brilliant, ambitious, and impossible to break.</p>
+          <p class="body">
+            Across four pulse-pounding psychological thrillers, deception, obsession, and revenge
+            threaten everything she's fought for, and anyone who underestimates her does so at their peril.
+          </p>
+        </div>
+
+        <div class="series-item__cta">
+          <a class="link-arrow" href="https://www.gledekabongo.com/fearless-series">
+            Explore the Series <span class="arw" aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
+      </article>
+
+      <!-- Series 02 -->
+      <article class="series-item">
+        <figure class="series-item__figure">
+          <img
+            src="https://static.wixstatic.com/media/461d77_6ea1a3617099419a99311d170d987f6a~mv2.png/v1/fit/w_360,h_380,q_90,enc_auto/a-game-of-malice.png"
+            width="360" height="360" loading="lazy"
+            alt="A Game of Malice — Malicious Games series book cover">
+        </figure>
+
+        <header class="series-item__head">
+          <span class="series-item__index">Series 02</span>
+          <h3 class="h3 series-item__title">Malicious Games</h3>
+          <p class="series-item__kicker">Dark Academia YA thrillers</p>
+        </header>
+
+        <div class="series-item__copy">
+          <p class="body">Welcome to Branson Academy, where brilliance is expected and survival is optional.</p>
+          <p class="body">
+            The Rambally siblings came to this elite New England school to build brilliant futures,
+            but in a world where reputation is currency, loyalty is fragile, and everyone is playing
+            to win, someone always gets sacrificed.
+          </p>
+        </div>
+
+        <div class="series-item__cta">
+          <a class="link-arrow" href="https://www.gledekabongo.com/malicious-games">
+            Explore the Series <span class="arw" aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
+      </article>
+
+      <!-- Series 03 -->
+      <article class="series-item">
+        <figure class="series-item__figure">
+          <img
+            src="https://static.wixstatic.com/media/461d77_92546adb27094708bff1404ac3b58ad8~mv2.png/v1/fit/w_360,h_380,q_90,enc_auto/the-last-concierge.png"
+            width="360" height="360" loading="lazy"
+            alt="The Last Concierge — Miami Elite series book cover">
+        </figure>
+
+        <header class="series-item__head">
+          <span class="series-item__index">Series 03</span>
+          <h3 class="h3 series-item__title">Miami Elite</h3>
+          <p class="series-item__kicker">Wealth. Privilege. Deadly secrets.</p>
+        </header>
+
+        <div class="series-item__copy">
+          <p class="body">
+            Welcome to Miami, where money buys power, privilege buys silence, and the truth can get you killed.
+          </p>
+          <p class="body">
+            Brilliant Caribbean-American women navigate the city's most exclusive circles, where beautiful
+            lives hide dangerous secrets, and the powerful will do anything to keep them buried.
+          </p>
+        </div>
+
+        <div class="series-item__cta">
+          <a class="link-arrow" href="https://www.gledekabongo.com/copy-of-malicious-games-ya-series-item">
+            Explore the Series <span class="arw" aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================ BEYOND THE PAGE ============================ -->
+<section class="section beyond" aria-labelledby="beyond-title">
+  <div class="shell beyond__inner">
+    <figure class="beyond__figure">
+      <img
+        src="https://static.wixstatic.com/media/461d77_26a668649ae24249891a71ef2d75e4b7~mv2.png/v1/crop/x_178,y_80,w_742,h_912/fill/w_742,h_912,al_c,q_90,enc_auto/glede-speaker.png"
+        width="742" height="912" loading="lazy"
+        alt="Gledé Browne Kabongo speaking at an event">
+      <figcaption class="meta beyond__caption">On stage · Workshops · Masterclasses</figcaption>
+    </figure>
+
+    <div>
+      <p class="eyebrow">Beyond the Page</p>
+
+      <h2 class="h2 beyond__title" id="beyond-title">
+        Helping audiences harness the power of strategy, storytelling, and communication to create lasting impact.
+      </h2>
+
+      <div class="bridge">
+        <span>Author</span><span>Speaker</span><span>Strategic Communications Leader</span>
+      </div>
+
+      <ul class="expertise">
+        <li><span class="expertise__num">01</span><span class="expertise__name">Speaking</span></li>
+        <li><span class="expertise__num">02</span><span class="expertise__name">Storytelling &amp; Communication</span></li>
+        <li><span class="expertise__num">03</span><span class="expertise__name">Thriller Writing &amp; Marketing</span></li>
+        <li><span class="expertise__num">04</span><span class="expertise__name">Brand, Content &amp; Strategy</span></li>
+      </ul>
+
+      <div class="beyond__actions">
+        <a class="link-arrow" href="https://www.gledekabongo.com/speaker-profile">
+          Explore Speaking <span class="arw" aria-hidden="true">&rarr;</span>
+        </a>
+        <a class="link-arrow" href="https://www.gledekabongo.com/contact">
+          Invite Gledé to Speak <span class="arw" aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ CLOSING STATEMENT ============================ -->
+<section class="closing" aria-labelledby="closing-title">
+  <div class="closing__bg" aria-hidden="true"></div>
+  <div class="closing__scrim" aria-hidden="true"></div>
+
+  <div class="shell closing__inner">
+    <div class="closing__mark" aria-hidden="true"></div>
+    <p class="eyebrow eyebrow--plain eyebrow--light" id="closing-title">Want More Suspense and Thrills?</p>
+
+    <p class="closing__lines">
+      <span>Addictive Thrillers.</span>
+      <span class="accent">Dangerous Secrets.</span>
+    </p>
+
+    <p class="closing__tail">
+      Underestimated women forced to confront the darkness beneath power, privilege, and success.
+    </p>
+
+    <div class="closing__actions">
+      <a class="btn btn--gold" href="https://www.gledekabongo.com/books">Explore the Books</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============================ FOOTER ============================ -->
+<footer class="site-footer">
+  <div class="shell">
+    <div class="site-footer__grid">
+      <div>
+        <a class="wordmark" href="#">Gledé Browne <span>Kabongo</span></a>
+        <p class="site-footer__blurb">
+          Award-winning psychological thrillers about power, privilege, secrets,
+          and the women who refuse to be underestimated.
+        </p>
+      </div>
+
+      <nav class="footer-col" aria-label="Quick links">
+        <p class="footer-col__title">Quick Links</p>
+        <ul>
+          <li><a href="https://www.gledekabongo.com/books">Books</a></li>
+          <li><a href="https://www.gledekabongo.com/bio">About</a></li>
+          <li><a href="https://www.gledekabongo.com/speaker-profile">Speaker Profile</a></li>
+          <li><a href="https://www.gledekabongo.com/newsletter">Newsletter</a></li>
+        </ul>
+      </nav>
+
+      <nav class="footer-col" aria-label="More">
+        <p class="footer-col__title">More</p>
+        <ul>
+          <li><a href="https://www.gledekabongo.com/rightsinquiries">Rights</a></li>
+          <li><a href="https://www.gledekabongo.com/store">Store</a></li>
+          <li><a href="https://www.gledekabongo.com/contact">Contact</a></li>
+          <li><a href="https://www.gledekabongo.com/news-events">News &amp; Events</a></li>
+        </ul>
+      </nav>
+
+      <nav class="footer-col" aria-label="Connect">
+        <p class="footer-col__title">Connect</p>
+        <ul>
+          <li><a href="https://www.instagram.com/authorgledekabongo/">Instagram</a></li>
+          <li><a href="https://www.facebook.com/gledekabongoauthor">Facebook</a></li>
+          <li><a href="https://www.gledekabongo.com/newsletter">Inner Circle</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="site-footer__bar">
+      <p>© 2026 Gledé Browne Kabongo. All Rights Reserved.</p>
+      <p><a href="https://www.gledekabongo.com/privacy-policy">Privacy Statement</a></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /* Mobile menu — the only script on the page, purely for visual demonstration. */
+  (function () {
+    var btn = document.querySelector('.nav-toggle');
+    var panel = document.getElementById('mobile-nav');
+    if (!btn || !panel) return;
+
+    btn.addEventListener('click', function () {
+      var open = panel.dataset.open === 'true';
+      panel.dataset.open = String(!open);
+      btn.setAttribute('aria-expanded', String(!open));
+    });
+  })();
+</script>
+
+</body>
+</html>
