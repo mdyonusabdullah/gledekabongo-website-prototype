@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fearless Series — Gledé Browne Kabongo</title>
+<meta name="description" content="The Fearless Series by Gledé Browne Kabongo. Four award-winning psychological thrillers following Abbie Cooper — brilliant, ambitious, and impossible to break.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ==========================================================================
+   GLEDÉ BROWNE KABONGO — FEARLESS SERIES (SERIES LANDING PROTOTYPE)
+   Same design system as the Books page and the four book-detail pages, but
+   composed as a series: one enormous word for the hero, four jackets read as
+   a set, and a journey line that carries the reader 01 → 04.
+   Static front-end only.
+   01  Tokens
+   02  Reset & base
+   03  Typography primitives
+   04  Buttons & links
+   05  Header / navigation
+   06  Cover system
+   07  Series hero
+   08  Series statement & honours
+   09  Abbie Cooper
+   10  The journey
+   11  The four books
+   12  Themes
+   13  Closing CTA
+   14  More from Gledé
+   15  Footer
+   16  Responsive
+   ========================================================================== */
+
+/* --- 01 Tokens ----------------------------------------------------------- */
+:root{
+  /* Brand */
+  --navy:#05347E;
+  --blue:#3E7FE6;
+  --gold:#FFDB4F;
+
+  /* Extended neutrals derived from the brand */
+  --navy-deep:#042457;
+  --navy-ink:#031A3F;
+  --blue-wash:#EDF2FB;
+  --blue-tint:#9DC0F5;      /* the blue, lightened enough to read on navy */
+
+  --paper:#FCFBF8;
+  --paper-warm:#F4F1E9;
+  --ink:#15181D;
+  --ink-soft:#4E5663;
+  --ink-mute:#7B8493;
+
+  --rule:rgba(5,52,126,.14);
+  --rule-strong:rgba(5,52,126,.26);
+
+  /* Rhythm */
+  --shell:1280px;
+  --gutter:clamp(20px,5vw,64px);
+  --section:clamp(72px,8.5vw,128px);
+
+  /* Type */
+  --serif:"Cormorant Garamond",Garamond,"Times New Roman",serif;
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+}
+
+/* --- 02 Reset & base ----------------------------------------------------- */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+a:not([href]){cursor:pointer}
+h1,h2,h3,h4,p,figure,blockquote,ul,ol{margin:0;padding:0}
+ul,ol{list-style:none}
+button{font:inherit;color:inherit}
+::selection{background:var(--navy);color:var(--gold)}
+:focus-visible{outline:2px solid var(--blue);outline-offset:4px}
+
+/* Focus stays legible on the dark fields too */
+.site-header :focus-visible,
+.series-hero :focus-visible,
+.abbie :focus-visible,
+.themes :focus-visible,
+.closing :focus-visible,
+.site-footer :focus-visible{outline-color:var(--gold)}
+
+.shell{
+  width:100%;
+  max-width:var(--shell);
+  margin-inline:auto;
+  padding-inline:var(--gutter);
+}
+.section{padding-block:var(--section)}
+
+/* --- 03 Typography primitives -------------------------------------------- */
+.eyebrow{
+  display:inline-flex;
+  align-items:flex-start;
+  gap:14px;
+  font-size:.6875rem;
+  font-weight:600;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  line-height:1.55;
+  color:var(--blue);
+}
+.eyebrow::before{
+  content:"";
+  width:26px;
+  height:1px;
+  margin-top:.72em;
+  background:var(--gold);
+  flex:none;
+}
+.eyebrow--light{color:rgba(255,255,255,.8)}
+
+.h3{
+  font-family:var(--serif);
+  font-weight:400;
+  line-height:1.12;
+  letter-spacing:-.005em;
+  font-size:clamp(1.5rem,2.1vw,2rem);
+}
+
+.lede{font-size:1.0625rem;line-height:1.7;color:var(--ink-soft);max-width:56ch}
+.body--light{color:rgba(255,255,255,.74)}
+.meta{
+  font-size:.6875rem;
+  font-weight:600;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--ink-mute);
+}
+.meta--blue{color:var(--blue)}
+
+/* Small editorial section label: gold tick, caps, hairline out to the margin */
+.section-label{
+  display:flex;
+  align-items:center;
+  gap:18px;
+  font-family:var(--sans);
+  font-size:.6875rem;
+  font-weight:600;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  color:var(--navy);
+}
+.section-label::before{content:"";width:26px;height:1px;background:var(--gold);flex:none}
+.section-label::after{content:"";flex:1;height:1px;background:var(--rule)}
+.section-label--light{color:#fff}
+.section-label--light::after{background:rgba(255,255,255,.2)}
+
+/* --- 04 Buttons & links -------------------------------------------------- */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  min-height:52px;
+  padding:0 30px;
+  border:1px solid transparent;
+  font-size:.6875rem;
+  font-weight:600;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  line-height:1;
+  cursor:pointer;
+  transition:background-color .28s ease,color .28s ease,border-color .28s ease;
+}
+.btn--gold{background:var(--gold);color:var(--navy-ink);border-color:var(--gold)}
+.btn--gold:hover{background:#F6CE2E;border-color:#F6CE2E}
+.btn--wide{min-height:58px;padding:0 40px;letter-spacing:.2em}
+
+.link-arrow{
+  display:inline-flex;
+  align-items:center;
+  gap:12px;
+  font-size:.6875rem;
+  font-weight:600;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--navy);
+  padding-bottom:7px;
+  border-bottom:1px solid var(--rule-strong);
+  transition:color .28s ease,border-color .28s ease;
+}
+.link-arrow .arw{transition:transform .28s ease}
+.link-arrow:hover{color:var(--blue);border-color:var(--blue)}
+.link-arrow:hover .arw{transform:translateX(6px)}
+.link-arrow--light{color:#fff;border-color:rgba(255,255,255,.3)}
+.link-arrow--light:hover{color:var(--gold);border-color:var(--gold)}
+
+/* --- 05 Header / navigation ---------------------------------------------- */
+.site-header{background:var(--navy);color:#fff;position:relative;z-index:60}
+.site-header__inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:40px;
+  min-height:84px;
+}
+.wordmark{
+  font-family:var(--serif);
+  font-weight:500;
+  font-size:1.1875rem;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  line-height:1;
+  white-space:nowrap;
+  color:#fff;
+}
+.wordmark span{color:var(--gold)}
+
+.nav{display:flex;align-items:center;gap:clamp(16px,2vw,30px)}
+.nav__item{position:relative}
+.nav__link{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  font-size:.6875rem;
+  font-weight:500;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.82);
+  padding:31px 0;
+  border-bottom:2px solid transparent;
+  transition:color .25s ease,border-color .25s ease;
+}
+.nav__link:hover,.nav__item:hover > .nav__link{color:#fff;border-bottom-color:var(--gold)}
+.nav__link[aria-current]{color:#fff;border-bottom-color:var(--gold)}
+.nav__caret{width:7px;height:7px;fill:none;stroke:currentColor;stroke-width:1.6;opacity:.75}
+
+.submenu{
+  position:absolute;
+  top:100%;
+  left:-26px;
+  min-width:246px;
+  background:var(--navy-deep);
+  border-top:2px solid var(--gold);
+  padding:14px 0 18px;
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(6px);
+  transition:opacity .22s ease,transform .22s ease,visibility .22s;
+  box-shadow:0 18px 40px rgba(3,20,50,.28);
+}
+.nav__item:hover .submenu,
+.nav__item:focus-within .submenu{opacity:1;visibility:visible;transform:translateY(0)}
+.submenu__label{
+  display:block;
+  padding:6px 26px 10px;
+  font-size:.625rem;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.4);
+}
+.submenu a{
+  display:block;
+  padding:9px 26px;
+  font-size:.75rem;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.78);
+  transition:color .2s ease,background-color .2s ease;
+}
+.submenu a:hover{color:var(--gold);background:rgba(255,255,255,.05)}
+.submenu a[aria-current]{color:var(--gold)}
+
+.nav-toggle{
+  display:none;
+  align-items:center;
+  gap:11px;
+  background:none;
+  border:0;
+  padding:10px 0;
+  cursor:pointer;
+  color:#fff;
+  font-size:.625rem;
+  font-weight:600;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+}
+.nav-toggle__bars{display:block;width:22px}
+.nav-toggle__bars i{display:block;height:1px;background:currentColor;margin:5px 0}
+.nav-toggle__bars i:first-child{margin-top:0}
+.nav-toggle__bars i:last-child{width:14px;margin-bottom:0}
+.mobile-nav{display:none}
+
+/* --- 06 Cover system ------------------------------------------------------ */
+.cover{
+  position:relative;
+  display:block;
+  aspect-ratio:71/100;
+  width:100%;
+}
+.cover img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center bottom;
+  transition:transform .4s cubic-bezier(.22,.61,.36,1);
+}
+a.cover:hover img,
+.more__item:hover .cover img,
+.book:hover .cover img{transform:translateY(-6px)}
+
+/* --- 07 Series hero ---------------------------------------------------------
+   There is no separate series artwork on the client's site, so the four
+   jackets are the hero — stepped into a single cinematic run that says
+   "four books" before a word is read.
+   -------------------------------------------------------------------------- */
+.series-hero{
+  position:relative;
+  background:var(--navy-ink);
+  color:#fff;
+  overflow:hidden;
+  isolation:isolate;
+}
+.series-hero__wash{
+  position:absolute;
+  inset:0;
+  background:radial-gradient(72% 62% at 78% 46%,rgba(5,52,126,.6) 0%,rgba(5,52,126,0) 74%);
+  z-index:-1;
+}
+.series-hero__inner{
+  display:grid;
+  grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);
+  gap:clamp(40px,5vw,80px);
+  align-items:center;
+  padding-block:clamp(60px,8vw,116px);
+}
+
+.series-title{
+  margin-top:26px;
+  font-family:var(--serif);
+  font-weight:300;
+  text-transform:uppercase;
+  letter-spacing:.005em;
+  line-height:.88;
+  font-size:clamp(3.2rem,7vw,6.2rem);
+  color:#fff;
+}
+.series-title__sub{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  margin-top:18px;
+  font-family:var(--sans);
+  font-size:.6875rem;
+  font-weight:600;
+  letter-spacing:.34em;
+  text-transform:uppercase;
+  color:var(--gold);
+}
+.series-title__sub::before{content:"";width:44px;height:1px;background:rgba(255,219,79,.55);flex:none}
+
+.series-hero__meet{
+  margin-top:32px;
+  max-width:24ch;
+  font-family:var(--serif);
+  font-weight:300;
+  font-size:clamp(1.35rem,2.3vw,1.95rem);
+  line-height:1.24;
+  letter-spacing:-.008em;
+  color:#fff;
+}
+.series-hero__meet em{font-style:italic;color:var(--blue-tint)}
+.series-hero__copy{margin-top:26px;max-width:50ch}
+.series-hero__cta{margin-top:34px}
+
+/* Four jackets, stepped */
+.jackets{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  align-items:end;
+  gap:clamp(6px,1vw,14px);
+}
+.jackets .cover{filter:drop-shadow(0 20px 34px rgba(0,0,0,.55))}
+.jackets li:nth-child(1){padding-bottom:0}
+.jackets li:nth-child(2){padding-bottom:clamp(9px,1.2vw,17px)}
+.jackets li:nth-child(3){padding-bottom:clamp(18px,2.4vw,34px)}
+.jackets li:nth-child(4){padding-bottom:clamp(27px,3.6vw,51px)}
+.jackets__rule{
+  grid-column:1 / -1;
+  height:1px;
+  margin-top:clamp(18px,2.4vw,30px);
+  background:linear-gradient(90deg,rgba(255,219,79,.6) 0%,rgba(255,219,79,.12) 100%);
+}
+
+/* --- 08 Series statement & honours ------------------------------------------- */
+.statement{background:var(--paper-warm)}
+.statement__inner{
+  display:grid;
+  grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);
+  gap:clamp(40px,6vw,96px);
+  align-items:start;
+}
+.statement__lines{
+  font-family:var(--serif);
+  font-weight:300;
+  font-size:clamp(2.1rem,4.6vw,3.8rem);
+  line-height:1.04;
+  letter-spacing:-.014em;
+  color:var(--navy);
+}
+.statement__lines span{display:block}
+.statement__lines span:last-child{color:var(--blue)}
+
+.honours__title{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  font-size:.625rem;
+  font-weight:600;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--ink-mute);
+}
+.honours__title::before{content:"";width:22px;height:1px;background:var(--gold);flex:none}
+.honours{margin-top:22px;border-top:1px solid var(--rule)}
+.honours li{
+  padding:14px 0;
+  border-bottom:1px solid var(--rule);
+  font-size:.875rem;
+  line-height:1.6;
+  color:var(--ink-soft);
+}
+
+/* --- 09 Abbie Cooper ----------------------------------------------------------
+   No portrait of Abbie exists in the client's assets and none was invented,
+   so the section is carried by type over the site's own atmosphere plate.
+   -------------------------------------------------------------------------- */
+.abbie{
+  position:relative;
+  background:var(--navy);
+  color:#fff;
+  overflow:hidden;
+  isolation:isolate;
+}
+.abbie__bg{
+  position:absolute;
+  inset:0;
+  background-image:url("https://static.wixstatic.com/media/461d77_8ca5863fe3e74731a9a38d3379cfda80~mv2.png/v1/crop/x_1760,y_286,w_1240,h_446/fill/w_1240,h_446,al_c,q_90,enc_auto/gbk-atmosphere.png");
+  background-size:cover;
+  background-position:60% 40%;
+  z-index:-2;
+}
+.abbie__scrim{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(96deg,rgba(3,26,63,.96) 0%,rgba(3,26,63,.9) 52%,rgba(4,36,87,.78) 100%);
+  z-index:-1;
+}
+.abbie__inner{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:clamp(38px,5.5vw,90px);
+  align-items:start;
+}
+.abbie__pull{
+  margin-top:clamp(26px,3.2vw,40px);
+  font-family:var(--serif);
+  font-weight:300;
+  font-size:clamp(1.9rem,3.8vw,3.1rem);
+  line-height:1.1;
+  letter-spacing:-.014em;
+  color:#fff;
+}
+.abbie__pull em{font-style:italic;color:var(--gold)}
+.abbie__body{padding-top:clamp(10px,2vw,26px)}
+.abbie__body p{
+  font-size:1rem;
+  line-height:1.85;
+  color:rgba(255,255,255,.76);
+  max-width:52ch;
+}
+.abbie__body p + p{margin-top:1.35em}
+.abbie__body p:first-child{
+  padding-left:clamp(18px,2vw,26px);
+  border-left:1px solid rgba(157,192,245,.6);
+  color:#fff;
+}
+
+/* --- 10 The journey -----------------------------------------------------------
+   A thin line with four markers. It is the map for the modules below, not a
+   progress bar — the reader chooses where to enter.
+   -------------------------------------------------------------------------- */
+.journey{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:clamp(14px,2vw,28px);
+  margin-top:clamp(38px,4.4vw,60px);
+  border-top:1px solid var(--rule-strong);
+}
+.journey a{
+  display:block;
+  position:relative;
+  padding-top:26px;
+  padding-right:14px;
+  transition:color .26s ease;
+}
+.journey a::before{
+  content:"";
+  position:absolute;
+  top:-4.5px;
+  left:0;
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  border:1px solid var(--gold);
+  background:var(--paper);
+  transition:background-color .26s ease;
+}
+.journey li:first-child a::before{background:var(--gold)}
+.journey a:hover::before{background:var(--gold)}
+.journey__n{
+  display:block;
+  font-size:.625rem;
+  font-weight:600;
+  letter-spacing:.2em;
+  color:var(--blue);
+}
+.journey__t{
+  display:block;
+  margin-top:8px;
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:clamp(1.05rem,1.5vw,1.32rem);
+  line-height:1.2;
+  color:var(--navy);
+}
+.journey a:hover .journey__t{color:var(--blue)}
+
+/* --- 11 The four books --------------------------------------------------------
+   Alternating modules on one continuous field, divided by hairlines, so the
+   four read as chapters of one story rather than four products in a grid.
+   -------------------------------------------------------------------------- */
+.books{background:var(--paper)}
+.book{
+  display:grid;
+  grid-template-columns:minmax(0,.68fr) minmax(0,1.32fr);
+  gap:clamp(34px,5.5vw,88px);
+  align-items:center;
+  padding-block:clamp(52px,6.5vw,92px);
+  border-top:1px solid var(--rule);
+  scroll-margin-top:40px;
+}
+.book:first-of-type{margin-top:clamp(46px,5.5vw,78px)}
+.book--flip{grid-template-columns:minmax(0,1.32fr) minmax(0,.68fr)}
+.book--flip .book__figure{order:2}
+.book--flip .book__body{order:1}
+.book__figure{margin:0}
+.book__figure .book__num{display:none}
+.book__figure .cover{max-width:280px;margin-inline:auto}
+
+.book__num{
+  font-family:var(--serif);
+  font-weight:300;
+  font-size:clamp(2.4rem,4vw,3.4rem);
+  line-height:1;
+  color:var(--blue);
+}
+.book__title{
+  margin-top:10px;
+  font-family:var(--serif);
+  font-weight:300;
+  font-size:clamp(2rem,3.5vw,3rem);
+  line-height:1.04;
+  letter-spacing:-.012em;
+  color:var(--navy);
+}
+.book__strap{
+  margin-top:16px;
+  padding-top:14px;
+  border-top:1px solid var(--rule);
+  max-width:44ch;
+  font-size:.6875rem;
+  font-weight:600;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--ink-mute);
+  line-height:1.8;
+}
+.book__comp{
+  margin-top:14px;
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:1.15rem;
+  line-height:1.4;
+  color:var(--blue);
+}
+.book__hook{
+  margin-top:18px;
+  font-size:1.0625rem;
+  line-height:1.82;
+  color:var(--ink-soft);
+  max-width:58ch;
+}
+.book__cta{margin-top:28px}
+
+/* --- 12 Themes ------------------------------------------------------------------
+   Three words the series positioning names, set as a descending stair.
+   -------------------------------------------------------------------------- */
+.themes{background:var(--navy-deep);color:#fff}
+.themes__list{margin-top:clamp(30px,3.6vw,50px)}
+.themes__list li{
+  padding-block:clamp(14px,1.8vw,24px);
+  border-bottom:1px solid rgba(255,255,255,.16);
+  font-family:var(--serif);
+  font-weight:300;
+  font-size:clamp(2.2rem,6.4vw,5rem);
+  line-height:1;
+  letter-spacing:.03em;
+  text-transform:uppercase;
+  color:#fff;
+}
+.themes__list li:nth-child(2){padding-left:clamp(20px,6vw,120px)}
+.themes__list li:nth-child(3){padding-left:clamp(40px,12vw,240px);border-bottom:0}
+.themes__list li:last-child{color:var(--gold)}
+
+/* --- 13 Closing CTA -------------------------------------------------------------- */
+.closing{background:var(--navy-ink);color:#fff}
+.closing__inner{max-width:62ch}
+.closing__title{
+  margin-top:24px;
+  font-family:var(--serif);
+  font-weight:300;
+  font-size:clamp(2.4rem,5.2vw,4.4rem);
+  line-height:1.04;
+  letter-spacing:-.012em;
+  color:#fff;
+}
+.closing__title em{font-style:italic;color:var(--gold)}
+.closing__line{
+  margin-top:26px;
+  font-size:1.0625rem;
+  line-height:1.75;
+  color:rgba(255,255,255,.74);
+  max-width:46ch;
+}
+.closing__cta{display:flex;flex-wrap:wrap;gap:16px 28px;align-items:center;margin-top:36px}
+
+/* --- 14 More from Gledé ------------------------------------------------------------ */
+.more{background:var(--paper-warm)}
+.more__head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:26px;
+  flex-wrap:wrap;
+}
+.more__head .section-label{flex:1;min-width:220px}
+.more__grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:clamp(26px,4vw,58px);
+  margin-top:clamp(34px,4vw,56px);
+}
+.more__item .cover{max-width:168px}
+.more__kicker{margin-top:22px}
+.more__title{margin-top:8px;color:var(--ink)}
+
+/* --- 15 Footer ---------------------------------------------------------------------- */
+.site-footer{background:var(--navy-deep);color:#fff}
+.site-footer__grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1.05fr);
+  gap:clamp(34px,4.5vw,64px);
+  padding-block:clamp(58px,7vw,88px);
+}
+.site-footer .wordmark{font-size:1.0625rem}
+.site-footer__blurb{
+  margin-top:22px;
+  max-width:34ch;
+  font-size:.875rem;
+  line-height:1.8;
+  color:rgba(255,255,255,.6);
+}
+.footer-col__title{
+  font-size:.625rem;
+  font-weight:600;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--gold);
+  padding-bottom:16px;
+  margin-bottom:18px;
+  border-bottom:1px solid rgba(255,255,255,.16);
+}
+.footer-col li + li{margin-top:11px}
+.footer-col a{
+  font-size:.8125rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.72);
+  transition:color .22s ease;
+}
+.footer-col a:hover{color:var(--gold)}
+.site-footer__bar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  flex-wrap:wrap;
+  padding-block:26px;
+  border-top:1px solid rgba(255,255,255,.14);
+  font-size:.75rem;
+  letter-spacing:.06em;
+  color:rgba(255,255,255,.5);
+}
+.site-footer__bar a{transition:color .22s ease}
+.site-footer__bar a:hover{color:var(--gold)}
+
+/* --- 16 Responsive -------------------------------------------------------------- */
+@media (max-width:1180px){
+  .nav{gap:16px}
+  .nav__link{letter-spacing:.1em}
+  .series-hero__inner{gap:clamp(34px,4.5vw,60px)}
+}
+
+@media (max-width:1024px){
+  .site-header__inner{min-height:72px}
+  .nav{display:none}
+  .nav-toggle{display:inline-flex}
+
+  .mobile-nav{
+    display:block;
+    background:var(--navy-deep);
+    border-top:1px solid rgba(255,255,255,.14);
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .38s cubic-bezier(.4,0,.2,1);
+  }
+  .mobile-nav[data-open="true"]{max-height:660px}
+  .mobile-nav ul{padding-block:12px 26px}
+  .mobile-nav li{border-bottom:1px solid rgba(255,255,255,.09)}
+  .mobile-nav li:last-child{border-bottom:0}
+  .mobile-nav a{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:17px 0;
+    font-size:.75rem;
+    font-weight:500;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,.82);
+  }
+  .mobile-nav a[aria-current]{color:var(--gold)}
+  .mobile-nav a small{
+    font-size:.625rem;
+    letter-spacing:.14em;
+    color:rgba(255,255,255,.38);
+    text-transform:none;
+  }
+
+  .site-footer .wordmark{font-size:.9375rem;letter-spacing:.15em}
+
+  /* Hero re-sequences: the four jackets lead, then the word */
+  .series-hero__inner{
+    grid-template-columns:minmax(0,1fr);
+    gap:clamp(38px,5.5vw,54px);
+    padding-block:clamp(46px,7vw,76px);
+  }
+  .series-hero__art{order:-1}
+  .jackets{max-width:560px}
+  .series-hero__meet{max-width:34ch}
+
+  .statement__inner{grid-template-columns:minmax(0,1fr);gap:clamp(34px,5vw,48px)}
+  .abbie__inner{grid-template-columns:minmax(0,1fr);gap:clamp(30px,4.5vw,42px)}
+  .abbie__body{padding-top:0}
+  .abbie__body p{max-width:60ch}
+
+  .book{grid-template-columns:minmax(0,.6fr) minmax(0,1.4fr);gap:clamp(30px,4.5vw,54px)}
+  .book--flip{grid-template-columns:minmax(0,1.4fr) minmax(0,.6fr)}
+  .book__figure .cover{max-width:220px}
+}
+
+@media (max-width:860px){
+  /* The journey turns vertical, the line running down the left */
+  .journey{
+    display:block;
+    border-top:0;
+    border-left:1px solid var(--rule-strong);
+    margin-left:4px;
+  }
+  .journey a{padding:12px 0 12px 26px}
+  .journey a::before{top:50%;left:-4.5px;transform:translateY(-50%)}
+  .journey__t{margin-top:4px}
+
+  /* Each book recomposes: number, cover, title, description, CTA */
+  .book,
+  .book--flip{
+    display:block;
+    padding-block:clamp(40px,6vw,60px);
+  }
+  .book--flip .book__figure,
+  .book--flip .book__body{order:0}
+  .book__figure{margin-bottom:clamp(26px,4vw,36px)}
+  .book__figure .cover{max-width:210px;margin-inline:0}
+  .book__figure .book__num{
+    display:block;
+    margin-bottom:clamp(18px,3vw,24px);
+    font-size:clamp(2rem,7vw,2.6rem);
+  }
+  .book__body .book__num{display:none}
+  .book__hook{max-width:62ch}
+
+  .site-footer__grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:34px}
+}
+
+@media (max-width:760px){
+  /* Related titles read as rows so the covers stay recognisable */
+  .more__grid{grid-template-columns:minmax(0,1fr);gap:0}
+  .more__item{
+    display:grid;
+    grid-template-columns:104px minmax(0,1fr);
+    grid-template-rows:auto auto;
+    column-gap:24px;
+    align-content:center;
+    padding-block:26px;
+    border-bottom:1px solid var(--rule);
+  }
+  .more__item:first-child{border-top:1px solid var(--rule)}
+  .more__item .cover{grid-column:1;grid-row:1 / span 2;max-width:none;align-self:center}
+  .more__kicker{grid-column:2;grid-row:1;margin-top:0;align-self:end}
+  .more__title{grid-column:2;grid-row:2;margin-top:8px;align-self:start}
+}
+
+/* The masthead has to share a narrow line with the menu control */
+@media (max-width:620px){
+  .site-header__inner{gap:18px}
+  .wordmark{font-size:.9375rem;letter-spacing:.13em}
+}
+
+@media (max-width:560px){
+  .series-title{margin-top:22px;font-size:clamp(3.1rem,17vw,4.6rem);line-height:.9}
+  .series-title__sub{letter-spacing:.28em}
+  .series-hero__meet{margin-top:26px;max-width:none;font-size:1.35rem}
+  .series-hero__copy{margin-top:22px}
+  .series-hero__cta .btn{width:100%}
+  /* Four jackets stay legible two-up rather than shrinking to thumbnails */
+  .jackets{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 18px;max-width:none}
+  .jackets li:nth-child(n){padding-bottom:0}
+  .jackets li:nth-child(2),
+  .jackets li:nth-child(4){padding-top:22px}
+  .jackets__rule{display:none}
+
+  .statement__lines{font-size:clamp(1.95rem,10vw,2.9rem)}
+  .abbie__pull{font-size:clamp(1.7rem,8.4vw,2.4rem)}
+
+  .book__figure .cover{max-width:190px}
+  .book__title{font-size:clamp(1.8rem,8.6vw,2.4rem)}
+  .book__hook{font-size:1rem}
+
+  .themes__list li{font-size:clamp(2rem,13vw,3.2rem)}
+  .themes__list li:nth-child(2){padding-left:16px}
+  .themes__list li:nth-child(3){padding-left:32px}
+
+  .closing__title{font-size:clamp(2.1rem,10.5vw,3rem)}
+  .closing__cta .btn{width:100%}
+
+  .site-footer__grid{grid-template-columns:minmax(0,1fr);gap:32px}
+  .site-footer__bar{flex-direction:column;align-items:flex-start;gap:10px}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ============================ HEADER ============================ -->
+<header class="site-header">
+  <div class="shell site-header__inner">
+    <a class="wordmark" href="index.html" aria-label="Gledé Browne Kabongo — home">Gledé Browne <span>Kabongo</span></a>
+
+    <nav class="nav" aria-label="Primary">
+      <div class="nav__item"><a class="nav__link" href="index.html">Home</a></div>
+
+      <div class="nav__item">
+        <a class="nav__link" href="books.html" aria-current="true">
+          Books
+          <svg class="nav__caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>
+        </a>
+        <div class="submenu">
+          <span class="submenu__label">Browse the collection</span>
+          <a href="books.html#standalones">Standalones</a>
+          <a href="fearless-series.html" aria-current="page">Fearless Series</a>
+          <a href="miami-elite.html">Miami Elite</a>
+          <a href="books.html#malicious">Malicious Games</a>
+          <a href="books.html#novellas">Novellas</a>
+          <a href="books.html#audiobooks">Audiobooks</a>
+        </div>
+      </div>
+
+      <div class="nav__item"><a class="nav__link" href="about.html">About</a></div>
+      <div class="nav__item"><a class="nav__link" href="speaker.html">Speaker Profile</a></div>
+      <div class="nav__item"><a class="nav__link" href="newsletter.html">Newsletter</a></div>
+      <div class="nav__item"><a class="nav__link">Rights</a></div>
+      <div class="nav__item"><a class="nav__link" href="store.html">Store</a></div>
+      <div class="nav__item"><a class="nav__link" href="contact.html">Contact</a></div>
+    </nav>
+
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav">
+      <span>Menu</span>
+      <span class="nav-toggle__bars" aria-hidden="true"><i></i><i></i><i></i></span>
+    </button>
+  </div>
+
+  <nav class="mobile-nav" id="mobile-nav" data-open="false" aria-label="Mobile">
+    <ul class="shell">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="books.html" aria-current="true">Books <small>Standalones · Series · Novellas · Audiobooks</small></a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="speaker.html">Speaker Profile</a></li>
+      <li><a href="newsletter.html">Newsletter</a></li>
+      <li><a>Rights</a></li>
+      <li><a href="store.html">Store</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+
+<!-- ============================ SERIES HERO ============================ -->
+<section class="series-hero" aria-labelledby="series-title">
+  <div class="series-hero__wash" aria-hidden="true"></div>
+
+  <div class="shell series-hero__inner">
+
+    <div class="series-hero__copy-col">
+      <p class="eyebrow eyebrow--light">Four-Time Award-Winning Thriller Series</p>
+
+      <h1 class="series-title" id="series-title">Fearless</h1>
+      <p class="series-title__sub">The Series</p>
+
+      <p class="series-hero__meet">
+        Meet Abbie Cooper. <em>She’s brilliant, ambitious, and impossible to break.</em>
+      </p>
+
+      <p class="lede body--light series-hero__copy">
+        Across four pulse-pounding psychological thrillers, deception, obsession, and revenge
+        threaten everything she’s fought for, and anyone who underestimates her does so at their
+        peril.
+      </p>
+
+      <div class="series-hero__cta">
+        <a class="btn btn--gold btn--wide" href="#the-books">Explore the Series</a>
+      </div>
+    </div>
+
+    <div class="series-hero__art">
+      <ul class="jackets" aria-label="The four Fearless Series covers">
+        <li>
+          <span class="cover">
+            <img src="https://static.wixstatic.com/media/461d77_0afad7297444483e89e949083904b7f8~mv2.png/v1/crop/x_346,y_108,w_796,h_1133/fill/w_460,h_655,al_c,q_90,enc_auto/game-of-fear.png"
+                 width="460" height="655"
+                 alt="Game of Fear — Fearless Series book one cover">
+          </span>
+        </li>
+        <li>
+          <span class="cover">
+            <img src="https://static.wixstatic.com/media/461d77_c158fdccb0ea4b6fa56357139252f7af~mv2.png/v1/crop/x_312,y_90,w_862,h_1150/fill/w_460,h_614,al_c,q_90,enc_auto/autumn-of-fear.png"
+                 width="460" height="614"
+                 alt="Autumn of Fear — Fearless Series book two cover">
+          </span>
+        </li>
+        <li>
+          <span class="cover">
+            <img src="https://static.wixstatic.com/media/461d77_96e44b0d05b34be990dc41996483e536~mv2.png/v1/crop/x_363,y_102,w_794,h_1146/fill/w_460,h_664,al_c,q_90,enc_auto/winds-of-fear.png"
+                 width="460" height="664"
+                 alt="Winds of Fear — Fearless Series book three cover">
+          </span>
+        </li>
+        <li>
+          <span class="cover">
+            <img src="https://static.wixstatic.com/media/461d77_5b19373a046b4d92809e4dcd2d23007f~mv2.png/v1/crop/x_154,y_0,w_692,h_1000/fill/w_460,h_665,al_c,q_90,enc_auto/reign-of-fear.png"
+                 width="460" height="665"
+                 alt="Reign of Fear — Fearless Series book four cover">
+          </span>
+        </li>
+        <li class="jackets__rule" aria-hidden="true"></li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================ SERIES STATEMENT ============================ -->
+<section class="section statement" aria-labelledby="statement-lines">
+  <div class="shell statement__inner">
+
+    <p class="statement__lines" id="statement-lines">
+      <span>Four books.</span>
+      <span>One woman.</span>
+      <span>No room for fear.</span>
+    </p>
+
+    <div>
+      <h2 class="honours__title">Praise for the Fearless Series</h2>
+      <ul class="honours">
+        <li>Next Generation Indie Book Awards for Best Fiction Series (2020)</li>
+        <li>Eric Hoffer Award First Runner Up in Mystery/Crime (2020)</li>
+        <li>IPPY Awards Silver Medalist in Suspense / Thriller (2020)</li>
+        <li>National Indie Excellence Award Gold Medalist in Suspense (2019)</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================ ABBIE COOPER ============================ -->
+<section class="section abbie" aria-labelledby="abbie-label">
+  <div class="abbie__bg" aria-hidden="true"></div>
+  <div class="abbie__scrim" aria-hidden="true"></div>
+
+  <div class="shell abbie__inner">
+
+    <div>
+      <h2 class="section-label section-label--light" id="abbie-label">Meet Abbie Cooper</h2>
+      <p class="abbie__pull">
+        She’s brilliant, ambitious, and <em>impossible to break.</em>
+      </p>
+    </div>
+
+    <div class="abbie__body">
+      <p>
+        Meet Abbie Cooper, a high achiever with a meticulously planned future and the kind of nerve
+        it takes to stare down her worst enemies.
+      </p>
+      <p>
+        But when deception, obsession, and carefully orchestrated revenge start dismantling
+        everything she’s built, Abbie doesn’t run. She fights back.
+      </p>
+      <p>
+        From the halls of a cutthroat high school to the shadowy corridors of academia, from a
+        neighborhood hiding dangerous secrets to a marriage under siege — the Fearless Series
+        follows one unforgettable woman across four heart-pounding thrillers. Each book delivers
+        jaw-dropping twists, shocking secrets, simmering tension, and a heroine who will not be
+        broken.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================ THE FOUR BOOKS ============================ -->
+<section class="section books" id="the-books" aria-labelledby="books-label">
+  <div class="shell">
+    <h2 class="section-label" id="books-label">The Fearless Series</h2>
+
+    <!-- The journey: a map to the four modules below -->
+    <nav aria-label="The four books in reading order">
+      <ol class="journey">
+        <li><a href="#book-1"><span class="journey__n">01</span><span class="journey__t">Game of Fear</span></a></li>
+        <li><a href="#book-2"><span class="journey__n">02</span><span class="journey__t">Autumn of Fear</span></a></li>
+        <li><a href="#book-3"><span class="journey__n">03</span><span class="journey__t">Winds of Fear</span></a></li>
+        <li><a href="#book-4"><span class="journey__n">04</span><span class="journey__t">Reign of Fear</span></a></li>
+      </ol>
+    </nav>
+
+    <!-- 01 — image left, content right -->
+    <article class="book" id="book-1" aria-labelledby="book-1-title">
+      <figure class="book__figure">
+        <p class="book__num" aria-hidden="true">01</p>
+        <span class="cover">
+          <img src="https://static.wixstatic.com/media/461d77_0afad7297444483e89e949083904b7f8~mv2.png/v1/crop/x_346,y_108,w_796,h_1133/fill/w_600,h_854,al_c,q_90,enc_auto/game-of-fear.png"
+               width="600" height="854" loading="lazy"
+               alt="Game of Fear by Gledé Browne Kabongo — book cover">
+        </span>
+      </figure>
+
+      <div class="book__body">
+        <p class="book__num">01</p>
+        <h3 class="book__title" id="book-1-title">Game of Fear</h3>
+        <p class="book__strap">One dirty secret. One wicked game. One traitor among them.</p>
+        <p class="book__hook">
+          Haunted by a mistake she’s desperate to keep hidden, high school senior Abbie Cooper takes
+          on a determined stalker bent on exposing her secret—a secret that could shatter her Ivy
+          League dreams. But Abbie isn’t about to let anyone ruin her future, so it’s game on.
+        </p>
+        <p class="book__cta">
+          <a class="link-arrow" role="link" tabindex="0">Learn More <span class="arw" aria-hidden="true">&rarr;</span></a>
+        </p>
+      </div>
+    </article>
+
+    <!-- 02 — content left, image right -->
+    <article class="book book--flip" id="book-2" aria-labelledby="book-2-title">
+      <figure class="book__figure">
+        <p class="book__num" aria-hidden="true">02</p>
+        <span class="cover">
+          <img src="https://static.wixstatic.com/media/461d77_c158fdccb0ea4b6fa56357139252f7af~mv2.png/v1/crop/x_312,y_90,w_862,h_1150/fill/w_600,h_800,al_c,q_90,enc_auto/autumn-of-fear.png"
+               width="600" height="800" loading="lazy"
+               alt="Autumn of Fear by Gledé Browne Kabongo — book cover">
+        </span>
+      </figure>
+
+      <div class="book__body">
+        <p class="book__num">02</p>
+        <h3 class="book__title" id="book-2-title">Autumn of Fear</h3>
+        <p class="book__strap">The perfect girl. The perfect trap. The perfect crime.</p>
+        <p class="book__hook">
+          As her second year at Yale University begins, Abbie Cooper is one step closer to achieving
+          her goal of becoming one of the world’s top neurosurgeons. But that dream is upended when
+          she wakes up in the hospital after a violent assault and no memory of the attack. To
+          uncover the truth of what happened that night, Abbie must confront a stunning web of lies
+          that stretch back decades, and a vicious predator who’s willing to kill to protect his
+          secret.
+        </p>
+        <p class="book__cta">
+          <a class="link-arrow" role="link" tabindex="0">Learn More <span class="arw" aria-hidden="true">&rarr;</span></a>
+        </p>
+      </div>
+    </article>
+
+    <!-- 03 — image left, content right -->
+    <article class="book" id="book-3" aria-labelledby="book-3-title">
+      <figure class="book__figure">
+        <p class="book__num" aria-hidden="true">03</p>
+        <span class="cover">
+          <img src="https://static.wixstatic.com/media/461d77_96e44b0d05b34be990dc41996483e536~mv2.png/v1/crop/x_363,y_102,w_794,h_1146/fill/w_600,h_866,al_c,q_90,enc_auto/winds-of-fear.png"
+               width="600" height="866" loading="lazy"
+               alt="Winds of Fear by Gledé Browne Kabongo — book cover">
+        </span>
+      </figure>
+
+      <div class="book__body">
+        <p class="book__num">03</p>
+        <h3 class="book__title" id="book-3-title">Winds of Fear</h3>
+        <p class="book__strap">Perfect neighbors. Perfect liars.</p>
+        <p class="book__hook">
+          Stay-at-home mom and Ph.D. candidate Abbie Rambally suspects something is terribly wrong
+          when the Paynes, her charming new neighbors, take an unnerving interest in her son. To keep
+          her family safe and uncover what her neighbors are hiding, she must look to her traumatic
+          past and long-buried secrets for answers before it’s too late.
+        </p>
+        <p class="book__cta">
+          <a class="link-arrow" role="link" tabindex="0">Learn More <span class="arw" aria-hidden="true">&rarr;</span></a>
+        </p>
+      </div>
+    </article>
+
+    <!-- 04 — content left, image right -->
+    <article class="book book--flip" id="book-4" aria-labelledby="book-4-title">
+      <figure class="book__figure">
+        <p class="book__num" aria-hidden="true">04</p>
+        <span class="cover">
+          <img src="https://static.wixstatic.com/media/461d77_5b19373a046b4d92809e4dcd2d23007f~mv2.png/v1/crop/x_154,y_0,w_692,h_1000/fill/w_600,h_867,al_c,q_90,enc_auto/reign-of-fear.png"
+               width="600" height="867" loading="lazy"
+               alt="Reign of Fear by Gledé Browne Kabongo — book cover">
+        </span>
+      </figure>
+
+      <div class="book__body">
+        <p class="book__num">04</p>
+        <h3 class="book__title" id="book-4-title">Reign of Fear</h3>
+        <p class="book__strap">The perfect wife. A vengeful ex. A marriage worth killing for.</p>
+        <p class="book__comp">Fatal Attraction meets The Last Mrs. Parrish</p>
+        <p class="book__hook">
+          When Kristina Hayward, her husband’s glamorous ex reappears, determined to settle old
+          scores and dismantle the life she’s built, Abbie crosses unthinkable lines to protect her
+          family and her marriage.
+        </p>
+        <p class="book__cta">
+          <a class="link-arrow" role="link" tabindex="0">Learn More <span class="arw" aria-hidden="true">&rarr;</span></a>
+        </p>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ============================ THEMES ============================ -->
+<section class="section themes" aria-labelledby="themes-label">
+  <div class="shell">
+    <h2 class="section-label section-label--light" id="themes-label">What Comes for Her</h2>
+    <ul class="themes__list">
+      <li>Deception</li>
+      <li>Obsession</li>
+      <li>Revenge</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================ CLOSING CTA ============================ -->
+<section class="section closing" aria-labelledby="closing-title">
+  <div class="shell">
+    <div class="closing__inner">
+    <p class="eyebrow eyebrow--light">The Fearless Series</p>
+
+    <h2 class="closing__title" id="closing-title">Gripping. Powerful. <em>Addictive.</em></h2>
+
+    <p class="closing__line">
+      This is the series readers can’t put down and can’t stop talking about. Start reading today.
+    </p>
+
+    <div class="closing__cta">
+      <a class="btn btn--gold btn--wide" href="#the-books">Explore the Series</a>
+      <a class="link-arrow link-arrow--light" href="books.html">
+        All Books <span class="arw" aria-hidden="true">&rarr;</span>
+      </a>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ MORE FROM GLEDÉ ============================ -->
+<section class="section more" aria-labelledby="more-label">
+  <div class="shell">
+    <div class="more__head">
+      <h2 class="section-label" id="more-label">More from Gledé</h2>
+      <a class="link-arrow" href="books.html">
+        The Full Collection <span class="arw" aria-hidden="true">&rarr;</span>
+      </a>
+    </div>
+
+    <div class="more__grid">
+
+      <article class="more__item">
+        <a class="cover" href="the-forbidden-heiress.html" aria-label="The Forbidden Heiress">
+          <img src="https://static.wixstatic.com/media/461d77_d41eb83df18644ff99e4d4d1d0c38622~mv2.png/v1/crop/x_363,y_135,w_750,h_1081/fill/w_420,h_605,al_c,q_90,enc_auto/the-forbidden-heiress.png"
+               width="420" height="605" loading="lazy"
+               alt="The Forbidden Heiress by Gledé Browne Kabongo — book cover">
+        </a>
+        <div class="more__kicker"><span class="meta meta--blue">Standalone</span></div>
+        <h3 class="h3 more__title">The Forbidden Heiress</h3>
+      </article>
+
+      <article class="more__item">
+        <a class="cover" href="our-wicked-lies.html" aria-label="Our Wicked Lies">
+          <img src="https://static.wixstatic.com/media/461d77_ac134f9b70444664adaa68409eb3b644~mv2.png/v1/crop/x_7,y_1,w_317,h_461/fill/w_416,h_605,al_c,q_90,enc_auto/our-wicked-lies.png"
+               width="416" height="605" loading="lazy"
+               alt="Our Wicked Lies by Gledé Browne Kabongo — book cover">
+        </a>
+        <div class="more__kicker"><span class="meta meta--blue">Standalone</span></div>
+        <h3 class="h3 more__title">Our Wicked Lies</h3>
+      </article>
+
+      <article class="more__item">
+        <a class="cover" href="fool-me-twice.html" aria-label="Fool Me Twice">
+          <img src="https://static.wixstatic.com/media/461d77_c74e1193748346afadb72819c7fffff9~mv2.png/v1/crop/x_363,y_135,w_750,h_1081/fill/w_420,h_605,al_c,q_90,enc_auto/fool-me-twice.png"
+               width="420" height="605" loading="lazy"
+               alt="Fool Me Twice by Gledé Browne Kabongo — book cover">
+        </a>
+        <div class="more__kicker"><span class="meta meta--blue">Standalone</span></div>
+        <h3 class="h3 more__title">Fool Me Twice</h3>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============================ FOOTER ============================ -->
+<footer class="site-footer">
+  <div class="shell">
+    <div class="site-footer__grid">
+      <div>
+        <a class="wordmark" href="index.html">Gledé Browne <span>Kabongo</span></a>
+        <p class="site-footer__blurb">
+          Award-winning psychological thrillers about power, privilege, secrets,
+          and the women who refuse to be underestimated.
+        </p>
+      </div>
+
+      <nav class="footer-col" aria-label="Quick links">
+        <p class="footer-col__title">Quick Links</p>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="books.html">Books</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="speaker.html">Speaker Profile</a></li>
+        </ul>
+      </nav>
+
+      <nav class="footer-col" aria-label="More">
+        <p class="footer-col__title">More</p>
+        <ul>
+          <li><a href="newsletter.html">Newsletter</a></li>
+          <li><a>Rights</a></li>
+          <li><a href="store.html">Store</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <nav class="footer-col" aria-label="Connect">
+        <p class="footer-col__title">Connect</p>
+        <ul>
+          <li><a>Instagram</a></li>
+          <li><a>Facebook</a></li>
+          <li><a href="books.html#audiobooks">Audiobooks</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="site-footer__bar">
+      <p>© 2026 Gledé Browne Kabongo. All Rights Reserved.</p>
+      <p><a>Privacy Statement</a></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /* Mobile menu — the only script on the page, purely for visual demonstration. */
+  (function () {
+    var btn = document.querySelector('.nav-toggle');
+    var panel = document.getElementById('mobile-nav');
+    if (!btn || !panel) return;
+
+    btn.addEventListener('click', function () {
+      var open = panel.dataset.open === 'true';
+      panel.dataset.open = String(!open);
+      btn.setAttribute('aria-expanded', String(!open));
+    });
+  })();
+</script>
+
+</body>
+</html>

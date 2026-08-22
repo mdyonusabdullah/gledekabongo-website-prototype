@@ -1,0 +1,1404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fool Me Twice — Gledé Browne Kabongo</title>
+<meta name="description" content="Fool Me Twice by Gledé Browne Kabongo. Revenge is a dish best served ice cold. Dr. Shelby Cooper reinvented herself from the ground up — and a fresh start built on deception has a shelf life.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ==========================================================================
+   GLEDÉ BROWNE KABONGO — FOOL ME TWICE (BOOK DETAIL PROTOTYPE)
+   Same design system as the Books page, The Forbidden Heiress and
+   Our Wicked Lies. Its own personality: the cover is torn in two, so the
+   page is built on a seam — one cold blue rule that runs through it, a
+   first-person voice set apart, and reviews read as a ledger.
+   Static front-end only.
+   01  Tokens
+   02  Reset & base
+   03  Typography primitives
+   04  Buttons & links
+   05  Header / navigation
+   06  Cover system
+   07  Book hero
+   08  Retailer strip
+   09  The story
+   10  Themes
+   11  Trailer
+   12  Reader response
+   13  Closing CTA
+   14  More from Gledé
+   15  Footer
+   16  Responsive
+   ========================================================================== */
+
+/* --- 01 Tokens ----------------------------------------------------------- */
+:root{
+  /* Brand */
+  --navy:#05347E;
+  --blue:#3E7FE6;
+  --gold:#FFDB4F;
+
+  /* Extended neutrals derived from the brand */
+  --navy-deep:#042457;
+  --navy-ink:#031A3F;
+  --blue-wash:#EDF2FB;
+  --blue-tint:#9DC0F5;      /* the blue, lightened enough to read on navy */
+
+  --paper:#FCFBF8;
+  --paper-warm:#F4F1E9;
+  --ink:#15181D;
+  --ink-soft:#4E5663;
+  --ink-mute:#7B8493;
+
+  --rule:rgba(5,52,126,.14);
+  --rule-strong:rgba(5,52,126,.26);
+
+  /* Rhythm */
+  --shell:1280px;
+  --gutter:clamp(20px,5vw,64px);
+  --section:clamp(72px,8.5vw,128px);
+
+  /* Type */
+  --serif:"Cormorant Garamond",Garamond,"Times New Roman",serif;
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+}
+
+/* --- 02 Reset & base ----------------------------------------------------- */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+a:not([href]){cursor:pointer}
+h1,h2,h3,h4,p,figure,blockquote,ul,ol{margin:0;padding:0}
+ul,ol{list-style:none}
+button{font:inherit;color:inherit}
+::selection{background:var(--navy);color:var(--gold)}
+:focus-visible{outline:2px solid var(--blue);outline-offset:4px}
+
+/* Focus stays legible on the dark fields too */
+.site-header :focus-visible,
+.book-hero :focus-visible,
+.stockists :focus-visible,
+.trailer :focus-visible,
+.closing :focus-visible,
+.site-footer :focus-visible{outline-color:var(--gold)}
+
+.shell{
+  width:100%;
+  max-width:var(--shell);
+  margin-inline:auto;
+  padding-inline:var(--gutter);
+}
+.section{padding-block:var(--section)}
+
+/* --- 03 Typography primitives -------------------------------------------- */
+.eyebrow{
+  display:inline-flex;
+  align-items:flex-start;
+  gap:14px;
+  font-size:.6875rem;
+  font-weight:600;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  line-height:1.55;
+  color:var(--blue);
+}
+.eyebrow::before{
+  content:"";
+  width:26px;
+  height:1px;
+  margin-top:.72em;
+  background:var(--gold);
+  flex:none;
+}
+.eyebrow--light{color:rgba(255,255,255,.78)}
+
+.display{
+  font-family:var(--serif);
+  font-weight:300;
+  line-height:1.04;
+  letter-spacing:-.012em;
+  font-size:clamp(2.6rem,5.2vw,4.5rem);
+}
+.h2{
+  font-family:var(--serif);
+  font-weight:300;
+  line-height:1.08;
+  letter-spacing:-.008em;
+  font-size:clamp(2rem,3.5vw,3.15rem);
+}
+.h3{
+  font-family:var(--serif);
+  font-weight:400;
+  line-height:1.12;
+  letter-spacing:-.005em;
+  font-size:clamp(1.5rem,2.1vw,2rem);
+}
+
+.lede{font-size:1.0625rem;line-height:1.7;color:var(--ink-soft);max-width:56ch}
+.body{font-size:.9375rem;line-height:1.8;color:var(--ink-soft);max-width:62ch}
+.body--light{color:rgba(255,255,255,.72)}
+.meta{
+  font-size:.6875rem;
+  font-weight:600;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--ink-mute);
+}
+.meta--blue{color:var(--blue)}
+
+/* Small editorial section label: gold tick, caps, hairline out to the margin */
+.section-label{
+  display:flex;
+  align-items:center;
+  gap:18px;
+  font-family:var(--sans);
+  font-size:.6875rem;
+  font-weight:600;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  color:var(--navy);
+}
+.section-label::before{content:"";width:26px;height:1px;background:var(--gold);flex:none}
+.section-label::after{content:"";flex:1;height:1px;background:var(--rule)}
+.section-label--light{color:#fff}
+.section-label--light::after{background:rgba(255,255,255,.2)}
+
+/* --- 04 Buttons & links -------------------------------------------------- */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  min-height:52px;
+  padding:0 30px;
+  border:1px solid transparent;
+  font-size:.6875rem;
+  font-weight:600;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  line-height:1;
+  cursor:pointer;
+  transition:background-color .28s ease,color .28s ease,border-color .28s ease;
+}
+.btn--gold{background:var(--gold);color:var(--navy-ink);border-color:var(--gold)}
+.btn--gold:hover{background:#F6CE2E;border-color:#F6CE2E}
+.btn--wide{min-height:58px;padding:0 40px;letter-spacing:.2em}
+
+.link-arrow{
+  display:inline-flex;
+  align-items:center;
+  gap:12px;
+  font-size:.6875rem;
+  font-weight:600;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--navy);
+  padding-bottom:7px;
+  border-bottom:1px solid var(--rule-strong);
+  transition:color .28s ease,border-color .28s ease;
+}
+.link-arrow .arw{transition:transform .28s ease}
+.link-arrow:hover{color:var(--blue);border-color:var(--blue)}
+.link-arrow:hover .arw{transform:translateX(6px)}
+.link-arrow--light{color:#fff;border-color:rgba(255,255,255,.3)}
+.link-arrow--light:hover{color:var(--gold);border-color:var(--gold)}
+
+/* --- 05 Header / navigation ---------------------------------------------- */
+.site-header{background:var(--navy);color:#fff;position:relative;z-index:60}
+.site-header__inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:40px;
+  min-height:84px;
+}
+.wordmark{
+  font-family:var(--serif);
+  font-weight:500;
+  font-size:1.1875rem;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  line-height:1;
+  white-space:nowrap;
+  color:#fff;
+}
+.wordmark span{color:var(--gold)}
+
+.nav{display:flex;align-items:center;gap:clamp(16px,2vw,30px)}
+.nav__item{position:relative}
+.nav__link{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  font-size:.6875rem;
+  font-weight:500;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.82);
+  padding:31px 0;
+  border-bottom:2px solid transparent;
+  transition:color .25s ease,border-color .25s ease;
+}
+.nav__link:hover,.nav__item:hover > .nav__link{color:#fff;border-bottom-color:var(--gold)}
+.nav__link[aria-current]{color:#fff;border-bottom-color:var(--gold)}
+.nav__caret{width:7px;height:7px;fill:none;stroke:currentColor;stroke-width:1.6;opacity:.75}
+
+.submenu{
+  position:absolute;
+  top:100%;
+  left:-26px;
+  min-width:246px;
+  background:var(--navy-deep);
+  border-top:2px solid var(--gold);
+  padding:14px 0 18px;
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(6px);
+  transition:opacity .22s ease,transform .22s ease,visibility .22s;
+  box-shadow:0 18px 40px rgba(3,20,50,.28);
+}
+.nav__item:hover .submenu,
+.nav__item:focus-within .submenu{opacity:1;visibility:visible;transform:translateY(0)}
+.submenu__label{
+  display:block;
+  padding:6px 26px 10px;
+  font-size:.625rem;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.4);
+}
+.submenu a{
+  display:block;
+  padding:9px 26px;
+  font-size:.75rem;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.78);
+  transition:color .2s ease,background-color .2s ease;
+}
+.submenu a:hover{color:var(--gold);background:rgba(255,255,255,.05)}
+.submenu a[aria-current]{color:var(--gold)}
+
+.nav-toggle{
+  display:none;
+  align-items:center;
+  gap:11px;
+  background:none;
+  border:0;
+  padding:10px 0;
+  cursor:pointer;
+  color:#fff;
+  font-size:.625rem;
+  font-weight:600;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+}
+.nav-toggle__bars{display:block;width:22px}
+.nav-toggle__bars i{display:block;height:1px;background:currentColor;margin:5px 0}
+.nav-toggle__bars i:first-child{margin-top:0}
+.nav-toggle__bars i:last-child{width:14px;margin-bottom:0}
+.mobile-nav{display:none}
+
+/* --- 06 Cover system ------------------------------------------------------ */
+.cover{
+  position:relative;
+  display:block;
+  aspect-ratio:71/100;
+  width:100%;
+}
+.cover img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center bottom;
+  transition:transform .4s cubic-bezier(.22,.61,.36,1);
+}
+a.cover:hover img,
+.more__item:hover .cover img{transform:translateY(-6px)}
+
+/* --- 07 Book hero ----------------------------------------------------------
+   The jacket is torn down the middle, so the hero is built on that seam: a
+   single cold hairline runs the full height of the section, the jacket
+   straddles it, and the copy hangs off it.
+   -------------------------------------------------------------------------- */
+.book-hero{
+  position:relative;
+  background:var(--navy-ink);
+  color:#fff;
+  overflow:hidden;
+  isolation:isolate;
+}
+.book-hero__wash{
+  position:absolute;
+  inset:0;
+  background:radial-gradient(66% 58% at 26% 46%,rgba(5,52,126,.62) 0%,rgba(5,52,126,0) 74%);
+  z-index:-1;
+}
+.book-hero__inner{
+  position:relative;
+  display:grid;
+  grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);
+  gap:clamp(44px,6.5vw,100px);
+  align-items:center;
+  padding-block:clamp(64px,8.5vw,124px);
+}
+/* The seam — one rule through the whole hero, behind everything */
+.book-hero__seam{
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:calc(var(--gutter) + 30%);
+  width:1px;
+  background:linear-gradient(180deg,rgba(157,192,245,0) 0%,rgba(157,192,245,.5) 22%,rgba(157,192,245,.5) 78%,rgba(157,192,245,0) 100%);
+  z-index:0;
+}
+.book-hero__stage{
+  position:relative;
+  z-index:1;
+  justify-self:center;
+  width:100%;
+  max-width:400px;
+}
+.book-hero__stage img{
+  width:100%;
+  height:auto;
+  filter:drop-shadow(0 26px 46px rgba(0,0,0,.55));
+}
+.book-hero__copy{position:relative;z-index:1;max-width:38em}
+
+/* Eyebrow carries the standalone number the catalogue already gives this book */
+.kicker{display:flex;align-items:baseline;gap:16px}
+.kicker__num{
+  font-family:var(--serif);
+  font-weight:300;
+  font-size:1.5rem;
+  line-height:1;
+  color:var(--blue-tint);
+}
+.kicker__label{
+  font-size:.6875rem;
+  font-weight:600;
+  letter-spacing:.26em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.7);
+}
+
+.book-title{
+  margin-top:22px;
+  font-family:var(--serif);
+  font-weight:300;
+  text-transform:uppercase;
+  letter-spacing:.015em;
+  line-height:.94;
+  font-size:clamp(2.9rem,6vw,5.2rem);
+  color:#fff;
+}
+.book-title span{display:block;white-space:nowrap}
+.book-title span + span{padding-left:clamp(0px,4vw,72px)}
+
+.byline{
+  display:inline-flex;
+  align-items:center;
+  gap:16px;
+  margin-top:26px;
+  font-size:.6875rem;
+  font-weight:600;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  color:var(--gold);
+}
+.byline::before{content:"";width:36px;height:1px;background:rgba(255,219,79,.55)}
+
+.tagline{
+  margin-top:32px;
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:clamp(1.2rem,2.05vw,1.75rem);
+  line-height:1.28;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:#fff;
+  max-width:17em;
+  text-wrap:balance;
+}
+
+/* Shelby speaks for herself — set apart behind a cold rule */
+.testimony{
+  margin-top:30px;
+  padding-left:clamp(20px,2.2vw,30px);
+  border-left:1px solid rgba(157,192,245,.6);
+  font-family:var(--serif);
+  font-style:italic;
+  font-weight:300;
+  font-size:clamp(1.05rem,1.55vw,1.3rem);
+  line-height:1.55;
+  color:rgba(255,255,255,.88);
+  max-width:46ch;
+}
+
+.book-hero__cta{display:flex;flex-wrap:wrap;gap:14px 26px;align-items:center;margin-top:36px}
+
+/* --- 08 Retailer strip -----------------------------------------------------
+   Six stockists, so they are ruled into equal cells like a roster rather
+   than run as a line of names.
+   -------------------------------------------------------------------------- */
+.stockists{background:var(--navy-deep);color:#fff}
+.stockists__label{
+  padding-block:18px 14px;
+  font-size:.625rem;
+  font-weight:600;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.42);
+}
+.stockists__grid{
+  display:grid;
+  grid-template-columns:repeat(6,minmax(0,1fr));
+  border-top:1px solid rgba(255,255,255,.17);
+  border-bottom:1px solid rgba(255,255,255,.17);
+  margin-bottom:-1px;
+}
+.stockists__grid li + li{border-left:1px solid rgba(255,255,255,.17)}
+.stockists__grid a{
+  display:block;
+  padding:17px clamp(8px,1.2vw,18px);
+  font-size:.625rem;
+  font-weight:600;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.78);
+  transition:color .24s ease;
+}
+.stockists__grid li:first-child a{padding-left:0}
+.stockists__grid a:hover{color:var(--gold)}
+
+/* --- 09 The story ---------------------------------------------------------- */
+.story{background:var(--paper)}
+.story__inner{
+  display:grid;
+  grid-template-columns:minmax(0,.78fr) minmax(0,1.22fr);
+  gap:clamp(40px,6vw,100px);
+  margin-top:clamp(44px,5vw,74px);
+}
+/* Three sentences lifted from the synopsis, stacked like a case file */
+.story__stack{
+  font-family:var(--serif);
+  font-weight:300;
+  font-size:clamp(1.9rem,3.5vw,3rem);
+  line-height:1.1;
+  letter-spacing:-.014em;
+  color:var(--navy);
+}
+.story__stack span{display:block}
+.story__stack span + span{margin-top:.1em}
+.story__stack span:last-child{color:var(--blue)}
+.story__rule{
+  margin-top:clamp(28px,3.4vw,42px);
+  width:88px;
+  height:1px;
+  background:var(--gold);
+}
+
+.story__body p{
+  font-size:1.125rem;
+  line-height:1.85;
+  color:var(--ink-soft);
+  max-width:58ch;
+}
+.story__body p:first-child::first-letter{
+  float:left;
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:4.1em;
+  line-height:.8;
+  padding:.05em .12em 0 0;
+  color:var(--navy);
+}
+/* Emphasis is typographic — a shift of face, never a coloured box */
+.mark{
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:1.13em;
+  letter-spacing:.004em;
+  color:var(--navy);
+}
+
+/* --- 10 Themes --------------------------------------------------------------
+   Four words the source actually earns, numbered and ruled into columns.
+   -------------------------------------------------------------------------- */
+.themes{background:var(--paper-warm);border-top:1px solid var(--rule)}
+.themes__grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  margin-top:clamp(36px,4vw,58px);
+  border-top:1px solid var(--rule-strong);
+}
+.themes__grid li{
+  padding:clamp(24px,3vw,36px) clamp(18px,2.4vw,34px) 0;
+}
+.themes__grid li:first-child{padding-left:0}
+.themes__grid li:last-child{padding-right:0}
+.themes__grid li + li{border-left:1px solid var(--rule)}
+.themes__n{
+  font-family:var(--serif);
+  font-weight:300;
+  font-size:clamp(2.2rem,3.4vw,3rem);
+  line-height:1;
+  color:var(--blue);
+}
+.themes__w{
+  display:block;
+  margin-top:16px;
+  font-size:.75rem;
+  font-weight:600;
+  letter-spacing:.26em;
+  text-transform:uppercase;
+  color:var(--navy);
+}
+
+/* --- 11 Trailer -------------------------------------------------------------
+   The real trailer frame from the client's own asset, run wide like a title
+   card. The play control is decorative — nothing plays in a prototype.
+   -------------------------------------------------------------------------- */
+.trailer{background:var(--navy-ink);color:#fff}
+.trailer__head{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:24px;
+  flex-wrap:wrap;
+  margin-bottom:clamp(30px,3.6vw,48px);
+}
+.trailer__title{color:#fff;margin-top:22px}
+.trailer__meta{
+  font-size:.625rem;
+  font-weight:600;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.42);
+  padding-bottom:10px;
+}
+
+.trailer__plate{
+  position:relative;
+  display:block;
+  aspect-ratio:16/9;
+  width:100%;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.18);
+}
+.trailer__plate img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:50% 6%;
+  transition:transform .7s cubic-bezier(.22,.61,.36,1);
+}
+.trailer__plate:hover img{transform:scale(1.025)}
+/* The frame is a portrait, so the scrim sits on the empty left third and the
+   control sits with it — nothing is allowed to land on her face. */
+.trailer__veil{
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(90deg,rgba(3,26,63,.78) 0%,rgba(3,26,63,.34) 40%,rgba(3,26,63,.06) 72%),
+    linear-gradient(180deg,rgba(3,26,63,.30) 0%,rgba(3,26,63,0) 34%,rgba(3,26,63,.55) 100%);
+}
+.trailer__control{
+  position:absolute;
+  top:50%;
+  left:clamp(20px,3.4vw,52px);
+  transform:translateY(-50%);
+  display:flex;
+  align-items:center;
+  gap:clamp(16px,1.8vw,26px);
+}
+.trailer__play{
+  width:clamp(66px,6vw,90px);
+  height:clamp(66px,6vw,90px);
+  flex:none;
+  border:1px solid rgba(255,255,255,.85);
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:rgba(3,26,63,.3);
+  transition:background-color .3s ease,border-color .3s ease;
+}
+.trailer__play svg{width:18px;height:22px;fill:#fff;margin-left:4px;transition:fill .3s ease}
+.trailer__plate:hover .trailer__play{background:rgba(3,26,63,.55);border-color:var(--gold)}
+.trailer__plate:hover .trailer__play svg{fill:var(--gold)}
+.trailer__cap{
+  font-size:.625rem;
+  font-weight:600;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  color:#fff;
+}
+
+/* --- 12 Reader response -----------------------------------------------------
+   A ledger, not a wall of cards: who said it on the left, what they said on
+   the right, one hairline between each entry.
+   -------------------------------------------------------------------------- */
+.reviews{background:var(--paper)}
+.review-lead{margin-top:clamp(42px,5vw,72px)}
+.review-lead blockquote p{
+  font-family:var(--serif);
+  font-weight:300;
+  font-size:clamp(1.55rem,2.9vw,2.5rem);
+  line-height:1.25;
+  letter-spacing:-.014em;
+  color:var(--navy);
+  max-width:900px;
+}
+.review-lead figcaption{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-top:24px;
+  font-size:.6875rem;
+  font-weight:600;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--ink-mute);
+}
+.review-lead figcaption::before{content:"";width:26px;height:1px;background:var(--gold);flex:none}
+
+.ledger{margin-top:clamp(44px,5vw,76px)}
+.ledger__row{
+  display:grid;
+  grid-template-columns:minmax(0,.34fr) minmax(0,.66fr);
+  gap:clamp(24px,4vw,64px);
+  padding-block:clamp(28px,3.2vw,40px);
+  border-top:1px solid var(--rule);
+}
+.ledger__row:last-child{border-bottom:1px solid var(--rule)}
+.ledger__who{
+  font-size:.6875rem;
+  font-weight:600;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--navy);
+  line-height:1.6;
+}
+.ledger__who small{
+  display:block;
+  margin-top:8px;
+  font-size:.625rem;
+  font-weight:400;
+  letter-spacing:.1em;
+  text-transform:none;
+  color:var(--ink-mute);
+  line-height:1.7;
+}
+.ledger__row blockquote p{
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:clamp(1.15rem,1.6vw,1.42rem);
+  line-height:1.52;
+  color:var(--navy);
+  max-width:52ch;
+}
+
+/* --- 13 Closing CTA ----------------------------------------------------------
+   The page signs off on the book's own line, centred — the one moment the
+   layout stops being asymmetric.
+   -------------------------------------------------------------------------- */
+.closing{background:var(--navy-ink);color:#fff;text-align:center}
+.closing__inner{display:flex;flex-direction:column;align-items:center}
+.closing__title{
+  color:#fff;
+  max-width:16ch;
+  font-family:var(--serif);
+  font-weight:300;
+  font-size:clamp(2.1rem,4.4vw,3.6rem);
+  line-height:1.1;
+  letter-spacing:-.008em;
+}
+.closing__title em{font-style:italic;color:var(--gold)}
+.closing__mark{width:1px;height:clamp(34px,4vw,54px);background:rgba(157,192,245,.55);margin-block:clamp(28px,3.4vw,44px)}
+.closing__book{
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:clamp(1.5rem,2.2vw,2rem);
+  line-height:1.1;
+  color:#fff;
+}
+.closing__author{
+  margin-top:14px;
+  font-size:.6875rem;
+  font-weight:600;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  color:var(--gold);
+}
+.closing__buy{margin-top:clamp(28px,3.4vw,40px)}
+.closing__where{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  margin-top:clamp(30px,3.6vw,46px);
+  border-top:1px solid rgba(255,255,255,.18);
+}
+.closing__where li{border-bottom:1px solid rgba(255,255,255,.18)}
+.closing__where li + li{border-left:1px solid rgba(255,255,255,.18)}
+.closing__where a{
+  display:block;
+  padding:15px clamp(14px,1.8vw,26px);
+  font-size:.625rem;
+  font-weight:600;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.78);
+  transition:color .24s ease;
+}
+.closing__where a:hover{color:var(--gold)}
+
+/* --- 14 More from Gledé ------------------------------------------------------ */
+.more{background:var(--paper-warm)}
+.more__head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:26px;
+  flex-wrap:wrap;
+}
+.more__head .section-label{flex:1;min-width:220px}
+.more__grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:clamp(26px,4vw,58px);
+  margin-top:clamp(34px,4vw,56px);
+}
+.more__item .cover{max-width:168px}
+.more__kicker{margin-top:22px}
+.more__title{margin-top:8px;color:var(--ink)}
+
+/* --- 15 Footer ---------------------------------------------------------------- */
+.site-footer{background:var(--navy-deep);color:#fff}
+.site-footer__grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1.05fr);
+  gap:clamp(34px,4.5vw,64px);
+  padding-block:clamp(58px,7vw,88px);
+}
+.site-footer .wordmark{font-size:1.0625rem}
+.site-footer__blurb{
+  margin-top:22px;
+  max-width:34ch;
+  font-size:.875rem;
+  line-height:1.8;
+  color:rgba(255,255,255,.6);
+}
+.footer-col__title{
+  font-size:.625rem;
+  font-weight:600;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--gold);
+  padding-bottom:16px;
+  margin-bottom:18px;
+  border-bottom:1px solid rgba(255,255,255,.16);
+}
+.footer-col li + li{margin-top:11px}
+.footer-col a{
+  font-size:.8125rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.72);
+  transition:color .22s ease;
+}
+.footer-col a:hover{color:var(--gold)}
+.site-footer__bar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  flex-wrap:wrap;
+  padding-block:26px;
+  border-top:1px solid rgba(255,255,255,.14);
+  font-size:.75rem;
+  letter-spacing:.06em;
+  color:rgba(255,255,255,.5);
+}
+.site-footer__bar a{transition:color .22s ease}
+.site-footer__bar a:hover{color:var(--gold)}
+
+/* --- 16 Responsive ------------------------------------------------------------ */
+@media (max-width:1180px){
+  .nav{gap:16px}
+  .nav__link{letter-spacing:.1em}
+  .book-hero__inner{grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);gap:clamp(36px,4.5vw,64px)}
+  .book-hero__seam{left:calc(var(--gutter) + 32%)}
+}
+
+@media (max-width:1024px){
+  .site-header__inner{min-height:72px}
+  .nav{display:none}
+  .nav-toggle{display:inline-flex}
+
+  .mobile-nav{
+    display:block;
+    background:var(--navy-deep);
+    border-top:1px solid rgba(255,255,255,.14);
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .38s cubic-bezier(.4,0,.2,1);
+  }
+  .mobile-nav[data-open="true"]{max-height:660px}
+  .mobile-nav ul{padding-block:12px 26px}
+  .mobile-nav li{border-bottom:1px solid rgba(255,255,255,.09)}
+  .mobile-nav li:last-child{border-bottom:0}
+  .mobile-nav a{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:17px 0;
+    font-size:.75rem;
+    font-weight:500;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,.82);
+  }
+  .mobile-nav a[aria-current]{color:var(--gold)}
+  .mobile-nav a small{
+    font-size:.625rem;
+    letter-spacing:.14em;
+    color:rgba(255,255,255,.38);
+    text-transform:none;
+  }
+
+  .site-footer .wordmark{font-size:.9375rem;letter-spacing:.15em}
+
+  /* Hero re-sequences: jacket, then the word stack. The seam goes with it. */
+  .book-hero__inner{
+    grid-template-columns:minmax(0,1fr);
+    gap:clamp(40px,6vw,56px);
+    padding-block:clamp(48px,7vw,80px);
+  }
+  .book-hero__seam{display:none}
+  .book-hero__stage{max-width:320px}
+
+  .story__inner{grid-template-columns:minmax(0,1fr);gap:clamp(36px,5vw,52px)}
+  .story__body p{max-width:64ch}
+
+  .ledger__row{grid-template-columns:minmax(0,1fr);gap:16px}
+  .ledger__row blockquote p{max-width:62ch}
+}
+
+@media (max-width:900px){
+  /* Six stockists will not sit on one line much below this */
+  .stockists__grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .stockists__grid li{border-bottom:1px solid rgba(255,255,255,.17)}
+  .stockists__grid li + li{border-left:1px solid rgba(255,255,255,.17)}
+  .stockists__grid li:nth-child(3n+1){border-left:0;padding-left:0}
+  .stockists__grid a{padding-left:clamp(12px,2vw,20px)}
+  .stockists__grid li:nth-child(3n+1) a{padding-left:0}
+  .stockists__grid li:nth-last-child(-n+3){border-bottom:0}
+}
+
+@media (max-width:860px){
+  .themes__grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .themes__grid li{padding:clamp(22px,3vw,30px) clamp(18px,3vw,28px)}
+  .themes__grid li:nth-child(odd){padding-left:0;border-left:0}
+  .themes__grid li:nth-child(n+3){border-top:1px solid var(--rule)}
+  .themes__grid li:nth-child(even){padding-right:0}
+
+  .site-footer__grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:34px}
+}
+
+@media (max-width:760px){
+  /* A square frame in a 16:9 slot is too shallow on a phone */
+  .trailer__plate{aspect-ratio:4/3}
+  .trailer__plate img{object-position:50% 4%}
+  .trailer__control{
+    top:auto;
+    bottom:clamp(16px,3vw,24px);
+    left:clamp(16px,4vw,24px);
+    transform:none;
+    gap:16px;
+  }
+
+  /* Related titles read as rows so the covers stay recognisable */
+  .more__grid{grid-template-columns:minmax(0,1fr);gap:0}
+  .more__item{
+    display:grid;
+    grid-template-columns:104px minmax(0,1fr);
+    grid-template-rows:auto auto;
+    column-gap:24px;
+    align-content:center;
+    padding-block:26px;
+    border-bottom:1px solid var(--rule);
+  }
+  .more__item:first-child{border-top:1px solid var(--rule)}
+  .more__item .cover{grid-column:1;grid-row:1 / span 2;max-width:none;align-self:center}
+  .more__kicker{grid-column:2;grid-row:1;margin-top:0;align-self:end}
+  .more__title{grid-column:2;grid-row:2;margin-top:8px;align-self:start}
+}
+
+/* The masthead has to share a narrow line with the menu control */
+@media (max-width:620px){
+  .site-header__inner{gap:18px}
+  .wordmark{font-size:.9375rem;letter-spacing:.13em}
+}
+
+@media (max-width:560px){
+  /* The title breaks to a poster stack on a phone */
+  .book-title{
+    margin-top:20px;
+    font-size:clamp(2.4rem,11vw,3.2rem);
+    line-height:.98;
+  }
+  .book-title span{white-space:normal}
+  .book-title span + span{padding-left:0}
+  .book-hero__stage{max-width:248px}
+  .tagline{margin-top:26px;font-size:1.1rem;letter-spacing:.08em}
+  .testimony{margin-top:24px;font-size:1.02rem}
+  .book-hero__cta{margin-top:30px}
+  .book-hero__cta .btn{width:100%}
+
+  .stockists__grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .stockists__grid li:nth-child(3n+1){border-left:1px solid rgba(255,255,255,.17);padding-left:0}
+  .stockists__grid li:nth-child(odd){border-left:0}
+  .stockists__grid a,
+  .stockists__grid li:nth-child(3n+1) a{padding-left:22px}
+  .stockists__grid li:nth-child(odd) a{padding-left:0}
+  .stockists__grid li:nth-last-child(-n+3){border-bottom:1px solid rgba(255,255,255,.17)}
+  .stockists__grid li:nth-last-child(-n+2){border-bottom:0}
+
+  .story__body p{font-size:1.0625rem}
+  .story__body p:first-child::first-letter{font-size:3.6em}
+
+  .review-lead blockquote p{font-size:1.45rem;line-height:1.3}
+  .ledger__row blockquote p{font-size:1.15rem}
+
+  .closing__buy .btn{width:100%}
+  .closing__where{width:100%}
+  .closing__where li{flex:1 1 50%}
+  .closing__where li:nth-child(odd){border-left:0}
+  .closing__where a{padding-inline:0;text-align:center}
+
+  .site-footer__grid{grid-template-columns:minmax(0,1fr);gap:32px}
+  .site-footer__bar{flex-direction:column;align-items:flex-start;gap:10px}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ============================ HEADER ============================ -->
+<header class="site-header">
+  <div class="shell site-header__inner">
+    <a class="wordmark" href="index.html" aria-label="Gledé Browne Kabongo — home">Gledé Browne <span>Kabongo</span></a>
+
+    <nav class="nav" aria-label="Primary">
+      <div class="nav__item"><a class="nav__link" href="index.html">Home</a></div>
+
+      <div class="nav__item">
+        <a class="nav__link" href="books.html" aria-current="true">
+          Books
+          <svg class="nav__caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>
+        </a>
+        <div class="submenu">
+          <span class="submenu__label">Browse the collection</span>
+          <a href="books.html#standalones" aria-current="page">Standalones</a>
+          <a href="fearless-series.html">Fearless Series</a>
+          <a href="miami-elite.html">Miami Elite</a>
+          <a href="books.html#malicious">Malicious Games</a>
+          <a href="books.html#novellas">Novellas</a>
+          <a href="books.html#audiobooks">Audiobooks</a>
+        </div>
+      </div>
+
+      <div class="nav__item"><a class="nav__link" href="about.html">About</a></div>
+      <div class="nav__item"><a class="nav__link" href="speaker.html">Speaker Profile</a></div>
+      <div class="nav__item"><a class="nav__link" href="newsletter.html">Newsletter</a></div>
+      <div class="nav__item"><a class="nav__link">Rights</a></div>
+      <div class="nav__item"><a class="nav__link" href="store.html">Store</a></div>
+      <div class="nav__item"><a class="nav__link" href="contact.html">Contact</a></div>
+    </nav>
+
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav">
+      <span>Menu</span>
+      <span class="nav-toggle__bars" aria-hidden="true"><i></i><i></i><i></i></span>
+    </button>
+  </div>
+
+  <nav class="mobile-nav" id="mobile-nav" data-open="false" aria-label="Mobile">
+    <ul class="shell">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="books.html" aria-current="true">Books <small>Standalones · Series · Novellas · Audiobooks</small></a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="speaker.html">Speaker Profile</a></li>
+      <li><a href="newsletter.html">Newsletter</a></li>
+      <li><a>Rights</a></li>
+      <li><a href="store.html">Store</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+
+<!-- ============================ BOOK HERO ============================ -->
+<section class="book-hero" aria-labelledby="book-title">
+  <div class="book-hero__wash" aria-hidden="true"></div>
+
+  <div class="shell book-hero__inner">
+    <span class="book-hero__seam" aria-hidden="true"></span>
+
+    <figure class="book-hero__stage">
+      <img src="https://static.wixstatic.com/media/461d77_c74e1193748346afadb72819c7fffff9~mv2.png/v1/crop/x_341,y_107,w_813,h_1116/fill/w_874,h_1200,al_c,q_90,enc_auto/fool-me-twice.png"
+           width="874" height="1200"
+           alt="Fool Me Twice by Gledé Browne Kabongo — book cover torn down the middle, a woman's face half hidden behind a veil">
+    </figure>
+
+    <div class="book-hero__copy">
+      <p class="kicker">
+        <span class="kicker__num" aria-hidden="true">03</span>
+        <span class="kicker__label">Standalone Thriller</span>
+      </p>
+
+      <h1 class="book-title" id="book-title">
+        <span>Fool Me</span>
+        <span>Twice</span>
+      </h1>
+
+      <p class="byline">Gledé Browne Kabongo</p>
+
+      <p class="tagline">Revenge is a dish best served ice cold</p>
+
+      <p class="testimony">
+        My family doesn’t know who I really am, nor the truth about my past. But someone out there
+        does—someone who hates me enough to frame me for murder. How do I prove I’m innocent,
+        especially since I’ve been keeping secrets that make me look guilty? But most importantly,
+        who is setting me up and why?
+      </p>
+
+      <div class="book-hero__cta">
+        <a class="btn btn--gold btn--wide" role="link" tabindex="0">Buy from the Author</a>
+        <a class="link-arrow link-arrow--light" href="#story">
+          The Story <span class="arw" aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================ STOCKISTS ============================ -->
+<aside class="stockists" aria-label="Also available from">
+  <div class="shell">
+    <p class="stockists__label">Also available from</p>
+    <ul class="stockists__grid">
+      <li><a role="link" tabindex="0">Amazon</a></li>
+      <li><a role="link" tabindex="0">Apple Books</a></li>
+      <li><a role="link" tabindex="0">Barnes &amp; Noble</a></li>
+      <li><a role="link" tabindex="0">Kobo</a></li>
+      <li><a role="link" tabindex="0">Google Play</a></li>
+      <li><a role="link" tabindex="0">Smashwords</a></li>
+    </ul>
+  </div>
+</aside>
+
+<!-- ============================ THE STORY ============================ -->
+<section class="section story" id="story" aria-labelledby="story-label">
+  <div class="shell">
+    <h2 class="section-label" id="story-label">The Story</h2>
+
+    <div class="story__inner">
+
+      <div class="story__aside">
+        <p class="story__stack">
+          <span>New name.</span>
+          <span>New life.</span>
+          <span>Perfect family.</span>
+        </p>
+        <div class="story__rule" aria-hidden="true"></div>
+      </div>
+
+      <div class="story__body">
+        <p>
+          She reinvented herself from the ground up. New name. New life. Perfect family. For
+          twenty-two years, Dr. Shelby Cooper has been safe—or so she believed. But
+          <em class="mark">a fresh start built on deception has a shelf life,</em> and Shelby’s is
+          about to expire. Her perfect life is about to come crashing down when she’s arrested for
+          murder. But her nightmare is just beginning. An ingenious killer is out for revenge, and
+          won’t stop until Shelby is irrevocably ruined.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================ THEMES ============================ -->
+<section class="section themes" aria-labelledby="themes-label">
+  <div class="shell">
+    <h2 class="section-label" id="themes-label">A Story Of</h2>
+    <ul class="themes__grid">
+      <li><span class="themes__n">01</span><span class="themes__w">Reinvention</span></li>
+      <li><span class="themes__n">02</span><span class="themes__w">Deception</span></li>
+      <li><span class="themes__n">03</span><span class="themes__w">Secrets</span></li>
+      <li><span class="themes__n">04</span><span class="themes__w">Revenge</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================ TRAILER ============================ -->
+<section class="section trailer" aria-labelledby="trailer-title">
+  <div class="shell">
+
+    <div class="trailer__head">
+      <div>
+        <p class="eyebrow eyebrow--light">The Trailer</p>
+        <h2 class="h2 trailer__title" id="trailer-title">Watch the Trailer</h2>
+      </div>
+      <p class="trailer__meta">Fool Me Twice · Book Trailer</p>
+    </div>
+
+    <a class="trailer__plate" role="button" tabindex="0" aria-label="Play the Fool Me Twice book trailer">
+      <img src="https://static.wixstatic.com/media/461d77_7ab98ba415344ba383352c38e5be6f81f000.jpg/v1/fill/w_1200,h_1200,al_c,q_90,enc_auto/fool-me-twice-trailer.jpg"
+           width="1200" height="1200" loading="lazy"
+           alt="Opening frame of the Fool Me Twice trailer — a woman in a red dress looking off camera, a city waterfront behind her at dusk">
+      <span class="trailer__veil" aria-hidden="true"></span>
+      <span class="trailer__control">
+        <span class="trailer__play" aria-hidden="true">
+          <svg viewBox="0 0 20 24" aria-hidden="true"><path d="M0 0l20 12L0 24z"/></svg>
+        </span>
+        <span class="trailer__cap">Watch the Trailer</span>
+      </span>
+    </a>
+
+  </div>
+</section>
+
+<!-- ============================ READER RESPONSE ============================ -->
+<section class="section reviews" aria-labelledby="reviews-label">
+  <div class="shell">
+    <h2 class="section-label" id="reviews-label">What Readers Are Saying</h2>
+
+    <figure class="review-lead">
+      <blockquote>
+        <p>
+          “A truly diabolical psychological thriller. If at any point you think you have this one
+          all figured out, you probably don’t.”
+        </p>
+      </blockquote>
+      <figcaption>LaDonna’s Book Nook</figcaption>
+    </figure>
+
+    <div class="ledger">
+
+      <figure class="ledger__row">
+        <figcaption class="ledger__who">
+          Ana E Ross
+          <small>New York Times and USA Today Bestselling Author</small>
+        </figcaption>
+        <blockquote>
+          <p>
+            “A gripping and suspenseful novel…with a writing style that’s unique and superb. A
+            must-read that will keep you turning the pages until the very end!”
+          </p>
+        </blockquote>
+      </figure>
+
+      <figure class="ledger__row">
+        <figcaption class="ledger__who">
+          Angie Martin
+          <small>Award-winning Author of Conduit and The Boys Club and Chrysalis</small>
+        </figcaption>
+        <blockquote>
+          <p>
+            “The writing is absolutely phenomenal. That’s the first thing that hit me when reading
+            this book. The twists and turns just keep coming throughout the book and kept me on my
+            toes with each passing chapter. Gledé Browne Kabongo has made it to the top of my “to
+            read” list whenever she has a new book!”
+          </p>
+        </blockquote>
+      </figure>
+
+      <figure class="ledger__row">
+        <figcaption class="ledger__who">
+          Gimmethatbook.com
+        </figcaption>
+        <blockquote>
+          <p>
+            “The psychological tension builds as the deceptions are peeled away, like the skin of
+            an onion.”
+          </p>
+        </blockquote>
+      </figure>
+
+      <figure class="ledger__row">
+        <figcaption class="ledger__who">
+          Long and Short of it Reviews
+        </figcaption>
+        <blockquote>
+          <p>
+            “This is a spell-binding thriller that hooks the reader in the very beginning, building
+            tension and suspense on every page.”
+          </p>
+        </blockquote>
+      </figure>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================ CLOSING CTA ============================ -->
+<section class="section closing" aria-labelledby="closing-title">
+  <div class="shell closing__inner">
+
+    <h2 class="closing__title" id="closing-title">Revenge is a dish best served <em>ice cold</em></h2>
+
+    <span class="closing__mark" aria-hidden="true"></span>
+
+    <p class="closing__book">Fool Me Twice</p>
+    <p class="closing__author">Gledé Browne Kabongo</p>
+
+    <div class="closing__buy">
+      <a class="btn btn--gold btn--wide" role="link" tabindex="0">Buy from the Author</a>
+    </div>
+
+    <ul class="closing__where">
+      <li><a role="link" tabindex="0">Amazon</a></li>
+      <li><a role="link" tabindex="0">Apple Books</a></li>
+      <li><a role="link" tabindex="0">Barnes &amp; Noble</a></li>
+      <li><a role="link" tabindex="0">Kobo</a></li>
+      <li><a role="link" tabindex="0">Google Play</a></li>
+      <li><a role="link" tabindex="0">Smashwords</a></li>
+    </ul>
+
+  </div>
+</section>
+
+<!-- ============================ MORE FROM GLEDÉ ============================ -->
+<section class="section more" aria-labelledby="more-label">
+  <div class="shell">
+    <div class="more__head">
+      <h2 class="section-label" id="more-label">More from Gledé</h2>
+      <a class="link-arrow" href="books.html">
+        The Full Collection <span class="arw" aria-hidden="true">&rarr;</span>
+      </a>
+    </div>
+
+    <div class="more__grid">
+
+      <article class="more__item">
+        <a class="cover" href="the-forbidden-heiress.html" aria-label="The Forbidden Heiress">
+          <img src="https://static.wixstatic.com/media/461d77_d41eb83df18644ff99e4d4d1d0c38622~mv2.png/v1/crop/x_363,y_135,w_750,h_1081/fill/w_624,h_900,al_c,q_90,enc_auto/the-forbidden-heiress.png"
+               width="624" height="900" loading="lazy"
+               alt="The Forbidden Heiress by Gledé Browne Kabongo — book cover">
+        </a>
+        <div class="more__kicker"><span class="meta meta--blue">Standalone</span></div>
+        <h3 class="h3 more__title">The Forbidden Heiress</h3>
+      </article>
+
+      <article class="more__item">
+        <a class="cover" href="our-wicked-lies.html" aria-label="Our Wicked Lies">
+          <img src="https://static.wixstatic.com/media/461d77_ac134f9b70444664adaa68409eb3b644~mv2.png/v1/crop/x_7,y_1,w_317,h_461/fill/w_619,h_900,al_c,q_90,enc_auto/our-wicked-lies.png"
+               width="619" height="900" loading="lazy"
+               alt="Our Wicked Lies by Gledé Browne Kabongo — book cover">
+        </a>
+        <div class="more__kicker"><span class="meta meta--blue">Standalone</span></div>
+        <h3 class="h3 more__title">Our Wicked Lies</h3>
+      </article>
+
+      <article class="more__item">
+        <a class="cover" href="conspiracy-of-silence.html" aria-label="Conspiracy of Silence">
+          <img src="https://static.wixstatic.com/media/461d77_4275d29fe0144ec9b4da34ec4050ad20~mv2.png/v1/crop/x_115,y_30,w_840,h_1207/fill/w_626,h_900,al_c,q_90,enc_auto/conspiracy-of-silence.png"
+               width="626" height="900" loading="lazy"
+               alt="Conspiracy of Silence by Gledé Browne Kabongo — book cover">
+        </a>
+        <div class="more__kicker"><span class="meta meta--blue">Debut Novel</span></div>
+        <h3 class="h3 more__title">Conspiracy of Silence</h3>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============================ FOOTER ============================ -->
+<footer class="site-footer">
+  <div class="shell">
+    <div class="site-footer__grid">
+      <div>
+        <a class="wordmark" href="index.html">Gledé Browne <span>Kabongo</span></a>
+        <p class="site-footer__blurb">
+          Award-winning psychological thrillers about power, privilege, secrets,
+          and the women who refuse to be underestimated.
+        </p>
+      </div>
+
+      <nav class="footer-col" aria-label="Quick links">
+        <p class="footer-col__title">Quick Links</p>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="books.html">Books</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="speaker.html">Speaker Profile</a></li>
+        </ul>
+      </nav>
+
+      <nav class="footer-col" aria-label="More">
+        <p class="footer-col__title">More</p>
+        <ul>
+          <li><a href="newsletter.html">Newsletter</a></li>
+          <li><a>Rights</a></li>
+          <li><a href="store.html">Store</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <nav class="footer-col" aria-label="Connect">
+        <p class="footer-col__title">Connect</p>
+        <ul>
+          <li><a>Instagram</a></li>
+          <li><a>Facebook</a></li>
+          <li><a href="books.html#audiobooks">Audiobooks</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="site-footer__bar">
+      <p>© 2026 Gledé Browne Kabongo. All Rights Reserved.</p>
+      <p><a>Privacy Statement</a></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /* Mobile menu — the only script on the page, purely for visual demonstration. */
+  (function () {
+    var btn = document.querySelector('.nav-toggle');
+    var panel = document.getElementById('mobile-nav');
+    if (!btn || !panel) return;
+
+    btn.addEventListener('click', function () {
+      var open = panel.dataset.open === 'true';
+      panel.dataset.open = String(!open);
+      btn.setAttribute('aria-expanded', String(!open));
+    });
+  })();
+</script>
+
+</body>
+</html>

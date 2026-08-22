@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Our Wicked Lies — Gledé Browne Kabongo</title>
+<meta name="description" content="Our Wicked Lies by Gledé Browne Kabongo. Her marriage is to die for — a chilling, twisty domestic thriller about betrayal, obsession and the dark side of marriage.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ==========================================================================
+   GLEDÉ BROWNE KABONGO — OUR WICKED LIES (BOOK DETAIL PROTOTYPE)
+   Same design system as the Books page and The Forbidden Heiress.
+   Its own personality: a lit interior against the dark, warm paper inlays,
+   an italic that betrays the title. Static front-end only.
+   01  Tokens
+   02  Reset & base
+   03  Typography primitives
+   04  Buttons & links
+   05  Header / navigation
+   06  Cover system
+   07  Book hero
+   08  Availability strip
+   09  The story
+   10  Themes band
+   11  Trailer
+   12  Reader response
+   13  Built for suspense
+   14  Closing CTA
+   15  More from Gledé
+   16  Footer
+   17  Responsive
+   ========================================================================== */
+
+/* --- 01 Tokens ----------------------------------------------------------- */
+:root{
+  /* Brand */
+  --navy:#05347E;
+  --blue:#3E7FE6;
+  --gold:#FFDB4F;
+
+  /* Extended neutrals derived from the brand */
+  --navy-deep:#042457;
+  --navy-ink:#031A3F;
+  --blue-wash:#EDF2FB;
+
+  --paper:#FCFBF8;
+  --paper-warm:#F4F1E9;
+  --ink:#15181D;
+  --ink-soft:#4E5663;
+  --ink-mute:#7B8493;
+
+  --rule:rgba(5,52,126,.14);
+  --rule-strong:rgba(5,52,126,.26);
+
+  /* Rhythm */
+  --shell:1280px;
+  --gutter:clamp(20px,5vw,64px);
+  --section:clamp(72px,8.5vw,128px);
+
+  /* Type */
+  --serif:"Cormorant Garamond",Garamond,"Times New Roman",serif;
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+}
+
+/* --- 02 Reset & base ----------------------------------------------------- */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+a:not([href]){cursor:pointer}
+h1,h2,h3,h4,p,figure,blockquote,ul,ol{margin:0;padding:0}
+ul,ol{list-style:none}
+button{font:inherit;color:inherit}
+::selection{background:var(--navy);color:var(--gold)}
+:focus-visible{outline:2px solid var(--blue);outline-offset:4px}
+
+/* Focus stays legible on the dark fields too */
+.site-header :focus-visible,
+.book-hero :focus-visible,
+.themes-band :focus-visible,
+.trailer :focus-visible,
+.closing :focus-visible,
+.site-footer :focus-visible{outline-color:var(--gold)}
+
+.shell{
+  width:100%;
+  max-width:var(--shell);
+  margin-inline:auto;
+  padding-inline:var(--gutter);
+}
+.section{padding-block:var(--section)}
+
+/* --- 03 Typography primitives -------------------------------------------- */
+.eyebrow{
+  display:inline-flex;
+  align-items:flex-start;
+  gap:14px;
+  font-size:.6875rem;
+  font-weight:600;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  line-height:1.55;
+  color:var(--blue);
+}
+.eyebrow::before{
+  content:"";
+  width:26px;
+  height:1px;
+  margin-top:.72em;
+  background:var(--gold);
+  flex:none;
+}
+.eyebrow--light{color:rgba(255,255,255,.78)}
+
+.display{
+  font-family:var(--serif);
+  font-weight:300;
+  line-height:1.04;
+  letter-spacing:-.012em;
+  font-size:clamp(2.6rem,5.2vw,4.5rem);
+}
+.h2{
+  font-family:var(--serif);
+  font-weight:300;
+  line-height:1.08;
+  letter-spacing:-.008em;
+  font-size:clamp(2rem,3.5vw,3.15rem);
+}
+.h3{
+  font-family:var(--serif);
+  font-weight:400;
+  line-height:1.12;
+  letter-spacing:-.005em;
+  font-size:clamp(1.5rem,2.1vw,2rem);
+}
+
+.lede{font-size:1.0625rem;line-height:1.7;color:var(--ink-soft);max-width:56ch}
+.body{font-size:.9375rem;line-height:1.8;color:var(--ink-soft);max-width:62ch}
+.body--light{color:rgba(255,255,255,.72)}
+.meta{
+  font-size:.6875rem;
+  font-weight:600;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--ink-mute);
+}
+.meta--blue{color:var(--blue)}
+
+/* Small editorial section label: gold tick, caps, hairline out to the margin */
+.section-label{
+  display:flex;
+  align-items:center;
+  gap:18px;
+  font-family:var(--sans);
+  font-size:.6875rem;
+  font-weight:600;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  color:var(--navy);
+}
+.section-label::before{content:"";width:26px;height:1px;background:var(--gold);flex:none}
+.section-label::after{content:"";flex:1;height:1px;background:var(--rule)}
+.section-label--light{color:#fff}
+.section-label--light::after{background:rgba(255,255,255,.2)}
+
+/* --- 04 Buttons & links -------------------------------------------------- */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  min-height:52px;
+  padding:0 30px;
+  border:1px solid transparent;
+  font-size:.6875rem;
+  font-weight:600;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  line-height:1;
+  cursor:pointer;
+  transition:background-color .28s ease,color .28s ease,border-color .28s ease;
+}
+.btn--gold{background:var(--gold);color:var(--navy-ink);border-color:var(--gold)}
+.btn--gold:hover{background:#F6CE2E;border-color:#F6CE2E}
+.btn--ghost-light{border-color:rgba(255,255,255,.42);color:#fff}
+.btn--ghost-light:hover{border-color:var(--gold);color:var(--gold)}
+.btn--wide{min-height:58px;padding:0 34px;letter-spacing:.18em}
+
+.link-arrow{
+  display:inline-flex;
+  align-items:center;
+  gap:12px;
+  font-size:.6875rem;
+  font-weight:600;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--navy);
+  padding-bottom:7px;
+  border-bottom:1px solid var(--rule-strong);
+  transition:color .28s ease,border-color .28s ease;
+}
+.link-arrow .arw{transition:transform .28s ease}
+.link-arrow:hover{color:var(--blue);border-color:var(--blue)}
+.link-arrow:hover .arw{transform:translateX(6px)}
+
+/* --- 05 Header / navigation ---------------------------------------------- */
+.site-header{background:var(--navy);color:#fff;position:relative;z-index:60}
+.site-header__inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:40px;
+  min-height:84px;
+}
+.wordmark{
+  font-family:var(--serif);
+  font-weight:500;
+  font-size:1.1875rem;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  line-height:1;
+  white-space:nowrap;
+  color:#fff;
+}
+.wordmark span{color:var(--gold)}
+
+.nav{display:flex;align-items:center;gap:clamp(16px,2vw,30px)}
+.nav__item{position:relative}
+.nav__link{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  font-size:.6875rem;
+  font-weight:500;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.82);
+  padding:31px 0;
+  border-bottom:2px solid transparent;
+  transition:color .25s ease,border-color .25s ease;
+}
+.nav__link:hover,.nav__item:hover > .nav__link{color:#fff;border-bottom-color:var(--gold)}
+.nav__link[aria-current]{color:#fff;border-bottom-color:var(--gold)}
+.nav__caret{width:7px;height:7px;fill:none;stroke:currentColor;stroke-width:1.6;opacity:.75}
+
+.submenu{
+  position:absolute;
+  top:100%;
+  left:-26px;
+  min-width:246px;
+  background:var(--navy-deep);
+  border-top:2px solid var(--gold);
+  padding:14px 0 18px;
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(6px);
+  transition:opacity .22s ease,transform .22s ease,visibility .22s;
+  box-shadow:0 18px 40px rgba(3,20,50,.28);
+}
+.nav__item:hover .submenu,
+.nav__item:focus-within .submenu{opacity:1;visibility:visible;transform:translateY(0)}
+.submenu__label{
+  display:block;
+  padding:6px 26px 10px;
+  font-size:.625rem;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.4);
+}
+.submenu a{
+  display:block;
+  padding:9px 26px;
+  font-size:.75rem;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.78);
+  transition:color .2s ease,background-color .2s ease;
+}
+.submenu a:hover{color:var(--gold);background:rgba(255,255,255,.05)}
+.submenu a[aria-current]{color:var(--gold)}
+
+.nav-toggle{
+  display:none;
+  align-items:center;
+  gap:11px;
+  background:none;
+  border:0;
+  padding:10px 0;
+  cursor:pointer;
+  color:#fff;
+  font-size:.625rem;
+  font-weight:600;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+}
+.nav-toggle__bars{display:block;width:22px}
+.nav-toggle__bars i{display:block;height:1px;background:currentColor;margin:5px 0}
+.nav-toggle__bars i:first-child{margin-top:0}
+.nav-toggle__bars i:last-child{width:14px;margin-bottom:0}
+.mobile-nav{display:none}
+
+/* --- 06 Cover system ------------------------------------------------------ */
+.cover{
+  position:relative;
+  display:block;
+  aspect-ratio:71/100;
+  width:100%;
+}
+.cover img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center bottom;
+  transition:transform .4s cubic-bezier(.22,.61,.36,1);
+}
+a.cover:hover img,
+.more__item:hover .cover img{transform:translateY(-6px)}
+
+/* --- 07 Book hero ----------------------------------------------------------
+   A lit room in a dark house: the jacket stands on a warm paper inlay cut
+   into the navy field. Everything above board; the light comes from inside.
+   -------------------------------------------------------------------------- */
+.book-hero{
+  position:relative;
+  background:var(--navy-ink);
+  color:#fff;
+  overflow:hidden;
+  isolation:isolate;
+}
+.book-hero__scrim{
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(78% 64% at 22% 42%,rgba(5,52,126,.55) 0%,rgba(5,52,126,0) 72%),
+    linear-gradient(180deg,rgba(3,26,63,0) 0%,rgba(3,26,63,.55) 100%);
+  z-index:-1;
+}
+.book-hero__inner{
+  display:grid;
+  grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);
+  gap:clamp(44px,6.5vw,104px);
+  align-items:center;
+  padding-block:clamp(64px,8.5vw,124px);
+}
+
+/* Jacket + warm inlay */
+.book-hero__stage{
+  position:relative;
+  justify-self:center;
+  width:100%;
+  max-width:400px;
+}
+.book-hero__inlay{
+  position:absolute;
+  top:12%;
+  bottom:-13%;
+  right:21%;
+  left:-11%;
+  background:var(--paper-warm);
+  z-index:0;
+}
+.book-hero__inlay::after{
+  content:"";
+  position:absolute;
+  inset:10px;
+  border:1px solid rgba(5,52,126,.16);
+}
+.book-hero__cover{
+  position:relative;
+  z-index:1;
+  width:100%;
+  height:auto;
+  filter:drop-shadow(0 24px 42px rgba(0,0,0,.5));
+}
+
+.book-hero__copy{max-width:38em}
+
+.book-title{
+  margin-top:26px;
+  font-family:var(--serif);
+  font-weight:300;
+  text-transform:uppercase;
+  letter-spacing:.015em;
+  line-height:.95;
+  font-size:clamp(2.9rem,5.6vw,4.8rem);
+  color:#fff;
+}
+.book-title span{display:block;white-space:nowrap}
+/* The lie is the italic */
+.book-title .is-lie{font-style:italic;font-weight:300;color:var(--gold);letter-spacing:.005em}
+
+.byline{
+  display:inline-flex;
+  align-items:center;
+  gap:16px;
+  margin-top:26px;
+  font-size:.6875rem;
+  font-weight:600;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.82);
+}
+.byline::before{content:"";width:36px;height:1px;background:rgba(255,219,79,.6)}
+
+/* The hook is set as a title card, ruled top and bottom */
+.hook{
+  margin-top:34px;
+  padding-block:20px;
+  border-top:1px solid rgba(255,219,79,.55);
+  border-bottom:1px solid rgba(255,255,255,.18);
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:clamp(1.15rem,1.95vw,1.7rem);
+  line-height:1.3;
+  letter-spacing:.11em;
+  text-transform:uppercase;
+  color:#fff;
+}
+
+.book-hero__intro{margin-top:30px;max-width:54ch}
+.book-hero__cta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:14px;
+  margin-top:36px;
+}
+
+/* --- 08 Availability strip -------------------------------------------------
+   Light strip on warm paper — the counterpart to the dark masthead used on
+   The Forbidden Heiress, so the two book pages never read as one template.
+   -------------------------------------------------------------------------- */
+.avail{
+  background:var(--paper-warm);
+  border-top:1px solid var(--rule);
+  border-bottom:1px solid var(--rule);
+}
+.avail__inner{
+  display:flex;
+  align-items:center;
+  gap:clamp(18px,3vw,40px);
+  padding-block:20px;
+}
+.avail__label{
+  font-size:.625rem;
+  font-weight:600;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--ink-mute);
+  white-space:nowrap;
+}
+.avail__list{display:flex;margin-left:auto}
+.avail__list li + li{border-left:1px solid var(--rule)}
+.avail__list a{
+  display:inline-flex;
+  align-items:center;
+  padding:8px clamp(12px,1.9vw,24px);
+  font-size:.6875rem;
+  font-weight:600;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--navy);
+  transition:color .24s ease;
+}
+.avail__list a:hover{color:var(--blue)}
+.avail__list li:last-child a{padding-right:0}
+
+/* --- 09 The story ---------------------------------------------------------- */
+.story{background:var(--paper)}
+.story__inner{
+  display:grid;
+  grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);
+  gap:clamp(40px,6vw,100px);
+  margin-top:clamp(44px,5vw,74px);
+}
+.story__statement{
+  font-family:var(--serif);
+  font-weight:300;
+  font-size:clamp(1.85rem,3.4vw,2.9rem);
+  line-height:1.12;
+  letter-spacing:-.014em;
+  color:var(--navy);
+}
+.story__statement em{font-style:italic;color:var(--blue)}
+.story__note{
+  margin-top:clamp(30px,3.5vw,44px);
+  padding-top:22px;
+  border-top:1px solid var(--rule);
+  max-width:34ch;
+  font-size:.8125rem;
+  line-height:1.8;
+  color:var(--ink-mute);
+}
+.story__note em{font-style:italic;color:var(--ink-soft)}
+
+.story__body p{
+  font-size:1.0625rem;
+  line-height:1.85;
+  color:var(--ink-soft);
+  max-width:60ch;
+}
+.story__body p + p{margin-top:1.45em}
+.story__body p:first-child::first-letter{
+  float:left;
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:4.1em;
+  line-height:.8;
+  padding:.05em .12em 0 0;
+  color:var(--navy);
+}
+/* Emphasis is typographic — a shift of face, never a coloured box */
+.mark{
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:1.14em;
+  letter-spacing:.004em;
+  color:var(--navy);
+}
+
+/* --- 10 Themes band --------------------------------------------------------
+   Four words the synopsis actually earns, set as a marquee across the dark.
+   -------------------------------------------------------------------------- */
+.themes-band{background:var(--navy-deep);color:#fff}
+.themes-band__inner{padding-block:clamp(48px,6vw,84px)}
+.themes-band__list{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:baseline;
+  justify-content:center;
+  gap:clamp(12px,2.2vw,30px);
+  margin-top:clamp(26px,3vw,42px);
+}
+.themes-band__list li{
+  font-family:var(--serif);
+  font-weight:300;
+  font-size:clamp(1.65rem,3.9vw,2.7rem);
+  line-height:1.14;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  color:#fff;
+}
+/* The rule travels with the word before it, so a wrap never opens on a slash */
+.themes-band__list li:not(:last-child)::after{
+  content:"/";
+  display:inline-block;
+  margin-left:clamp(12px,2.2vw,30px);
+  color:var(--gold);
+  font-style:italic;
+  opacity:.9;
+}
+
+/* --- 11 Trailer ------------------------------------------------------------
+   The real trailer frame from the client's own asset, framed like a film
+   still. The play control is decorative — nothing plays in a prototype.
+   -------------------------------------------------------------------------- */
+.trailer{background:var(--navy-ink);color:#fff}
+.trailer__inner{
+  display:grid;
+  grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);
+  gap:clamp(36px,5vw,80px);
+  align-items:center;
+}
+.trailer__title{color:#fff;margin-top:24px}
+.trailer__line{
+  margin-top:26px;
+  padding-left:22px;
+  border-left:1px solid rgba(255,219,79,.55);
+  font-family:var(--serif);
+  font-style:italic;
+  font-weight:300;
+  font-size:clamp(1.15rem,1.7vw,1.45rem);
+  line-height:1.42;
+  color:rgba(255,255,255,.9);
+  max-width:26ch;
+}
+
+.trailer__plate{
+  position:relative;
+  display:block;
+  aspect-ratio:1/1;
+  width:100%;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.18);
+}
+.trailer__plate img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:transform .6s cubic-bezier(.22,.61,.36,1);
+}
+.trailer__plate:hover img{transform:scale(1.03)}
+.trailer__veil{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,rgba(3,26,63,.12) 0%,rgba(3,26,63,.10) 46%,rgba(3,26,63,.82) 100%);
+}
+.trailer__play{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:clamp(72px,7vw,96px);
+  height:clamp(72px,7vw,96px);
+  border:1px solid rgba(255,255,255,.85);
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:rgba(3,26,63,.28);
+  transition:background-color .3s ease,border-color .3s ease;
+}
+.trailer__play svg{width:20px;height:24px;fill:#fff;margin-left:4px;transition:fill .3s ease}
+.trailer__plate:hover .trailer__play{background:rgba(3,26,63,.5);border-color:var(--gold)}
+.trailer__plate:hover .trailer__play svg{fill:var(--gold)}
+.trailer__cap{
+  position:absolute;
+  left:clamp(18px,2.4vw,30px);
+  bottom:clamp(16px,2.2vw,26px);
+  font-size:.625rem;
+  font-weight:600;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  color:#fff;
+}
+.trailer__credit{
+  margin-top:16px;
+  font-size:.625rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.4);
+}
+
+/* --- 12 Reader response ----------------------------------------------------
+   Featured quote over a ruled three-up. Columns divided, never boxed.
+   -------------------------------------------------------------------------- */
+.reviews{background:var(--paper-warm)}
+.review-lead{
+  margin-top:clamp(42px,5vw,72px);
+  padding-bottom:clamp(44px,5vw,72px);
+  border-bottom:1px solid var(--rule-strong);
+}
+.review-lead blockquote p{
+  font-family:var(--serif);
+  font-weight:300;
+  font-size:clamp(1.5rem,2.8vw,2.35rem);
+  line-height:1.28;
+  letter-spacing:-.014em;
+  color:var(--navy);
+  max-width:860px;
+}
+.review__by{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-top:22px;
+  font-size:.6875rem;
+  font-weight:600;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--ink-mute);
+}
+.review__by::before{content:"";width:26px;height:1px;background:var(--gold);flex:none}
+
+.review-row{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:0;
+}
+.review{padding:clamp(34px,4vw,52px) clamp(24px,3vw,44px) 0}
+.review:first-child{padding-left:0}
+.review:last-child{padding-right:0}
+.review + .review{border-left:1px solid var(--rule)}
+.review blockquote p{
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:clamp(1.08rem,1.45vw,1.3rem);
+  line-height:1.56;
+  color:var(--navy);
+}
+.review .review__by{margin-top:20px;font-size:.625rem}
+
+/* --- 13 Built for suspense -------------------------------------------------- */
+.suspense{background:var(--paper);border-top:1px solid var(--rule)}
+.suspense__inner{
+  display:grid;
+  grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);
+  gap:clamp(38px,5.5vw,90px);
+  align-items:start;
+}
+.suspense__statement{
+  margin-top:clamp(28px,3.4vw,44px);
+  font-family:var(--serif);
+  font-weight:300;
+  font-size:clamp(1.5rem,2.6vw,2.2rem);
+  line-height:1.24;
+  letter-spacing:-.01em;
+  color:var(--navy);
+  max-width:22ch;
+}
+.suspense__quote{
+  padding-top:clamp(28px,3.4vw,44px);
+  border-top:1px solid var(--rule-strong);
+}
+.suspense__quote blockquote p{
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:clamp(1.05rem,1.4vw,1.25rem);
+  line-height:1.6;
+  color:var(--ink-soft);
+}
+.suspense__quote blockquote em{font-style:italic;color:var(--navy)}
+
+/* --- 14 Closing CTA --------------------------------------------------------- */
+.closing{background:var(--navy-ink);color:#fff}
+.closing__title{color:#fff;max-width:14ch}
+.closing__title em{font-style:italic;color:var(--gold)}
+.closing__bar{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:clamp(28px,4vw,60px);
+  flex-wrap:wrap;
+  margin-top:clamp(40px,5vw,66px);
+  padding-top:clamp(28px,3.4vw,42px);
+  border-top:1px solid rgba(255,255,255,.18);
+}
+.closing__book{
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:clamp(1.6rem,2.4vw,2.1rem);
+  line-height:1.1;
+  color:#fff;
+}
+.closing__author{
+  margin-top:14px;
+  font-size:.6875rem;
+  font-weight:600;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  color:var(--gold);
+}
+.closing__actions{display:flex;flex-wrap:wrap;gap:14px}
+
+.retailers{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  margin-top:clamp(34px,4vw,52px);
+  border-top:1px solid rgba(255,255,255,.18);
+  border-bottom:1px solid rgba(255,255,255,.18);
+}
+.retailers li + li{border-left:1px solid rgba(255,255,255,.18)}
+.retailers a{
+  display:block;
+  padding:16px clamp(10px,1.4vw,20px);
+  font-size:.625rem;
+  font-weight:600;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.78);
+  transition:color .24s ease;
+}
+.retailers li:first-child a{padding-left:0}
+.retailers a:hover{color:var(--gold)}
+
+/* --- 15 More from Gledé ----------------------------------------------------- */
+.more{background:var(--paper-warm)}
+.more__head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:26px;
+  flex-wrap:wrap;
+}
+.more__head .section-label{flex:1;min-width:220px}
+.more__grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:clamp(26px,4vw,58px);
+  margin-top:clamp(34px,4vw,56px);
+}
+.more__item .cover{max-width:168px}
+.more__kicker{margin-top:22px}
+.more__title{margin-top:8px;color:var(--ink)}
+
+/* --- 16 Footer --------------------------------------------------------------- */
+.site-footer{background:var(--navy-deep);color:#fff}
+.site-footer__grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1.05fr);
+  gap:clamp(34px,4.5vw,64px);
+  padding-block:clamp(58px,7vw,88px);
+}
+.site-footer .wordmark{font-size:1.0625rem}
+.site-footer__blurb{
+  margin-top:22px;
+  max-width:34ch;
+  font-size:.875rem;
+  line-height:1.8;
+  color:rgba(255,255,255,.6);
+}
+.footer-col__title{
+  font-size:.625rem;
+  font-weight:600;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--gold);
+  padding-bottom:16px;
+  margin-bottom:18px;
+  border-bottom:1px solid rgba(255,255,255,.16);
+}
+.footer-col li + li{margin-top:11px}
+.footer-col a{
+  font-size:.8125rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.72);
+  transition:color .22s ease;
+}
+.footer-col a:hover{color:var(--gold)}
+.site-footer__bar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  flex-wrap:wrap;
+  padding-block:26px;
+  border-top:1px solid rgba(255,255,255,.14);
+  font-size:.75rem;
+  letter-spacing:.06em;
+  color:rgba(255,255,255,.5);
+}
+.site-footer__bar a{transition:color .22s ease}
+.site-footer__bar a:hover{color:var(--gold)}
+
+/* --- 17 Responsive ------------------------------------------------------------ */
+@media (max-width:1180px){
+  .nav{gap:16px}
+  .nav__link{letter-spacing:.1em}
+  .book-hero__inner{grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);gap:clamp(36px,4.5vw,64px)}
+  .trailer__inner{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}
+}
+
+@media (max-width:1024px){
+  .site-header__inner{min-height:72px}
+  .nav{display:none}
+  .nav-toggle{display:inline-flex}
+
+  .mobile-nav{
+    display:block;
+    background:var(--navy-deep);
+    border-top:1px solid rgba(255,255,255,.14);
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .38s cubic-bezier(.4,0,.2,1);
+  }
+  .mobile-nav[data-open="true"]{max-height:660px}
+  .mobile-nav ul{padding-block:12px 26px}
+  .mobile-nav li{border-bottom:1px solid rgba(255,255,255,.09)}
+  .mobile-nav li:last-child{border-bottom:0}
+  .mobile-nav a{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:17px 0;
+    font-size:.75rem;
+    font-weight:500;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,.82);
+  }
+  .mobile-nav a[aria-current]{color:var(--gold)}
+  .mobile-nav a small{
+    font-size:.625rem;
+    letter-spacing:.14em;
+    color:rgba(255,255,255,.38);
+    text-transform:none;
+  }
+
+  .site-footer .wordmark{font-size:.9375rem;letter-spacing:.15em}
+
+  /* Hero re-sequences: jacket, then the word stack */
+  .book-hero__inner{
+    grid-template-columns:minmax(0,1fr);
+    gap:clamp(42px,6vw,58px);
+    padding-block:clamp(48px,7vw,80px);
+  }
+  .book-hero__stage{max-width:320px}
+  .book-hero__inlay{left:-9%;right:22%}
+
+  .story__inner{grid-template-columns:minmax(0,1fr);gap:clamp(36px,5vw,52px)}
+  .story__note{max-width:52ch}
+  .story__body p{max-width:66ch}
+
+  .trailer__inner{grid-template-columns:minmax(0,1fr);gap:clamp(34px,5vw,48px)}
+  .trailer__line{max-width:44ch}
+
+  .suspense__inner{grid-template-columns:minmax(0,1fr);gap:clamp(34px,5vw,48px)}
+  .suspense__statement{max-width:30ch}
+}
+
+@media (max-width:860px){
+  /* The three-up unwinds into stacked quotes, rules turning horizontal */
+  .review-row{grid-template-columns:minmax(0,1fr)}
+  .review{padding:clamp(32px,5vw,44px) 0 0}
+  .review + .review{border-left:0;border-top:1px solid var(--rule);margin-top:clamp(32px,5vw,44px)}
+  .review blockquote p{max-width:60ch}
+
+  .retailers{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .retailers li{border-bottom:1px solid rgba(255,255,255,.18)}
+  .retailers li + li{border-left:0}
+  .retailers li:nth-child(odd){border-right:1px solid rgba(255,255,255,.18)}
+  .retailers li:nth-child(5){grid-column:1 / -1;border-right:0;border-bottom:0}
+  .retailers a{padding:15px 0}
+  .retailers li:nth-child(even) a{padding-left:22px}
+
+  .site-footer__grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:34px}
+}
+
+/* Five retailer names need more room than four, so the matrix starts earlier */
+@media (max-width:900px){
+  .avail__inner{display:block;padding-block:0 6px}
+  .avail__label{display:block;padding-block:18px 14px}
+  .avail__list{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    margin-left:0;
+    border-top:1px solid var(--rule);
+  }
+  .avail__list li{border-bottom:1px solid var(--rule)}
+  .avail__list li + li{border-left:0}
+  .avail__list li:nth-child(odd){border-right:1px solid var(--rule)}
+  .avail__list li:nth-child(5){grid-column:1 / -1;border-right:0}
+  .avail__list a{display:block;padding:15px 0}
+  .avail__list li:nth-child(even) a{padding-left:22px}
+  .avail__list li:last-child a{padding-right:0}
+}
+
+@media (max-width:760px){
+  /* Related titles read as rows so the covers stay recognisable */
+  .more__grid{grid-template-columns:minmax(0,1fr);gap:0}
+  .more__item{
+    display:grid;
+    grid-template-columns:104px minmax(0,1fr);
+    grid-template-rows:auto auto;
+    column-gap:24px;
+    align-content:center;
+    padding-block:26px;
+    border-bottom:1px solid var(--rule);
+  }
+  .more__item:first-child{border-top:1px solid var(--rule)}
+  .more__item .cover{grid-column:1;grid-row:1 / span 2;max-width:none;align-self:center}
+  .more__kicker{grid-column:2;grid-row:1;margin-top:0;align-self:end}
+  .more__title{grid-column:2;grid-row:2;margin-top:8px;align-self:start}
+}
+
+/* The masthead has to share a narrow line with the menu control */
+@media (max-width:620px){
+  .site-header__inner{gap:18px}
+  .wordmark{font-size:.9375rem;letter-spacing:.13em}
+}
+
+@media (max-width:560px){
+  /* The title breaks to three lines on a phone and reads as a poster stack */
+  .book-title{
+    margin-top:22px;
+    font-size:clamp(2.35rem,10.8vw,3.15rem);
+    line-height:.98;
+    letter-spacing:.01em;
+  }
+  .book-title span{white-space:normal}
+  .book-hero__stage{max-width:250px}
+  .book-hero__inlay{top:10%;bottom:-11%;left:-8%;right:19%}
+  .hook{margin-top:28px;padding-block:18px;font-size:1.05rem;letter-spacing:.09em}
+  .book-hero__intro{margin-top:24px}
+  .book-hero__cta{gap:12px;margin-top:30px}
+  .book-hero__cta .btn{width:100%}
+
+  .story__body p{font-size:1rem}
+  .story__body p:first-child::first-letter{font-size:3.6em}
+
+  .themes-band__list{justify-content:flex-start;gap:10px}
+  .themes-band__list li:not(:last-child)::after{margin-left:10px}
+
+  .review-lead blockquote p{font-size:1.42rem;line-height:1.32}
+  .review blockquote p{font-size:1.15rem;line-height:1.62}
+  .suspense__quote blockquote p{font-size:1.12rem}
+
+  .closing__actions{width:100%}
+  .closing__actions .btn{width:100%}
+
+  .site-footer__grid{grid-template-columns:minmax(0,1fr);gap:32px}
+  .site-footer__bar{flex-direction:column;align-items:flex-start;gap:10px}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ============================ HEADER ============================ -->
+<header class="site-header">
+  <div class="shell site-header__inner">
+    <a class="wordmark" href="index.html" aria-label="Gledé Browne Kabongo — home">Gledé Browne <span>Kabongo</span></a>
+
+    <nav class="nav" aria-label="Primary">
+      <div class="nav__item"><a class="nav__link" href="index.html">Home</a></div>
+
+      <div class="nav__item">
+        <a class="nav__link" href="books.html" aria-current="true">
+          Books
+          <svg class="nav__caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>
+        </a>
+        <div class="submenu">
+          <span class="submenu__label">Browse the collection</span>
+          <a href="books.html#standalones" aria-current="page">Standalones</a>
+          <a href="fearless-series.html">Fearless Series</a>
+          <a href="miami-elite.html">Miami Elite</a>
+          <a href="books.html#malicious">Malicious Games</a>
+          <a href="books.html#novellas">Novellas</a>
+          <a href="books.html#audiobooks">Audiobooks</a>
+        </div>
+      </div>
+
+      <div class="nav__item"><a class="nav__link" href="about.html">About</a></div>
+      <div class="nav__item"><a class="nav__link" href="speaker.html">Speaker Profile</a></div>
+      <div class="nav__item"><a class="nav__link" href="newsletter.html">Newsletter</a></div>
+      <div class="nav__item"><a class="nav__link">Rights</a></div>
+      <div class="nav__item"><a class="nav__link" href="store.html">Store</a></div>
+      <div class="nav__item"><a class="nav__link" href="contact.html">Contact</a></div>
+    </nav>
+
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav">
+      <span>Menu</span>
+      <span class="nav-toggle__bars" aria-hidden="true"><i></i><i></i><i></i></span>
+    </button>
+  </div>
+
+  <nav class="mobile-nav" id="mobile-nav" data-open="false" aria-label="Mobile">
+    <ul class="shell">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="books.html" aria-current="true">Books <small>Standalones · Series · Novellas · Audiobooks</small></a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="speaker.html">Speaker Profile</a></li>
+      <li><a href="newsletter.html">Newsletter</a></li>
+      <li><a>Rights</a></li>
+      <li><a href="store.html">Store</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+
+<!-- ============================ BOOK HERO ============================ -->
+<section class="book-hero" aria-labelledby="book-title">
+  <div class="book-hero__scrim" aria-hidden="true"></div>
+
+  <div class="shell book-hero__inner">
+
+    <figure class="book-hero__stage">
+      <span class="book-hero__inlay" aria-hidden="true"></span>
+      <img class="book-hero__cover"
+           src="https://static.wixstatic.com/media/461d77_37819772981c4d409ac62c0296cb3637~mv2.png/v1/fill/w_874,h_1200,al_c,q_90,enc_auto/our-wicked-lies.png"
+           width="874" height="1200"
+           alt="Our Wicked Lies by Gledé Browne Kabongo — book cover showing a lit suburban house at dusk">
+    </figure>
+
+    <div class="book-hero__copy">
+      <p class="eyebrow eyebrow--light">Psychological Thriller</p>
+
+      <h1 class="book-title" id="book-title">
+        <span>Our Wicked</span>
+        <span class="is-lie">Lies</span>
+      </h1>
+
+      <p class="byline">Gledé Browne Kabongo</p>
+
+      <p class="hook">Her marriage is to die for…</p>
+
+      <p class="lede body--light book-hero__intro">
+        Alicia Gray knows she’s a lucky woman. With a wealthy, successful husband who whisks her
+        away on romantic trips, a beautiful home in one of the country’s most affluent zip codes,
+        and two wonderful daughters, life couldn’t be better. However, she’s about to learn that an
+        enviable marriage comes at a deadly cost.
+      </p>
+
+      <div class="book-hero__cta">
+        <a class="btn btn--gold btn--wide" role="link" tabindex="0">Buy From Author</a>
+        <a class="btn btn--ghost-light btn--wide" role="link" tabindex="0">Buy from Other Retailers</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================ AVAILABILITY ============================ -->
+<aside class="avail" aria-label="Also available from">
+  <div class="shell avail__inner">
+    <p class="avail__label">Also available from</p>
+    <ul class="avail__list">
+      <li><a role="link" tabindex="0">Amazon</a></li>
+      <li><a role="link" tabindex="0">Apple iBooks</a></li>
+      <li><a role="link" tabindex="0">Kobo</a></li>
+      <li><a role="link" tabindex="0">Barnes &amp; Noble</a></li>
+      <li><a role="link" tabindex="0">Smashwords</a></li>
+    </ul>
+  </div>
+</aside>
+
+<!-- ============================ THE STORY ============================ -->
+<section class="section story" id="story" aria-labelledby="story-label">
+  <div class="shell">
+    <h2 class="section-label" id="story-label">The Story</h2>
+
+    <div class="story__inner">
+
+      <div class="story__aside">
+        <p class="story__statement">Her marriage is to die&nbsp;<em>for…</em></p>
+
+        <p class="story__note">
+          This heart-pounding, compulsive read is perfect for fans of <em>The Wife Between Us</em>,
+          <em>The Husband’s Secret</em> and <em>The Couple Next Door</em>.
+        </p>
+      </div>
+
+      <div class="story__body">
+        <p>
+          Alicia Gray knows she’s a lucky woman. With a wealthy, successful husband who whisks her
+          away on romantic trips, a beautiful home in one of the country’s most affluent zip codes,
+          and two wonderful daughters, life couldn’t be better. However, she’s about to learn that
+          <em class="mark">an enviable marriage comes at a deadly cost.</em>
+        </p>
+
+        <p>
+          Who is Faith, and why are dozens of emails between her and Alicia’s husband hidden in his
+          draft folder? Why were the messages never sent? As Alicia embarks on a desperate quest to
+          uncover Faith’s identity, a shocking death hits close to home and sends her reeling. Was
+          it a tragic accident or something more sinister?
+        </p>
+
+        <p>
+          In this beautiful town of wealth and privilege,
+          <em class="mark">nothing is as it seems, and everyone has something to hide.</em> While
+          Alicia struggles under the weight of dark secrets from her own past, someone knows more
+          than they’re saying—someone who knows the truth will come at a devastating price.
+        </p>
+
+        <p>
+          <em>Our Wicked Lies</em> is a chilling, twisty domestic thriller that takes betrayal and
+          obsession to dangerous new heights, laying bare the dark side of marriage, and
+          <em class="mark">the tragic consequences of wanting what you can’t have.</em>
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================ THEMES ============================ -->
+<section class="themes-band" aria-labelledby="themes-label">
+  <div class="shell themes-band__inner">
+    <h2 class="section-label section-label--light" id="themes-label">A Story Of</h2>
+    <ul class="themes-band__list">
+      <li>Marriage</li>
+      <li>Betrayal</li>
+      <li>Secrets</li>
+      <li>Obsession</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================ TRAILER ============================ -->
+<section class="section trailer" aria-labelledby="trailer-title">
+  <div class="shell trailer__inner">
+
+    <div class="trailer__copy">
+      <p class="eyebrow eyebrow--light">The Trailer</p>
+      <h2 class="h2 trailer__title" id="trailer-title">Watch the Trailer</h2>
+      <p class="trailer__line">Can the perfect marriage survive its darkest secrets?</p>
+    </div>
+
+    <div>
+      <a class="trailer__plate" role="button" tabindex="0" aria-label="Play the Our Wicked Lies book trailer">
+        <img src="https://static.wixstatic.com/media/461d77_045c020729c449efa6ce80d11074bd89f000.jpg/v1/fill/w_1080,h_1080,al_c,q_90,enc_auto/our-wicked-lies-trailer.jpg"
+             width="1080" height="1080" loading="lazy"
+             alt="Opening frame of the Our Wicked Lies trailer — two gold wedding bands resting in front of a row of roses in black and white">
+        <span class="trailer__veil" aria-hidden="true"></span>
+        <span class="trailer__play" aria-hidden="true">
+          <svg viewBox="0 0 20 24" aria-hidden="true"><path d="M0 0l20 12L0 24z"/></svg>
+        </span>
+        <span class="trailer__cap">Watch the Trailer</span>
+      </a>
+      <p class="trailer__credit">Book trailer · Our Wicked Lies</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================ READER RESPONSE ============================ -->
+<section class="section reviews" aria-labelledby="reviews-label">
+  <div class="shell">
+    <h2 class="section-label" id="reviews-label">What Readers Are Saying</h2>
+
+    <figure class="review-lead">
+      <blockquote>
+        <p>
+          “I can promise a swiping frenzy. Readers who enjoy domestic thrillers will love this
+          story. Women will love the character and story arcs. I don’t usually name-drop
+          bestsellers but I am willing to make an exception for this book. It is just as intense
+          and engrossing as Gone Girl.”
+        </p>
+      </blockquote>
+      <figcaption class="review__by">Reedsy Discovery</figcaption>
+    </figure>
+
+    <div class="review-row">
+
+      <figure class="review">
+        <blockquote>
+          <p>
+            “A brilliant piece of writing. So many twists and turns had me drawing conclusions that
+            ended up shattered in the next chapter. A powerful storyline...had me turning the pages
+            late into the night.”
+          </p>
+        </blockquote>
+        <figcaption class="review__by">Bookbub Reviewer</figcaption>
+      </figure>
+
+      <figure class="review">
+        <blockquote>
+          <p>
+            “I couldn’t put this novel down, because there were too many twists and turns I just
+            didn’t see coming. It kept me guessing till the nerve-wracking end.”
+          </p>
+        </blockquote>
+        <figcaption class="review__by">Bookworm 7</figcaption>
+      </figure>
+
+      <figure class="review">
+        <blockquote>
+          <p>
+            “The plot has more twists and turns than the famous San Francisco Street and before the
+            final page, there is another complete shocker. This is my first book by this excellent
+            author, but it certainly won’t be my last.”
+          </p>
+        </blockquote>
+        <figcaption class="review__by">Goodreads Reviewer</figcaption>
+      </figure>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================ BUILT FOR SUSPENSE ============================ -->
+<section class="section suspense" aria-labelledby="suspense-label">
+  <div class="shell suspense__inner">
+
+    <div>
+      <h2 class="section-label" id="suspense-label">Built for Suspense</h2>
+      <p class="suspense__statement">
+        An affluent town where nothing is as it seems. A marriage with a hidden draft folder.
+        A death that may be no accident.
+      </p>
+    </div>
+
+    <figure class="suspense__quote">
+      <blockquote>
+        <p>
+          “I absolutely loved this book. I was gripped right from the beginning and all the way
+          through. There were so many twists and turns throughout that it kept me constantly
+          guessing. <em>I could see this book being made into a film.</em> Brilliant!!!.”
+        </p>
+      </blockquote>
+      <figcaption class="review__by">NetGalley Reviewer</figcaption>
+    </figure>
+
+  </div>
+</section>
+
+<!-- ============================ CLOSING CTA ============================ -->
+<section class="section closing" aria-labelledby="closing-title">
+  <div class="shell">
+
+    <h2 class="display closing__title" id="closing-title">Ready to uncover the <em>truth?</em></h2>
+
+    <div class="closing__bar">
+      <div>
+        <p class="closing__book">Our Wicked Lies</p>
+        <p class="closing__author">Gledé Browne Kabongo</p>
+      </div>
+
+      <div class="closing__actions">
+        <a class="btn btn--gold btn--wide" role="link" tabindex="0">Buy From Author</a>
+        <a class="btn btn--ghost-light btn--wide" role="link" tabindex="0">Buy from Other Retailers</a>
+      </div>
+    </div>
+
+    <ul class="retailers">
+      <li><a role="link" tabindex="0">Amazon</a></li>
+      <li><a role="link" tabindex="0">Apple iBooks</a></li>
+      <li><a role="link" tabindex="0">Kobo</a></li>
+      <li><a role="link" tabindex="0">Barnes &amp; Noble</a></li>
+      <li><a role="link" tabindex="0">Smashwords</a></li>
+    </ul>
+
+  </div>
+</section>
+
+<!-- ============================ MORE FROM GLEDÉ ============================ -->
+<section class="section more" aria-labelledby="more-label">
+  <div class="shell">
+    <div class="more__head">
+      <h2 class="section-label" id="more-label">More from Gledé</h2>
+      <a class="link-arrow" href="books.html">
+        The Full Collection <span class="arw" aria-hidden="true">&rarr;</span>
+      </a>
+    </div>
+
+    <div class="more__grid">
+
+      <article class="more__item">
+        <a class="cover" href="the-forbidden-heiress.html" aria-label="The Forbidden Heiress">
+          <img src="https://static.wixstatic.com/media/461d77_d41eb83df18644ff99e4d4d1d0c38622~mv2.png/v1/crop/x_363,y_135,w_750,h_1081/fill/w_624,h_900,al_c,q_90,enc_auto/the-forbidden-heiress.png"
+               width="624" height="900" loading="lazy"
+               alt="The Forbidden Heiress by Gledé Browne Kabongo — book cover">
+        </a>
+        <div class="more__kicker"><span class="meta meta--blue">Standalone</span></div>
+        <h3 class="h3 more__title">The Forbidden Heiress</h3>
+      </article>
+
+      <article class="more__item">
+        <a class="cover" href="fool-me-twice.html" aria-label="Fool Me Twice">
+          <img src="https://static.wixstatic.com/media/461d77_c74e1193748346afadb72819c7fffff9~mv2.png/v1/crop/x_363,y_135,w_750,h_1081/fill/w_624,h_900,al_c,q_90,enc_auto/fool-me-twice.png"
+               width="624" height="900" loading="lazy"
+               alt="Fool Me Twice by Gledé Browne Kabongo — book cover">
+        </a>
+        <div class="more__kicker"><span class="meta meta--blue">Standalone</span></div>
+        <h3 class="h3 more__title">Fool Me Twice</h3>
+      </article>
+
+      <article class="more__item">
+        <a class="cover" href="conspiracy-of-silence.html" aria-label="Conspiracy of Silence">
+          <img src="https://static.wixstatic.com/media/461d77_4275d29fe0144ec9b4da34ec4050ad20~mv2.png/v1/crop/x_115,y_30,w_840,h_1207/fill/w_626,h_900,al_c,q_90,enc_auto/conspiracy-of-silence.png"
+               width="626" height="900" loading="lazy"
+               alt="Conspiracy of Silence by Gledé Browne Kabongo — book cover">
+        </a>
+        <div class="more__kicker"><span class="meta meta--blue">Debut Novel</span></div>
+        <h3 class="h3 more__title">Conspiracy of Silence</h3>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============================ FOOTER ============================ -->
+<footer class="site-footer">
+  <div class="shell">
+    <div class="site-footer__grid">
+      <div>
+        <a class="wordmark" href="index.html">Gledé Browne <span>Kabongo</span></a>
+        <p class="site-footer__blurb">
+          Award-winning psychological thrillers about power, privilege, secrets,
+          and the women who refuse to be underestimated.
+        </p>
+      </div>
+
+      <nav class="footer-col" aria-label="Quick links">
+        <p class="footer-col__title">Quick Links</p>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="books.html">Books</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="speaker.html">Speaker Profile</a></li>
+        </ul>
+      </nav>
+
+      <nav class="footer-col" aria-label="More">
+        <p class="footer-col__title">More</p>
+        <ul>
+          <li><a href="newsletter.html">Newsletter</a></li>
+          <li><a>Rights</a></li>
+          <li><a href="store.html">Store</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <nav class="footer-col" aria-label="Connect">
+        <p class="footer-col__title">Connect</p>
+        <ul>
+          <li><a>Instagram</a></li>
+          <li><a>Facebook</a></li>
+          <li><a href="books.html#audiobooks">Audiobooks</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="site-footer__bar">
+      <p>© 2026 Gledé Browne Kabongo. All Rights Reserved.</p>
+      <p><a>Privacy Statement</a></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /* Mobile menu — the only script on the page, purely for visual demonstration. */
+  (function () {
+    var btn = document.querySelector('.nav-toggle');
+    var panel = document.getElementById('mobile-nav');
+    if (!btn || !panel) return;
+
+    btn.addEventListener('click', function () {
+      var open = panel.dataset.open === 'true';
+      panel.dataset.open = String(!open);
+      btn.setAttribute('aria-expanded', String(!open));
+    });
+  })();
+</script>
+
+</body>
+</html>
