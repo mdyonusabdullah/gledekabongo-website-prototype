@@ -792,7 +792,7 @@ a.cover:hover img,
     overflow:hidden;
     transition:max-height .38s cubic-bezier(.4,0,.2,1);
   }
-  .mobile-nav[data-open="true"]{max-height:660px}
+  .mobile-nav[data-open="true"]{max-height:1000px}
   .mobile-nav ul{padding-block:12px 26px}
   .mobile-nav li{border-bottom:1px solid rgba(255,255,255,.09)}
   .mobile-nav li:last-child{border-bottom:0}
@@ -814,6 +814,25 @@ a.cover:hover img,
     color:rgba(255,255,255,.38);
     text-transform:none;
   }
+
+  /* Collections live behind a hover submenu on desktop, which touch devices
+     never see — so the mobile menu carries them as a nested list. */
+  .mobile-nav__sub{padding:0 0 14px}
+  .mobile-nav__sub li{border-bottom:0}
+  .mobile-nav__sub a{
+    display:block;
+    padding:10px 0 10px 20px;
+    margin-left:2px;
+    border-left:1px solid rgba(255,255,255,.18);
+    font-size:.6875rem;
+    font-weight:500;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,.6);
+  }
+  .mobile-nav__sub a:hover,
+  .mobile-nav__sub a[aria-current]{color:var(--gold);border-left-color:var(--gold)}
+
 
   .site-footer .wordmark{font-size:.9375rem;letter-spacing:.15em}
 
@@ -992,7 +1011,16 @@ a.cover:hover img,
   <nav class="mobile-nav" id="mobile-nav" data-open="false" aria-label="Mobile">
     <ul class="shell">
       <li><a href="index.html">Home</a></li>
-      <li><a href="books.html" aria-current="true">Books <small>Standalones · Series · Novellas · Audiobooks</small></a></li>
+      <li><a href="books.html" aria-current="true">Books <small>Standalones · Series · Novellas · Audiobooks</small></a>
+        <ul class="mobile-nav__sub">
+          <li><a href="books.html#standalones" aria-current="page">Standalones</a></li>
+          <li><a href="fearless-series.html">Fearless Series</a></li>
+          <li><a href="miami-elite.html">Miami Elite</a></li>
+          <li><a href="books.html#malicious">Malicious Games</a></li>
+          <li><a href="books.html#novellas">Novellas</a></li>
+          <li><a href="books.html#audiobooks">Audiobooks</a></li>
+        </ul>
+      </li>
       <li><a href="about.html">About</a></li>
       <li><a href="speaker.html">Speaker Profile</a></li>
       <li><a href="newsletter.html">Newsletter</a></li>
