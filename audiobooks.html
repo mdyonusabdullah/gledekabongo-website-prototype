@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Miami Elite Thrillers — Gledé Browne Kabongo</title>
-<meta name="description" content="Miami Elite Thrillers by Gledé Browne Kabongo. Wealth. Privilege. Deadly secrets. Welcome to Miami, where money buys power, privilege buys silence, and the truth can get you killed.">
+<title>Audiobooks — Gledé Browne Kabongo</title>
+<meta name="description" content="Audiobooks by Gledé Browne Kabongo. The stories you know, now heard differently — Conspiracy of Silence and Vengeance Unwrapped in audio.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,25 +12,23 @@
 
 <style>
 /* ==========================================================================
-   GLEDÉ BROWNE KABONGO — MIAMI ELITE THRILLERS (SERIES LANDING PROTOTYPE)
-   Same design system as the Books page, the book-detail pages and the
-   Fearless Series page. Its own personality: the city at night on one side
-   of the hero, and one repeated module the whole collection is built from.
-   Static front-end only.
+   GLEDÉ BROWNE KABONGO — AUDIOBOOKS (CATALOGUE PROTOTYPE)
+   Same design system as the Books page, the book-detail pages and the series
+   pages. Its own signal: the audiobook jackets are square, so this is the one
+   page in the system built on a 1:1 cover rather than the 71:100 book frame.
+   Static front-end only — nothing plays.
    01  Tokens
    02  Reset & base
    03  Typography primitives
    04  Buttons & links
    05  Header / navigation
-   06  Cover system
-   07  Series hero
-   08  Series statement
-   09  Book module system
-   10  Themes index
-   11  Closing CTA
-   12  More from Gledé
-   13  Footer
-   14  Responsive
+   06  Sleeve (square cover) system
+   07  Hero
+   08  Audiobook module system
+   09  Closing CTA
+   10  More from Gledé
+   11  Footer
+   12  Responsive
    ========================================================================== */
 
 /* --- 01 Tokens ----------------------------------------------------------- */
@@ -89,8 +87,7 @@ button{font:inherit;color:inherit}
 
 /* Focus stays legible on the dark fields too */
 .site-header :focus-visible,
-.series-hero :focus-visible,
-.themes :focus-visible,
+.audio-hero :focus-visible,
 .closing :focus-visible,
 .site-footer :focus-visible{outline-color:var(--gold)}
 
@@ -298,172 +295,170 @@ button{font:inherit;color:inherit}
 .nav-toggle__bars i:last-child{width:14px;margin-bottom:0}
 .mobile-nav{display:none}
 
-/* --- 06 Cover system ------------------------------------------------------ */
-.cover{
+/* --- 06 Sleeve (square cover) system ---------------------------------------
+   Audiobook artwork is square, so this page uses a 1:1 frame instead of the
+   71:100 jacket used everywhere else. That ratio is the format signal.
+   -------------------------------------------------------------------------- */
+.sleeve{
   position:relative;
   display:block;
-  aspect-ratio:71/100;
+  aspect-ratio:1/1;
   width:100%;
+  overflow:hidden;
+  border:1px solid var(--rule-strong);
+  box-shadow:0 16px 34px rgba(5,52,126,.16);
 }
-.cover img{
+.sleeve img{
   width:100%;
   height:100%;
-  object-fit:contain;
-  object-position:center bottom;
-  transition:transform .4s cubic-bezier(.22,.61,.36,1);
+  object-fit:cover;
+  transition:transform .5s cubic-bezier(.22,.61,.36,1);
 }
-a.cover:hover img,
-.more__item:hover .cover img,
-.book:hover .cover img{transform:translateY(-6px)}
+.sleeve--light{border-color:rgba(255,255,255,.2);box-shadow:0 22px 40px rgba(0,0,0,.5)}
+a.sleeve:hover img,
+.audiobook:hover .sleeve img{transform:scale(1.03)}
 
-/* --- 07 Series hero ----------------------------------------------------------
-   Type on the left, the city on the right — one rectangular plate, hard edges,
-   a single gold hairline. No card, no rounding, no glow.
-   -------------------------------------------------------------------------- */
-.series-hero{
+/* The one audio-flavoured device on the page. It is decorative: no duration
+   is shown because the source publishes none, and nothing plays. */
+.excerpt{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  width:100%;
+  max-width:340px;
+  padding-block:6px;
+  color:var(--navy);
+  transition:color .26s ease;
+}
+.excerpt__play{
+  width:40px;
+  height:40px;
+  flex:none;
+  border:1px solid var(--rule-strong);
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  transition:border-color .26s ease,background-color .26s ease;
+}
+.excerpt__play svg{width:11px;height:13px;fill:currentColor;margin-left:2px}
+.excerpt__label{
+  font-size:.625rem;
+  font-weight:600;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+.excerpt__track{
+  position:relative;
+  flex:1;
+  height:1px;
+  min-width:40px;
+  background:var(--rule-strong);
+}
+.excerpt__track::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:-2.5px;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--gold);
+}
+.excerpt:hover{color:var(--blue)}
+.excerpt:hover .excerpt__play{border-color:var(--blue);background:rgba(62,127,230,.08)}
+
+/* --- 07 Hero ------------------------------------------------------------------ */
+.audio-hero{
   position:relative;
   background:var(--navy-ink);
   color:#fff;
   overflow:hidden;
   isolation:isolate;
 }
-.series-hero__wash{
+.audio-hero__wash{
   position:absolute;
   inset:0;
-  background:radial-gradient(64% 58% at 22% 40%,rgba(5,52,126,.6) 0%,rgba(5,52,126,0) 74%);
+  background:radial-gradient(62% 58% at 74% 42%,rgba(5,52,126,.6) 0%,rgba(5,52,126,0) 74%);
   z-index:-1;
 }
-.series-hero__inner{
+.audio-hero__inner{
   display:grid;
-  grid-template-columns:minmax(0,1.14fr) minmax(0,.86fr);
-  gap:clamp(40px,5vw,76px);
+  grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);
+  grid-template-areas:"copy art" "cta art";
+  column-gap:clamp(38px,5vw,72px);
+  row-gap:34px;
   align-items:center;
-  padding-block:clamp(52px,6.4vw,92px);
+  padding-block:clamp(48px,5.8vw,84px);
 }
-
-.series-title{
+.audio-hero__copy{grid-area:copy;align-self:end}
+.audio-hero__art{grid-area:art}
+.audio-hero__cta{grid-area:cta;align-self:start}
+.audio-title{
   margin-top:24px;
   font-family:var(--serif);
   font-weight:300;
   text-transform:uppercase;
-  letter-spacing:.008em;
-  line-height:.92;
-  font-size:clamp(2.7rem,5.6vw,4.7rem);
+  letter-spacing:.012em;
+  line-height:.94;
+  font-size:clamp(2.6rem,6.4vw,5.4rem);
   color:#fff;
 }
-.series-title span{display:block;white-space:nowrap}
-
-/* The positioning line, compact here and enlarged in the statement below */
-.positioning{
-  display:flex;
-  flex-wrap:wrap;
-  align-items:center;
-  gap:10px 14px;
-  margin-top:26px;
-  padding-top:20px;
+.audio-hero__line{
+  margin-top:28px;
+  padding-top:22px;
   border-top:1px solid rgba(255,219,79,.5);
-  font-size:.6875rem;
-  font-weight:600;
-  letter-spacing:.26em;
-  text-transform:uppercase;
-  color:var(--gold);
+  max-width:24ch;
+  font-family:var(--serif);
+  font-weight:300;
+  font-size:clamp(1.32rem,2.2vw,1.85rem);
+  line-height:1.26;
+  color:#fff;
 }
-.positioning span:not(:last-child)::after{
-  content:"·";
-  margin-left:14px;
-  color:rgba(255,255,255,.3);
-}
+.audio-hero__line em{font-style:italic;color:var(--blue-tint)}
 
-.series-hero__copy{margin-top:28px;max-width:50ch}
-.series-hero__cta{margin-top:34px}
 
-/* The city plate */
-.plate{
-  position:relative;
-  border:1px solid rgba(255,219,79,.32);
-  box-shadow:0 26px 48px rgba(0,0,0,.42);
+/* Two sleeves, offset — the whole catalogue, shown honestly */
+.sleeves{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:clamp(14px,2vw,26px);
+  align-items:start;
+  max-width:470px;
+  margin-inline:auto;
 }
-.plate img{
-  width:100%;
-  height:100%;
-  aspect-ratio:4/5;
-  object-fit:cover;
-  object-position:center 58%;
-}
-.plate__veil{
-  position:absolute;
-  inset:0;
-  background:linear-gradient(180deg,rgba(3,26,63,.42) 0%,rgba(3,26,63,.14) 40%,rgba(3,26,63,.66) 100%);
-}
-.plate__cap{
-  position:absolute;
-  left:clamp(16px,2vw,26px);
-  bottom:clamp(14px,1.8vw,22px);
+.sleeves li:nth-child(2){padding-top:clamp(20px,3.2vw,48px)}
+.sleeves figcaption{
+  margin-top:14px;
   font-size:.625rem;
   font-weight:600;
-  letter-spacing:.24em;
+  letter-spacing:.18em;
   text-transform:uppercase;
-  color:rgba(255,255,255,.82);
+  color:rgba(255,255,255,.5);
+  line-height:1.6;
 }
 
-/* --- 08 Series statement -------------------------------------------------------- */
-.statement{background:var(--paper)}
-.statement__lines{
-  font-family:var(--serif);
-  font-weight:300;
-  font-size:clamp(2.3rem,5.6vw,4.6rem);
-  line-height:1.02;
-  letter-spacing:-.016em;
-  color:var(--navy);
-}
-.statement__lines span{display:block}
-.statement__lines span:last-child{color:var(--blue)}
-.statement__rule{
-  margin-block:clamp(30px,3.6vw,48px);
-  height:1px;
-  background:var(--rule-strong);
-}
-.statement__copy{
-  display:grid;
-  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
-  gap:clamp(30px,4vw,72px);
-}
-.statement__copy p{
-  font-size:1.0625rem;
-  line-height:1.85;
-  color:var(--ink-soft);
-}
-.statement__copy p:first-child{
-  font-family:var(--serif);
-  font-style:italic;
-  font-weight:300;
-  font-size:clamp(1.32rem,2.1vw,1.75rem);
-  line-height:1.34;
-  color:var(--navy);
-}
-
-/* --- 09 Book module system -------------------------------------------------------
-   One module, repeated. Same slots in the same order every time: label,
-   cover, title, strap, hook, description, CTA. Only the side flips.
+/* --- 08 Audiobook module system -----------------------------------------------
+   One module, used for every title: sleeve, label, name, narrator, hook,
+   description, excerpt control, where to listen, and the printed book.
    -------------------------------------------------------------------------- */
-.books{background:var(--paper-warm)}
-.book{
+.catalogue{background:var(--paper)}
+.audiobook{
   display:grid;
-  grid-template-columns:minmax(0,.62fr) minmax(0,1.38fr);
+  grid-template-columns:minmax(0,.72fr) minmax(0,1.28fr);
   gap:clamp(32px,5vw,80px);
-  align-items:center;
-  padding-block:clamp(46px,5.5vw,76px);
+  align-items:start;
+  padding-block:clamp(44px,5.4vw,72px);
   border-top:1px solid var(--rule);
 }
-.book:first-of-type{margin-top:clamp(38px,4.4vw,60px)}
-.book--flip{grid-template-columns:minmax(0,1.38fr) minmax(0,.62fr)}
-.book--flip .book__figure{order:2}
-.book--flip .book__body{order:1}
-.book__figure{margin:0}
-.book__figure .cover{max-width:268px;margin-inline:auto}
-.book__figure .cover img{filter:drop-shadow(0 16px 30px rgba(5,52,126,.24))}
+.audiobook:first-of-type{margin-top:clamp(34px,4vw,54px)}
+.audiobook--flip{grid-template-columns:minmax(0,1.28fr) minmax(0,.72fr)}
+.audiobook--flip .audiobook__art{order:2}
+.audiobook--flip .audiobook__body{order:1}
+.audiobook__art{margin:0}
+.audiobook__art .sleeve{max-width:330px}
 
-.book__label{
+.audiobook__label{
   display:flex;
   flex-wrap:wrap;
   align-items:center;
@@ -475,27 +470,12 @@ a.cover:hover img,
   color:var(--ink-mute);
   line-height:1.7;
 }
-/* Each segment holds together; only the separators are allowed to break */
-.book__label span,
-.book__label b{white-space:nowrap}
-.book__label b{font-weight:600;color:var(--blue)}
-.book__label > *:not(:last-child)::after{
-  content:"·";
-  margin-left:12px;
-  color:var(--rule-strong);
-}
-.book__label::before{
-  content:"";
-  width:7px;
-  height:7px;
-  border-radius:50%;
-  background:var(--gold);
-  flex:none;
-}
-.book__label--soon::before{background:transparent;border:1px solid var(--gold)}
+.audiobook__label span{white-space:nowrap}
+.audiobook__label b{font-weight:600;color:var(--blue);white-space:nowrap}
+.audiobook__label > *:not(:last-child)::after{content:"·";margin-left:12px;color:var(--rule-strong)}
 
-.book__title{
-  margin-top:14px;
+.audiobook__title{
+  margin-top:12px;
   font-family:var(--serif);
   font-weight:300;
   font-size:clamp(2rem,3.6vw,3rem);
@@ -503,95 +483,100 @@ a.cover:hover img,
   letter-spacing:-.012em;
   color:var(--navy);
 }
-.book__strap{
+.audiobook__by{
   margin-top:14px;
   padding-top:13px;
   border-top:1px solid var(--rule);
-  max-width:46ch;
-  font-size:.6875rem;
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,auto));
+  gap:6px clamp(28px,4vw,56px);
+  justify-content:start;
+}
+.audiobook__by dt{
+  font-size:.5625rem;
   font-weight:600;
   letter-spacing:.2em;
   text-transform:uppercase;
   color:var(--ink-mute);
-  line-height:1.8;
 }
-.book__hook{
-  margin-top:18px;
+.audiobook__by dd{
+  margin:0;
+  font-size:.875rem;
+  line-height:1.5;
+  color:var(--navy);
+}
+.audiobook__hook{
+  margin-top:20px;
   font-family:var(--serif);
   font-style:italic;
   font-weight:300;
-  font-size:clamp(1.25rem,1.9vw,1.6rem);
+  font-size:clamp(1.22rem,1.9vw,1.55rem);
   line-height:1.34;
   color:var(--navy);
   max-width:34ch;
 }
-.book__copy{
+.audiobook__copy{
   margin-top:18px;
   font-size:1rem;
   line-height:1.82;
   color:var(--ink-soft);
-  max-width:56ch;
+  max-width:58ch;
 }
-.book__cta{margin-top:26px}
+.audiobook__excerpt{margin-top:24px}
 
-/* --- 10 Themes index --------------------------------------------------------------
-   Five words the series positioning actually uses, numbered down the page.
-   -------------------------------------------------------------------------- */
-.themes{background:var(--navy-ink);color:#fff}
-.themes__list{margin-top:clamp(28px,3.4vw,44px);border-top:1px solid rgba(255,255,255,.16)}
-.themes__list li{
-  display:grid;
-  grid-template-columns:56px minmax(0,1fr);
-  align-items:baseline;
-  gap:0 20px;
-  padding-block:clamp(12px,1.6vw,20px);
-  border-bottom:1px solid rgba(255,255,255,.16);
+.where{
+  margin-top:24px;
+  padding-top:18px;
+  border-top:1px solid var(--rule);
 }
-.themes__n{
-  font-size:.625rem;
+.where__label{
+  font-size:.5625rem;
   font-weight:600;
   letter-spacing:.2em;
-  color:var(--blue-tint);
-}
-.themes__w{
-  font-family:var(--serif);
-  font-weight:300;
-  font-size:clamp(1.85rem,4.6vw,3.4rem);
-  line-height:1.06;
-  letter-spacing:.04em;
   text-transform:uppercase;
-  color:#fff;
+  color:var(--ink-mute);
 }
-.themes__list li:last-child .themes__w{color:var(--gold)}
+.where__list{display:flex;flex-wrap:wrap;margin-top:10px}
+.where__list li + li{border-left:1px solid var(--rule)}
+.where__list a{
+  display:inline-flex;
+  padding:4px clamp(12px,1.5vw,18px);
+  font-size:.6875rem;
+  font-weight:600;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--navy);
+  transition:color .24s ease;
+}
+.where__list li:first-child a{padding-left:0}
+.where__list a:hover{color:var(--blue)}
 
-/* --- 11 Closing CTA ------------------------------------------------------------------ */
+.audiobook__foot{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:16px 28px;
+  margin-top:26px;
+}
+
+/* --- 09 Closing CTA -------------------------------------------------------------- */
 .closing{background:var(--navy-deep);color:#fff}
-.closing__inner{max-width:58ch}
+.closing__inner{max-width:54ch}
 .closing__title{
   margin-top:24px;
   font-family:var(--serif);
   font-weight:300;
-  font-size:clamp(2.4rem,5.4vw,4.4rem);
+  font-size:clamp(2.3rem,5.2vw,4.2rem);
   line-height:1.02;
   letter-spacing:-.014em;
   color:#fff;
 }
-.closing__pair{
-  margin-top:clamp(26px,3vw,38px);
-  padding-top:clamp(22px,2.6vw,32px);
-  border-top:1px solid rgba(255,219,79,.5);
-  font-family:var(--serif);
-  font-weight:300;
-  font-size:clamp(1.45rem,2.6vw,2.15rem);
-  line-height:1.24;
-  color:#fff;
-}
-.closing__pair span{display:block}
-.closing__pair span:last-child{color:var(--gold);font-style:italic}
+.closing__title span{display:block}
+.closing__title span:last-child{color:var(--gold);font-style:italic}
 .closing__cta{display:flex;flex-wrap:wrap;gap:16px 28px;align-items:center;margin-top:36px}
 
-/* --- 12 More from Gledé ----------------------------------------------------------------- */
-.more{background:var(--paper)}
+/* --- 10 More from Gledé ------------------------------------------------------------ */
+.more{background:var(--paper-warm)}
 .more__head{
   display:flex;
   align-items:center;
@@ -606,11 +591,25 @@ a.cover:hover img,
   gap:clamp(26px,4vw,58px);
   margin-top:clamp(32px,3.8vw,52px);
 }
-.more__item .cover{max-width:164px}
+.more__cover{
+  position:relative;
+  display:block;
+  aspect-ratio:71/100;
+  width:100%;
+  max-width:164px;
+}
+.more__cover img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center bottom;
+  transition:transform .4s cubic-bezier(.22,.61,.36,1);
+}
+.more__item:hover .more__cover img{transform:translateY(-6px)}
 .more__kicker{margin-top:20px}
 .more__title{margin-top:8px;color:var(--ink)}
 
-/* --- 13 Footer ---------------------------------------------------------------------------- */
+/* --- 11 Footer ---------------------------------------------------------------------- */
 .site-footer{background:var(--navy-deep);color:#fff}
 .site-footer__grid{
   display:grid;
@@ -660,11 +659,11 @@ a.cover:hover img,
 .site-footer__bar a{transition:color .22s ease}
 .site-footer__bar a:hover{color:var(--gold)}
 
-/* --- 14 Responsive ---------------------------------------------------------------------- */
+/* --- 12 Responsive -------------------------------------------------------------- */
 @media (max-width:1180px){
   .nav{gap:16px}
   .nav__link{letter-spacing:.1em}
-  .series-hero__inner{gap:clamp(32px,4.5vw,60px)}
+  .audio-hero__inner{gap:clamp(30px,4vw,56px)}
 }
 
 @media (max-width:1024px){
@@ -720,32 +719,30 @@ a.cover:hover img,
 
   .site-footer .wordmark{font-size:.9375rem;letter-spacing:.15em}
 
-  /* Hero re-sequences: the city leads, then the name */
-  .series-hero__inner{
+  /* Hero re-sequences: headline, line, sleeves, CTA */
+  .audio-hero__inner{
     grid-template-columns:minmax(0,1fr);
-    gap:clamp(34px,5vw,48px);
-    padding-block:clamp(42px,6.5vw,72px);
+    grid-template-areas:"copy" "art" "cta";
+    row-gap:clamp(30px,4.2vw,42px);
+    padding-block:clamp(42px,6vw,70px);
   }
-  .series-hero__art{order:-1}
-  .plate img{aspect-ratio:16/9;object-position:center 52%}
+  .audio-hero__copy{align-self:auto}
+  .sleeves{margin-inline:0;max-width:430px}
 
-  .statement__copy{grid-template-columns:minmax(0,1fr);gap:clamp(22px,3vw,32px)}
-
-  .book{grid-template-columns:minmax(0,.56fr) minmax(0,1.44fr);gap:clamp(28px,4vw,48px)}
-  .book--flip{grid-template-columns:minmax(0,1.44fr) minmax(0,.56fr)}
-  .book__figure .cover{max-width:210px}
+  .audiobook{grid-template-columns:minmax(0,.62fr) minmax(0,1.38fr);gap:clamp(28px,4vw,48px)}
+  .audiobook--flip{grid-template-columns:minmax(0,1.38fr) minmax(0,.62fr)}
+  .audiobook__art .sleeve{max-width:260px}
 }
 
 @media (max-width:860px){
-  /* Each module recomposes into one column, same slot order every time */
-  .book,
-  .book--flip{display:block;padding-block:clamp(38px,5.5vw,54px)}
-  .book--flip .book__figure,
-  .book--flip .book__body{order:0}
-  .book__figure{margin-bottom:clamp(24px,3.5vw,32px)}
-  .book__figure .cover{max-width:206px;margin-inline:0}
-  .book__hook{max-width:none}
-  .book__copy{max-width:62ch}
+  /* Each title recomposes into one column, same slot order every time */
+  .audiobook,
+  .audiobook--flip{display:block;padding-block:clamp(36px,5vw,52px)}
+  .audiobook--flip .audiobook__art,
+  .audiobook--flip .audiobook__body{order:0}
+  .audiobook__art{margin-bottom:clamp(24px,3.5vw,32px)}
+  .audiobook__art .sleeve{max-width:300px}
+  .audiobook__copy{max-width:62ch}
 
   .site-footer__grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:34px}
 }
@@ -763,7 +760,7 @@ a.cover:hover img,
     border-bottom:1px solid var(--rule);
   }
   .more__item:first-child{border-top:1px solid var(--rule)}
-  .more__item .cover{grid-column:1;grid-row:1 / span 2;max-width:none;align-self:center}
+  .more__cover{grid-column:1;grid-row:1 / span 2;max-width:none;align-self:center}
   .more__kicker{grid-column:2;grid-row:1;margin-top:0;align-self:end}
   .more__title{grid-column:2;grid-row:2;margin-top:8px;align-self:start}
 }
@@ -775,29 +772,23 @@ a.cover:hover img,
 }
 
 @media (max-width:560px){
-  .series-title{margin-top:20px;font-size:clamp(2.35rem,10.6vw,3.2rem);line-height:.96}
-  .series-title span{white-space:normal}
-  .positioning{gap:8px 12px;letter-spacing:.2em}
-  .series-hero__copy{margin-top:22px}
-  .series-hero__cta .btn{width:100%}
-  .plate img{aspect-ratio:3/2}
+  .audio-title{margin-top:20px;font-size:clamp(2.4rem,12.6vw,3.6rem)}
+  .audio-hero__line{margin-top:24px;max-width:none;font-size:1.3rem}
+  .audio-hero__cta .btn{width:100%}
+  /* Two sleeves stay side by side — square art reads fine at this size */
+  .sleeves{gap:12px;max-width:none}
+  .sleeves li:nth-child(2){padding-top:0}
+  .sleeves figcaption{letter-spacing:.14em}
 
-  .statement__lines{font-size:clamp(2rem,11vw,3rem)}
-  .statement__copy p:first-child{font-size:1.3rem}
+  .audiobook__art .sleeve{max-width:none}
+  .audiobook__title{font-size:clamp(1.8rem,8.6vw,2.4rem)}
+  .audiobook__hook{font-size:1.2rem;max-width:none}
+  .audiobook__by{grid-template-columns:minmax(0,1fr);gap:4px}
+  .audiobook__by dd{margin-bottom:8px}
+  .excerpt{max-width:none}
+  .audiobook__foot .btn{width:100%}
 
-  .book__figure .cover{max-width:190px}
-  .book__title{font-size:clamp(1.8rem,8.6vw,2.4rem)}
-  .book__hook{font-size:1.2rem}
-  .book__copy{font-size:1rem}
-  .book__cta .btn{width:100%}
-
-  .book__label{letter-spacing:.16em;gap:2px 10px}
-  .book__label > *:not(:last-child)::after{margin-left:10px}
-
-  .themes__list li{grid-template-columns:38px minmax(0,1fr);gap:0 14px}
-  .themes__w{font-size:clamp(1.6rem,9.5vw,2.4rem)}
-
-  .closing__title{font-size:clamp(2.1rem,10.5vw,3rem)}
+  .closing__title{font-size:clamp(2rem,10vw,2.9rem)}
   .closing__cta .btn{width:100%}
 
   .site-footer__grid{grid-template-columns:minmax(0,1fr);gap:32px}
@@ -825,10 +816,10 @@ a.cover:hover img,
           <span class="submenu__label">Browse the collection</span>
           <a href="books.html#standalones">Standalones</a>
           <a href="fearless-series.html">Fearless Series</a>
-          <a href="miami-elite-thrillers.html" aria-current="page">Miami Elite Thrillers</a>
+          <a href="miami-elite-thrillers.html">Miami Elite Thrillers</a>
           <a href="malicious-games.html">Malicious Games</a>
           <a href="books.html#novellas">Novellas</a>
-          <a href="audiobooks.html">Audiobooks</a>
+          <a href="audiobooks.html" aria-current="page">Audiobooks</a>
         </div>
       </div>
 
@@ -853,10 +844,10 @@ a.cover:hover img,
         <ul class="mobile-nav__sub">
           <li><a href="books.html#standalones">Standalones</a></li>
           <li><a href="fearless-series.html">Fearless Series</a></li>
-          <li><a href="miami-elite-thrillers.html" aria-current="page">Miami Elite Thrillers</a></li>
+          <li><a href="miami-elite-thrillers.html">Miami Elite Thrillers</a></li>
           <li><a href="malicious-games.html">Malicious Games</a></li>
           <li><a href="books.html#novellas">Novellas</a></li>
-          <li><a href="audiobooks.html">Audiobooks</a></li>
+          <li><a href="audiobooks.html" aria-current="page">Audiobooks</a></li>
         </ul>
       </li>
       <li><a href="about.html">About</a></li>
@@ -871,145 +862,175 @@ a.cover:hover img,
 
 <main>
 
-<!-- ============================ SERIES HERO ============================ -->
-<section class="series-hero" aria-labelledby="series-title">
-  <div class="series-hero__wash" aria-hidden="true"></div>
+<!-- ============================ HERO ============================ -->
+<section class="audio-hero" aria-labelledby="audio-title">
+  <div class="audio-hero__wash" aria-hidden="true"></div>
 
-  <div class="shell series-hero__inner">
+  <div class="shell audio-hero__inner">
 
-    <div>
-      <p class="eyebrow eyebrow--light">Miami Elite</p>
+    <div class="audio-hero__copy">
+      <p class="eyebrow eyebrow--light">Listen to the Stories</p>
 
-      <h1 class="series-title" id="series-title">
-        <span>Miami Elite</span>
-        <span>Thrillers</span>
-      </h1>
+      <h1 class="audio-title" id="audio-title">Audiobooks</h1>
 
-      <p class="positioning">
-        <span>Wealth</span><span>Privilege</span><span>Deadly Secrets</span>
+      <p class="audio-hero__line">
+        The stories you know. <em>Now heard differently.</em>
       </p>
 
-      <p class="lede body--light series-hero__copy">
-        Welcome to Miami, where money buys power, privilege buys silence, and the truth can get
-        you killed.
-      </p>
-
-      <div class="series-hero__cta">
-        <a class="btn btn--gold btn--wide" href="#the-series">Explore the Series</a>
-      </div>
     </div>
 
-    <figure class="series-hero__art plate">
-      <img src="https://static.wixstatic.com/media/461d77_a30851481f4e4a77966bd34ad54a3d07~mv2.jpg/v1/fill/w_1100,h_1375,al_c,q_85,enc_auto/miami-skyline.jpg"
-           width="1100" height="1375"
-           alt="The Miami skyline at night, seen across the water">
-      <span class="plate__veil" aria-hidden="true"></span>
-      <figcaption class="plate__cap">Miami · After Dark</figcaption>
-    </figure>
+    <div class="audio-hero__art">
+      <ul class="sleeves" aria-label="Available audiobooks">
+        <li>
+          <figure>
+            <span class="sleeve sleeve--light">
+              <img src="https://static.wixstatic.com/media/461d77_0b7c0d73db434715b65fc0011a2aac01~mv2.jpg/v1/fill/w_480,h_480,al_c,q_85,enc_auto/conspiracy-of-silence-audiobook.jpg"
+                   width="480" height="480"
+                   alt="Conspiracy of Silence audiobook cover">
+            </span>
+            <figcaption>Conspiracy of Silence</figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure>
+            <span class="sleeve sleeve--light">
+              <img src="https://static.wixstatic.com/media/461d77_80d50a7c71034b76834412ac01f86b84~mv2.jpg/v1/fill/w_480,h_480,al_c,q_85,enc_auto/vengeance-unwrapped-audiobook.jpg"
+                   width="480" height="480"
+                   alt="Vengeance Unwrapped audiobook cover">
+            </span>
+            <figcaption>Vengeance Unwrapped</figcaption>
+          </figure>
+        </li>
+      </ul>
+    </div>
 
-  </div>
-</section>
-
-<!-- ============================ SERIES STATEMENT ============================ -->
-<section class="section statement" aria-labelledby="statement-lines">
-  <div class="shell">
-
-    <p class="statement__lines" id="statement-lines">
-      <span>Wealth.</span>
-      <span>Privilege.</span>
-      <span>Deadly secrets.</span>
-    </p>
-
-    <div class="statement__rule" aria-hidden="true"></div>
-
-    <div class="statement__copy">
-      <p>
-        Brilliant Caribbean-American women navigate the city’s most exclusive circles, where
-        beautiful lives hide dangerous secrets, and the powerful will do anything to keep them
-        buried.
-      </p>
-      <p>
-        The Miami Elite Thrillers are a collection of addictive psychological thrillers set among
-        the city’s most powerful circles—power brokers who believe their wealth makes them
-        untouchable. Perfect for readers who love twisty psychological thrillers, powerful women,
-        and dangerous secrets.
-      </p>
+    <div class="audio-hero__cta">
+      <a class="btn btn--gold btn--wide" href="#catalogue">Explore the Audiobooks</a>
     </div>
 
   </div>
 </section>
 
-<!-- ============================ THE SERIES ============================ -->
-<section class="section books" id="the-series" aria-labelledby="series-label">
+<!-- ============================ THE AUDIOBOOKS ============================ -->
+<section class="section catalogue" id="catalogue" aria-labelledby="catalogue-label">
   <div class="shell">
-    <h2 class="section-label" id="series-label">The Miami Elite Series</h2>
+    <h2 class="section-label" id="catalogue-label">The Audiobooks</h2>
 
-    <!-- 01 — cover left, content right -->
-    <article class="book" id="fatal-match" aria-labelledby="fatal-match-title">
-      <figure class="book__figure">
-        <span class="cover">
-          <img src="https://static.wixstatic.com/media/461d77_fde8532af2844cc39bce80cd58b7b9ff~mv2.png/v1/crop/x_356,y_120,w_760,h_1110/fill/w_560,h_818,al_c,q_90,enc_auto/fatal-match.png"
-               width="560" height="818" loading="lazy"
-               alt="Fatal Match by Gledé Browne Kabongo — book cover">
+    <!-- Featured — sleeve left, content right -->
+    <article class="audiobook" id="conspiracy-of-silence" aria-labelledby="cos-title">
+      <figure class="audiobook__art">
+        <span class="sleeve">
+          <img src="https://static.wixstatic.com/media/461d77_0b7c0d73db434715b65fc0011a2aac01~mv2.jpg/v1/fill/w_660,h_660,al_c,q_85,enc_auto/conspiracy-of-silence-audiobook.jpg"
+               width="660" height="660" loading="lazy"
+               alt="Conspiracy of Silence audiobook cover">
         </span>
       </figure>
 
-      <div class="book__body">
-        <p class="book__label"><span>Miami Elite Thriller</span> <b>Book One</b> <span>Published May 2026</span></p>
-        <h3 class="book__title" id="fatal-match-title">Fatal Match</h3>
-        <p class="book__strap">Perfectly charming. Perfectly deadly.</p>
-        <p class="book__hook">She built a matchmaking empire. Then she matched a monster.</p>
-        <p class="book__copy">
-          Harvard-trained psychologist Dr. Sabrina Ambrose built her Miami elite matchmaking empire
-          on a near-perfect algorithm and a 98% success rate pairing the powerful, wealthy, and
-          famous. But perfection can hide monsters.
+      <div class="audiobook__body">
+        <p class="audiobook__label"><b>Featured Audiobook</b></p>
+        <h3 class="audiobook__title" id="cos-title">Conspiracy of Silence</h3>
+
+        <dl class="audiobook__by">
+          <div>
+            <dt>Written by</dt>
+            <dd>Gledé Browne Kabongo</dd>
+          </div>
+          <div>
+            <dt>Narrated by</dt>
+            <dd>Laura Jennings and Beverly Murray</dd>
+          </div>
+        </dl>
+
+        <p class="audiobook__hook">Some fathers protect their daughters. Mine taught me to fear the dark.</p>
+
+        <p class="audiobook__copy">
+          Nina Kasai has spent almost twenty years building a life her father could never touch —
+          brilliant career, devoted husband, a future entirely on her own terms. Then Phillip
+          Copeland steps out of the shadows, and she remembers exactly what he is capable of.
         </p>
-        <p class="book__cta">
-          <a class="btn btn--navy" role="link" tabindex="0">Learn More</a>
+
+        <p class="audiobook__excerpt">
+          <a class="excerpt" role="button" tabindex="0" aria-label="Listen to an excerpt from the Conspiracy of Silence audiobook">
+            <span class="excerpt__play" aria-hidden="true">
+              <svg viewBox="0 0 11 13" aria-hidden="true"><path d="M0 0l11 6.5L0 13z"/></svg>
+            </span>
+            <span class="excerpt__label">Listen to an Excerpt</span>
+            <span class="excerpt__track" aria-hidden="true"></span>
+          </a>
         </p>
+
+        <div class="where">
+          <p class="where__label">Where to listen</p>
+          <ul class="where__list">
+            <li><a role="link" tabindex="0">Audible</a></li>
+            <li><a role="link" tabindex="0">Spotify</a></li>
+            <li><a role="link" tabindex="0">Nook Audiobooks</a></li>
+            <li><a role="link" tabindex="0">Apple</a></li>
+            <li><a role="link" tabindex="0">Kobo</a></li>
+          </ul>
+        </div>
+
+        <div class="audiobook__foot">
+          <a class="link-arrow" href="conspiracy-of-silence.html">
+            Book Details <span class="arw" aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
       </div>
     </article>
 
-    <!-- 02 — content left, cover right -->
-    <article class="book book--flip" id="the-last-concierge" aria-labelledby="concierge-title">
-      <figure class="book__figure">
-        <span class="cover">
-          <img src="https://static.wixstatic.com/media/461d77_92546adb27094708bff1404ac3b58ad8~mv2.png/v1/crop/x_120,y_0,w_720,h_1000/fill/w_560,h_778,al_c,q_90,enc_auto/the-last-concierge.png"
-               width="560" height="778" loading="lazy"
-               alt="The Last Concierge by Gledé Browne Kabongo — book cover">
+    <!-- Content left, sleeve right -->
+    <article class="audiobook audiobook--flip" id="vengeance-unwrapped" aria-labelledby="vu-title">
+      <figure class="audiobook__art">
+        <span class="sleeve">
+          <img src="https://static.wixstatic.com/media/461d77_80d50a7c71034b76834412ac01f86b84~mv2.jpg/v1/fill/w_660,h_660,al_c,q_85,enc_auto/vengeance-unwrapped-audiobook.jpg"
+               width="660" height="660" loading="lazy"
+               alt="Vengeance Unwrapped audiobook cover">
         </span>
       </figure>
 
-      <div class="book__body">
-        <p class="book__label book__label--soon"><span>Miami Elite Thriller</span> <b>Book Two</b> <span>Release Date: September 1, 2026</span></p>
-        <h3 class="book__title" id="concierge-title">The Last Concierge</h3>
-        <p class="book__strap">She knows their darkest secrets. Now they want her silenced.</p>
-        <p class="book__hook">She built her business on discretion. Now her silence could get her killed.</p>
-        <p class="book__copy">
-          As the founder of an elite concierge service for billionaires, celebrities, and tech
-          moguls, Julie-Ann Shillingford’s business is built on one rule: Know everything. Say
-          nothing.
+      <div class="audiobook__body">
+        <p class="audiobook__label"><b>Audiobook</b></p>
+        <h3 class="audiobook__title" id="vu-title">Vengeance Unwrapped</h3>
+
+        <dl class="audiobook__by">
+          <div>
+            <dt>Written by</dt>
+            <dd>Gledé Browne Kabongo</dd>
+          </div>
+          <div>
+            <dt>Narrated by</dt>
+            <dd>Rickel Hayes</dd>
+          </div>
+        </dl>
+
+        <p class="audiobook__hook">You destroyed my family. Now I’ll destroy yours.</p>
+
+        <p class="audiobook__copy">
+          It’s twelve days before Christmas, and the gifts begin arriving—but these special
+          deliveries hold something far more sinister than holiday cheer. Dr. Abbie Rambally thought
+          her nightmare ended when her kidnapped son was rescued seven years ago. But now anonymous
+          presents prove someone hasn’t forgotten—and hasn’t forgiven.
         </p>
-        <p class="book__cta">
-          <a class="btn btn--navy" role="link" tabindex="0">Learn More</a>
+
+        <p class="audiobook__excerpt">
+          <a class="excerpt" role="button" tabindex="0" aria-label="Listen to an excerpt from the Vengeance Unwrapped audiobook">
+            <span class="excerpt__play" aria-hidden="true">
+              <svg viewBox="0 0 11 13" aria-hidden="true"><path d="M0 0l11 6.5L0 13z"/></svg>
+            </span>
+            <span class="excerpt__label">Listen to an Excerpt</span>
+            <span class="excerpt__track" aria-hidden="true"></span>
+          </a>
         </p>
+
+        <div class="audiobook__foot">
+          <a class="btn btn--navy" role="link" tabindex="0">Buy Now</a>
+          <a class="link-arrow" href="books.html#novellas">
+            Book Details <span class="arw" aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
       </div>
     </article>
 
-  </div>
-</section>
-
-<!-- ============================ THEMES ============================ -->
-<section class="section themes" aria-labelledby="themes-label">
-  <div class="shell">
-    <h2 class="section-label section-label--light" id="themes-label">The Currency of the City</h2>
-    <ul class="themes__list">
-      <li><span class="themes__n">01</span><span class="themes__w">Wealth</span></li>
-      <li><span class="themes__n">02</span><span class="themes__w">Privilege</span></li>
-      <li><span class="themes__n">03</span><span class="themes__w">Power</span></li>
-      <li><span class="themes__n">04</span><span class="themes__w">Secrets</span></li>
-      <li><span class="themes__n">05</span><span class="themes__w">Silence</span></li>
-    </ul>
   </div>
 </section>
 
@@ -1017,17 +1038,15 @@ a.cover:hover img,
 <section class="section closing" aria-labelledby="closing-title">
   <div class="shell">
     <div class="closing__inner">
-      <p class="eyebrow eyebrow--light">Miami Elite Thrillers</p>
+      <p class="eyebrow eyebrow--light">Audiobooks</p>
 
-      <h2 class="closing__title" id="closing-title">Welcome to Miami.</h2>
-
-      <p class="closing__pair">
-        <span>Beautiful lives.</span>
-        <span>Dangerous secrets.</span>
-      </p>
+      <h2 class="closing__title" id="closing-title">
+        <span>The stories. The secrets.</span>
+        <span>The voices.</span>
+      </h2>
 
       <div class="closing__cta">
-        <a class="btn btn--gold btn--wide" href="#the-series">Explore the Series</a>
+        <a class="btn btn--gold btn--wide" href="#catalogue">Explore the Audiobooks</a>
         <a class="link-arrow link-arrow--light" href="books.html">
           All Books <span class="arw" aria-hidden="true">&rarr;</span>
         </a>
@@ -1049,7 +1068,7 @@ a.cover:hover img,
     <div class="more__grid">
 
       <article class="more__item">
-        <a class="cover" href="the-forbidden-heiress.html" aria-label="The Forbidden Heiress">
+        <a class="more__cover" href="the-forbidden-heiress.html" aria-label="The Forbidden Heiress">
           <img src="https://static.wixstatic.com/media/461d77_d41eb83df18644ff99e4d4d1d0c38622~mv2.png/v1/crop/x_363,y_135,w_750,h_1081/fill/w_420,h_605,al_c,q_90,enc_auto/the-forbidden-heiress.png"
                width="420" height="605" loading="lazy"
                alt="The Forbidden Heiress by Gledé Browne Kabongo — book cover">
@@ -1059,7 +1078,7 @@ a.cover:hover img,
       </article>
 
       <article class="more__item">
-        <a class="cover" href="our-wicked-lies.html" aria-label="Our Wicked Lies">
+        <a class="more__cover" href="our-wicked-lies.html" aria-label="Our Wicked Lies">
           <img src="https://static.wixstatic.com/media/461d77_ac134f9b70444664adaa68409eb3b644~mv2.png/v1/crop/x_7,y_1,w_317,h_461/fill/w_416,h_605,al_c,q_90,enc_auto/our-wicked-lies.png"
                width="416" height="605" loading="lazy"
                alt="Our Wicked Lies by Gledé Browne Kabongo — book cover">
@@ -1069,7 +1088,7 @@ a.cover:hover img,
       </article>
 
       <article class="more__item">
-        <a class="cover" href="fool-me-twice.html" aria-label="Fool Me Twice">
+        <a class="more__cover" href="fool-me-twice.html" aria-label="Fool Me Twice">
           <img src="https://static.wixstatic.com/media/461d77_c74e1193748346afadb72819c7fffff9~mv2.png/v1/crop/x_363,y_135,w_750,h_1081/fill/w_420,h_605,al_c,q_90,enc_auto/fool-me-twice.png"
                width="420" height="605" loading="lazy"
                alt="Fool Me Twice by Gledé Browne Kabongo — book cover">
