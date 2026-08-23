@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Miami Elite Novellas — Gledé Browne Kabongo</title>
-<meta name="description" content="The Miami Elite Novella Series by Gledé Browne Kabongo. Money buys power. Power buys silence. But secrets always find a way out.">
+<title>Miami Elite Thrillers — Gledé Browne Kabongo</title>
+<meta name="description" content="Miami Elite Thrillers by Gledé Browne Kabongo. Wealth. Privilege. Deadly secrets. Welcome to Miami, where money buys power, privilege buys silence, and the truth can get you killed.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,11 +12,10 @@
 
 <style>
 /* ==========================================================================
-   GLEDÉ BROWNE KABONGO — MIAMI ELITE NOVELLAS (SERIES LANDING PROTOTYPE)
+   GLEDÉ BROWNE KABONGO — MIAMI ELITE THRILLERS (SERIES LANDING PROTOTYPE)
    Same design system as the Books page, the book-detail pages and the
-   Fearless Series page. Its own personality: the city is the through-line,
-   not a single protagonist, so the skyline anchors the hero and each novella
-   gets its own field — one lit, one still in the dark.
+   Fearless Series page. Its own personality: the city at night on one side
+   of the hero, and one repeated module the whole collection is built from.
    Static front-end only.
    01  Tokens
    02  Reset & base
@@ -25,9 +24,9 @@
    05  Header / navigation
    06  Cover system
    07  Series hero
-   08  The series & its four women
-   09  Novella modules
-   10  Praise
+   08  Series statement
+   09  Book module system
+   10  Themes index
    11  Closing CTA
    12  More from Gledé
    13  Footer
@@ -91,7 +90,7 @@ button{font:inherit;color:inherit}
 /* Focus stays legible on the dark fields too */
 .site-header :focus-visible,
 .series-hero :focus-visible,
-.novella--dark :focus-visible,
+.themes :focus-visible,
 .closing :focus-visible,
 .site-footer :focus-visible{outline-color:var(--gold)}
 
@@ -180,6 +179,8 @@ button{font:inherit;color:inherit}
 }
 .btn--gold{background:var(--gold);color:var(--navy-ink);border-color:var(--gold)}
 .btn--gold:hover{background:#F6CE2E;border-color:#F6CE2E}
+.btn--navy{background:var(--navy);color:#fff;border-color:var(--navy)}
+.btn--navy:hover{background:var(--navy-deep);border-color:var(--navy-deep)}
 .btn--wide{min-height:58px;padding:0 40px;letter-spacing:.2em}
 
 .link-arrow{
@@ -200,28 +201,6 @@ button{font:inherit;color:inherit}
 .link-arrow:hover .arw{transform:translateX(6px)}
 .link-arrow--light{color:#fff;border-color:rgba(255,255,255,.3)}
 .link-arrow--light:hover{color:var(--gold);border-color:var(--gold)}
-
-/* Status marker — published or forthcoming, in the source's own words */
-.status{
-  display:inline-flex;
-  align-items:center;
-  gap:12px;
-  font-size:.625rem;
-  font-weight:600;
-  letter-spacing:.22em;
-  text-transform:uppercase;
-  color:var(--ink-mute);
-}
-.status::before{
-  content:"";
-  width:7px;
-  height:7px;
-  border-radius:50%;
-  background:var(--gold);
-  flex:none;
-}
-.status--light{color:rgba(255,255,255,.6)}
-.status--soon::before{background:transparent;border:1px solid var(--gold)}
 
 /* --- 05 Header / navigation ---------------------------------------------- */
 .site-header{background:var(--navy);color:#fff;position:relative;z-index:60}
@@ -267,7 +246,7 @@ button{font:inherit;color:inherit}
   position:absolute;
   top:100%;
   left:-26px;
-  min-width:246px;
+  min-width:262px;
   background:var(--navy-deep);
   border-top:2px solid var(--gold);
   padding:14px 0 18px;
@@ -334,11 +313,12 @@ button{font:inherit;color:inherit}
   transition:transform .4s cubic-bezier(.22,.61,.36,1);
 }
 a.cover:hover img,
-.more__item:hover .cover img{transform:translateY(-6px)}
+.more__item:hover .cover img,
+.book:hover .cover img{transform:translateY(-6px)}
 
 /* --- 07 Series hero ----------------------------------------------------------
-   The city is the constant across these stories, so the skyline runs the full
-   width at the foot of the hero and the two jackets stand in front of it.
+   Type on the left, the city on the right — one rectangular plate, hard edges,
+   a single gold hairline. No card, no rounding, no glow.
    -------------------------------------------------------------------------- */
 .series-hero{
   position:relative;
@@ -350,15 +330,15 @@ a.cover:hover img,
 .series-hero__wash{
   position:absolute;
   inset:0;
-  background:radial-gradient(70% 60% at 76% 34%,rgba(5,52,126,.62) 0%,rgba(5,52,126,0) 74%);
+  background:radial-gradient(64% 58% at 22% 40%,rgba(5,52,126,.6) 0%,rgba(5,52,126,0) 74%);
   z-index:-1;
 }
 .series-hero__inner{
   display:grid;
-  grid-template-columns:minmax(0,1.06fr) minmax(0,.94fr);
-  gap:clamp(40px,5.5vw,84px);
+  grid-template-columns:minmax(0,1.14fr) minmax(0,.86fr);
+  gap:clamp(40px,5vw,76px);
   align-items:center;
-  padding-block:clamp(58px,7.5vw,108px) clamp(30px,4vw,52px);
+  padding-block:clamp(52px,6.4vw,92px);
 }
 
 .series-title{
@@ -366,278 +346,252 @@ a.cover:hover img,
   font-family:var(--serif);
   font-weight:300;
   text-transform:uppercase;
-  letter-spacing:.01em;
+  letter-spacing:.008em;
   line-height:.92;
-  font-size:clamp(2.9rem,6.4vw,5.4rem);
+  font-size:clamp(2.7rem,5.6vw,4.7rem);
   color:#fff;
 }
 .series-title span{display:block;white-space:nowrap}
-.series-title__sub{
+
+/* The positioning line, compact here and enlarged in the statement below */
+.positioning{
   display:flex;
+  flex-wrap:wrap;
   align-items:center;
-  gap:16px;
-  margin-top:18px;
-  font-family:var(--sans);
+  gap:10px 14px;
+  margin-top:26px;
+  padding-top:20px;
+  border-top:1px solid rgba(255,219,79,.5);
   font-size:.6875rem;
   font-weight:600;
-  letter-spacing:.32em;
+  letter-spacing:.26em;
   text-transform:uppercase;
   color:var(--gold);
 }
-.series-title__sub::before{content:"";width:42px;height:1px;background:rgba(255,219,79,.55);flex:none}
-
-.series-hero__tagline{
-  margin-top:32px;
-  max-width:26ch;
-  font-family:var(--serif);
-  font-weight:300;
-  font-size:clamp(1.32rem,2.25vw,1.9rem);
-  line-height:1.26;
-  letter-spacing:-.006em;
-  color:#fff;
+.positioning span:not(:last-child)::after{
+  content:"·";
+  margin-left:14px;
+  color:rgba(255,255,255,.3);
 }
-.series-hero__tagline em{font-style:italic;color:var(--blue-tint)}
+
+.series-hero__copy{margin-top:28px;max-width:50ch}
 .series-hero__cta{margin-top:34px}
 
-/* Two jackets, the published one forward */
-.jackets{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:clamp(16px,2.4vw,34px);
-  align-items:end;
-  max-width:480px;
-  margin-inline:auto;
-}
-.jackets .cover{filter:drop-shadow(0 22px 38px rgba(0,0,0,.6))}
-.jackets figure{margin:0}
-.jackets figcaption{
-  margin-top:16px;
-  font-size:.625rem;
-  font-weight:600;
-  letter-spacing:.2em;
-  text-transform:uppercase;
-  color:rgba(255,255,255,.5);
-}
-
-/* The skyline closes the hero, edge to edge */
-.skyline{
+/* The city plate */
+.plate{
   position:relative;
-  height:clamp(130px,17vw,230px);
-  border-top:1px solid rgba(255,219,79,.34);
+  border:1px solid rgba(255,219,79,.32);
+  box-shadow:0 26px 48px rgba(0,0,0,.42);
 }
-.skyline img{width:100%;height:100%;object-fit:cover;object-position:center 46%}
-.skyline__veil{
+.plate img{
+  width:100%;
+  height:100%;
+  aspect-ratio:4/5;
+  object-fit:cover;
+  object-position:center 58%;
+}
+.plate__veil{
   position:absolute;
   inset:0;
-  background:linear-gradient(180deg,rgba(3,26,63,.78) 0%,rgba(3,26,63,.28) 46%,rgba(3,26,63,.62) 100%);
+  background:linear-gradient(180deg,rgba(3,26,63,.42) 0%,rgba(3,26,63,.14) 40%,rgba(3,26,63,.66) 100%);
+}
+.plate__cap{
+  position:absolute;
+  left:clamp(16px,2vw,26px);
+  bottom:clamp(14px,1.8vw,22px);
+  font-size:.625rem;
+  font-weight:600;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.82);
 }
 
-/* --- 08 The series & its four women -------------------------------------------- */
-.series{background:var(--paper)}
-.series__inner{
-  display:grid;
-  grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);
-  gap:clamp(40px,6vw,96px);
-  margin-top:clamp(42px,5vw,72px);
-  align-items:start;
+/* --- 08 Series statement -------------------------------------------------------- */
+.statement{background:var(--paper)}
+.statement__lines{
+  font-family:var(--serif);
+  font-weight:300;
+  font-size:clamp(2.3rem,5.6vw,4.6rem);
+  line-height:1.02;
+  letter-spacing:-.016em;
+  color:var(--navy);
 }
-.series__copy p{
+.statement__lines span{display:block}
+.statement__lines span:last-child{color:var(--blue)}
+.statement__rule{
+  margin-block:clamp(30px,3.6vw,48px);
+  height:1px;
+  background:var(--rule-strong);
+}
+.statement__copy{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:clamp(30px,4vw,72px);
+}
+.statement__copy p{
   font-size:1.0625rem;
   line-height:1.85;
   color:var(--ink-soft);
-  max-width:52ch;
 }
-.series__copy p + p{margin-top:1.4em}
-.series__copy p:first-child::first-letter{
-  float:left;
-  font-family:var(--serif);
-  font-weight:400;
-  font-size:4.1em;
-  line-height:.8;
-  padding:.05em .12em 0 0;
-  color:var(--navy);
-}
-.mark{
+.statement__copy p:first-child{
   font-family:var(--serif);
   font-style:italic;
-  font-size:1.13em;
-  letter-spacing:.004em;
+  font-weight:300;
+  font-size:clamp(1.32rem,2.1vw,1.75rem);
+  line-height:1.34;
   color:var(--navy);
 }
 
-.women__title{
-  display:flex;
+/* --- 09 Book module system -------------------------------------------------------
+   One module, repeated. Same slots in the same order every time: label,
+   cover, title, strap, hook, description, CTA. Only the side flips.
+   -------------------------------------------------------------------------- */
+.books{background:var(--paper-warm)}
+.book{
+  display:grid;
+  grid-template-columns:minmax(0,.62fr) minmax(0,1.38fr);
+  gap:clamp(32px,5vw,80px);
   align-items:center;
-  gap:14px;
+  padding-block:clamp(46px,5.5vw,76px);
+  border-top:1px solid var(--rule);
+}
+.book:first-of-type{margin-top:clamp(38px,4.4vw,60px)}
+.book--flip{grid-template-columns:minmax(0,1.38fr) minmax(0,.62fr)}
+.book--flip .book__figure{order:2}
+.book--flip .book__body{order:1}
+.book__figure{margin:0}
+.book__figure .cover{max-width:268px;margin-inline:auto}
+.book__figure .cover img{filter:drop-shadow(0 16px 30px rgba(5,52,126,.24))}
+
+.book__label{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:4px 12px;
   font-size:.625rem;
   font-weight:600;
   letter-spacing:.22em;
   text-transform:uppercase;
   color:var(--ink-mute);
+  line-height:1.7;
 }
-.women__title::before{content:"";width:22px;height:1px;background:var(--gold);flex:none}
-.women{margin-top:22px;border-top:1px solid var(--rule-strong)}
-.women li{
-  display:grid;
-  grid-template-columns:44px minmax(0,1fr);
-  gap:0 18px;
-  padding:clamp(16px,2vw,22px) 0;
-  border-bottom:1px solid var(--rule);
+/* Each segment holds together; only the separators are allowed to break */
+.book__label span,
+.book__label b{white-space:nowrap}
+.book__label b{font-weight:600;color:var(--blue)}
+.book__label > *:not(:last-child)::after{
+  content:"·";
+  margin-left:12px;
+  color:var(--rule-strong);
 }
-.women__n{
+.book__label::before{
+  content:"";
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:var(--gold);
+  flex:none;
+}
+.book__label--soon::before{background:transparent;border:1px solid var(--gold)}
+
+.book__title{
+  margin-top:14px;
   font-family:var(--serif);
   font-weight:300;
-  font-size:1.5rem;
-  line-height:1.15;
-  color:var(--blue);
-}
-.women__line{
-  font-family:var(--serif);
-  font-weight:400;
-  font-size:clamp(1.08rem,1.5vw,1.3rem);
-  line-height:1.45;
-  color:var(--navy);
-}
-.women__tag{
-  grid-column:2;
-  margin-top:8px;
-  font-size:.625rem;
-  font-weight:600;
-  letter-spacing:.2em;
-  text-transform:uppercase;
-  color:var(--ink-mute);
-}
-
-/* --- 09 Novella modules ----------------------------------------------------------
-   One field each. The published novella sits in the light; the forthcoming
-   one is still in the dark.
-   -------------------------------------------------------------------------- */
-.novella{background:var(--paper-warm)}
-.novella--dark{background:var(--navy-ink);color:#fff}
-.novella__inner{
-  display:grid;
-  grid-template-columns:minmax(0,.66fr) minmax(0,1.34fr);
-  gap:clamp(34px,5.5vw,88px);
-  align-items:center;
-}
-.novella--dark .novella__inner{grid-template-columns:minmax(0,1.34fr) minmax(0,.66fr)}
-.novella--dark .novella__figure{order:2}
-.novella--dark .novella__body{order:1}
-.novella__figure{margin:0}
-.novella__figure .cover{max-width:300px;margin-inline:auto}
-.novella--dark .cover img{filter:drop-shadow(0 22px 40px rgba(0,0,0,.55))}
-
-.novella__title{
-  margin-top:18px;
-  font-family:var(--serif);
-  font-weight:300;
-  font-size:clamp(2.1rem,3.8vw,3.2rem);
+  font-size:clamp(2rem,3.6vw,3rem);
   line-height:1.02;
   letter-spacing:-.012em;
   color:var(--navy);
 }
-.novella--dark .novella__title{color:#fff}
-.novella__strap{
+.book__strap{
   margin-top:14px;
-  padding-top:14px;
+  padding-top:13px;
   border-top:1px solid var(--rule);
+  max-width:46ch;
   font-size:.6875rem;
   font-weight:600;
   letter-spacing:.2em;
   text-transform:uppercase;
   color:var(--ink-mute);
+  line-height:1.8;
 }
-.novella--dark .novella__strap{border-top-color:rgba(255,255,255,.2);color:rgba(255,255,255,.55)}
-.novella__hook{
-  margin-top:20px;
+.book__hook{
+  margin-top:18px;
   font-family:var(--serif);
   font-style:italic;
   font-weight:300;
-  font-size:clamp(1.28rem,2vw,1.65rem);
+  font-size:clamp(1.25rem,1.9vw,1.6rem);
   line-height:1.34;
   color:var(--navy);
-  max-width:32ch;
+  max-width:34ch;
 }
-.novella--dark .novella__hook{color:var(--gold)}
-.novella__body p{
+.book__copy{
+  margin-top:18px;
   font-size:1rem;
   line-height:1.82;
   color:var(--ink-soft);
-  max-width:58ch;
+  max-width:56ch;
 }
-.novella--dark .novella__body p{color:rgba(255,255,255,.74)}
-.novella__text{margin-top:22px}
-.novella__text p + p{margin-top:1.3em}
-.novella__close{
-  margin-top:1.3em;
-  font-family:var(--serif);
-  font-style:italic;
-  font-size:1.2rem;
-  line-height:1.45;
-  color:var(--navy);
-}
-.novella--dark .novella__close{color:var(--blue-tint)}
-.novella__cta{margin-top:30px}
+.book__cta{margin-top:26px}
 
-/* --- 10 Praise --------------------------------------------------------------------
-   Nine one-line notices, so they read as a wall of voices rather than a
-   featured quote with satellites.
+/* --- 10 Themes index --------------------------------------------------------------
+   Five words the series positioning actually uses, numbered down the page.
    -------------------------------------------------------------------------- */
-.praise{background:var(--paper)}
-.praise__grid{
+.themes{background:var(--navy-ink);color:#fff}
+.themes__list{margin-top:clamp(28px,3.4vw,44px);border-top:1px solid rgba(255,255,255,.16)}
+.themes__list li{
   display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  column-gap:clamp(28px,4vw,64px);
-  margin-top:clamp(38px,4.4vw,58px);
+  grid-template-columns:56px minmax(0,1fr);
+  align-items:baseline;
+  gap:0 20px;
+  padding-block:clamp(12px,1.6vw,20px);
+  border-bottom:1px solid rgba(255,255,255,.16);
 }
-.praise__grid figure{
-  padding:clamp(24px,3vw,34px) 0;
-  border-top:1px solid var(--rule);
-}
-.praise__grid blockquote p{
-  font-family:var(--serif);
-  font-weight:400;
-  font-size:clamp(1.18rem,1.7vw,1.5rem);
-  line-height:1.34;
-  color:var(--navy);
-}
-.praise__by{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  margin-top:14px;
+.themes__n{
   font-size:.625rem;
   font-weight:600;
-  letter-spacing:.18em;
-  text-transform:uppercase;
-  color:var(--ink-mute);
+  letter-spacing:.2em;
+  color:var(--blue-tint);
 }
-.praise__by::before{content:"";width:20px;height:1px;background:var(--gold);flex:none}
+.themes__w{
+  font-family:var(--serif);
+  font-weight:300;
+  font-size:clamp(1.85rem,4.6vw,3.4rem);
+  line-height:1.06;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  color:#fff;
+}
+.themes__list li:last-child .themes__w{color:var(--gold)}
 
-/* --- 11 Closing CTA ----------------------------------------------------------------- */
+/* --- 11 Closing CTA ------------------------------------------------------------------ */
 .closing{background:var(--navy-deep);color:#fff}
-.closing__inner{max-width:60ch}
+.closing__inner{max-width:58ch}
 .closing__title{
   margin-top:24px;
   font-family:var(--serif);
   font-weight:300;
-  font-size:clamp(2.1rem,4.4vw,3.6rem);
-  line-height:1.08;
-  letter-spacing:-.012em;
+  font-size:clamp(2.4rem,5.4vw,4.4rem);
+  line-height:1.02;
+  letter-spacing:-.014em;
   color:#fff;
 }
-.closing__title em{font-style:italic;color:var(--gold)}
-.closing__line{
-  margin-top:26px;
-  font-size:1.0625rem;
-  line-height:1.75;
-  color:rgba(255,255,255,.74);
-  max-width:52ch;
+.closing__pair{
+  margin-top:clamp(26px,3vw,38px);
+  padding-top:clamp(22px,2.6vw,32px);
+  border-top:1px solid rgba(255,219,79,.5);
+  font-family:var(--serif);
+  font-weight:300;
+  font-size:clamp(1.45rem,2.6vw,2.15rem);
+  line-height:1.24;
+  color:#fff;
 }
+.closing__pair span{display:block}
+.closing__pair span:last-child{color:var(--gold);font-style:italic}
 .closing__cta{display:flex;flex-wrap:wrap;gap:16px 28px;align-items:center;margin-top:36px}
 
-/* --- 12 More from Gledé --------------------------------------------------------------- */
-.more{background:var(--paper-warm)}
+/* --- 12 More from Gledé ----------------------------------------------------------------- */
+.more{background:var(--paper)}
 .more__head{
   display:flex;
   align-items:center;
@@ -650,13 +604,13 @@ a.cover:hover img,
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
   gap:clamp(26px,4vw,58px);
-  margin-top:clamp(34px,4vw,56px);
+  margin-top:clamp(32px,3.8vw,52px);
 }
-.more__item .cover{max-width:168px}
-.more__kicker{margin-top:22px}
+.more__item .cover{max-width:164px}
+.more__kicker{margin-top:20px}
 .more__title{margin-top:8px;color:var(--ink)}
 
-/* --- 13 Footer -------------------------------------------------------------------------- */
+/* --- 13 Footer ---------------------------------------------------------------------------- */
 .site-footer{background:var(--navy-deep);color:#fff}
 .site-footer__grid{
   display:grid;
@@ -748,9 +702,6 @@ a.cover:hover img,
     color:rgba(255,255,255,.38);
     text-transform:none;
   }
-
-  /* Collections live behind a hover submenu on desktop, which touch devices
-     never see — so the mobile menu carries them as a nested list. */
   .mobile-nav__sub{padding:0 0 14px}
   .mobile-nav__sub li{border-bottom:0}
   .mobile-nav__sub a{
@@ -767,39 +718,34 @@ a.cover:hover img,
   .mobile-nav__sub a:hover,
   .mobile-nav__sub a[aria-current]{color:var(--gold);border-left-color:var(--gold)}
 
-
   .site-footer .wordmark{font-size:.9375rem;letter-spacing:.15em}
 
-  /* Hero re-sequences: the jackets lead, then the name */
+  /* Hero re-sequences: the city leads, then the name */
   .series-hero__inner{
     grid-template-columns:minmax(0,1fr);
-    gap:clamp(36px,5.5vw,52px);
-    padding-block:clamp(44px,6.5vw,72px) clamp(26px,3.5vw,40px);
+    gap:clamp(34px,5vw,48px);
+    padding-block:clamp(42px,6.5vw,72px);
   }
   .series-hero__art{order:-1}
-  .jackets{max-width:420px;margin-inline:0}
-  .series-hero__tagline{max-width:34ch}
+  .plate img{aspect-ratio:16/9;object-position:center 52%}
 
-  .series__inner{grid-template-columns:minmax(0,1fr);gap:clamp(36px,5vw,50px)}
-  .series__copy p{max-width:64ch}
+  .statement__copy{grid-template-columns:minmax(0,1fr);gap:clamp(22px,3vw,32px)}
 
-  .novella__inner,
-  .novella--dark .novella__inner{grid-template-columns:minmax(0,.58fr) minmax(0,1.42fr)}
-  .novella--dark .novella__figure{order:0}
-  .novella--dark .novella__body{order:0}
-  .novella__figure .cover{max-width:230px}
+  .book{grid-template-columns:minmax(0,.56fr) minmax(0,1.44fr);gap:clamp(28px,4vw,48px)}
+  .book--flip{grid-template-columns:minmax(0,1.44fr) minmax(0,.56fr)}
+  .book__figure .cover{max-width:210px}
 }
 
 @media (max-width:860px){
-  /* Praise steps to two columns before it stacks */
-  .praise__grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-
-  /* Each novella recomposes: status, cover, title, hook, text, CTA */
-  .novella__inner,
-  .novella--dark .novella__inner{display:block}
-  .novella__figure{margin-bottom:clamp(26px,4vw,36px)}
-  .novella__figure .cover{max-width:220px;margin-inline:0}
-  .novella__body p{max-width:62ch}
+  /* Each module recomposes into one column, same slot order every time */
+  .book,
+  .book--flip{display:block;padding-block:clamp(38px,5.5vw,54px)}
+  .book--flip .book__figure,
+  .book--flip .book__body{order:0}
+  .book__figure{margin-bottom:clamp(24px,3.5vw,32px)}
+  .book__figure .cover{max-width:206px;margin-inline:0}
+  .book__hook{max-width:none}
+  .book__copy{max-width:62ch}
 
   .site-footer__grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:34px}
 }
@@ -829,26 +775,29 @@ a.cover:hover img,
 }
 
 @media (max-width:560px){
-  .series-title{margin-top:20px;font-size:clamp(2.5rem,11.5vw,3.4rem);line-height:.96}
+  .series-title{margin-top:20px;font-size:clamp(2.35rem,10.6vw,3.2rem);line-height:.96}
   .series-title span{white-space:normal}
-  .series-hero__tagline{margin-top:26px;max-width:none;font-size:1.3rem}
+  .positioning{gap:8px 12px;letter-spacing:.2em}
+  .series-hero__copy{margin-top:22px}
   .series-hero__cta .btn{width:100%}
-  .jackets{gap:14px;max-width:none}
+  .plate img{aspect-ratio:3/2}
 
+  .statement__lines{font-size:clamp(2rem,11vw,3rem)}
+  .statement__copy p:first-child{font-size:1.3rem}
 
-  .series__copy p{font-size:1rem}
-  .series__copy p:first-child::first-letter{font-size:3.6em}
-  .women li{grid-template-columns:34px minmax(0,1fr);gap:0 14px}
+  .book__figure .cover{max-width:190px}
+  .book__title{font-size:clamp(1.8rem,8.6vw,2.4rem)}
+  .book__hook{font-size:1.2rem}
+  .book__copy{font-size:1rem}
+  .book__cta .btn{width:100%}
 
-  .novella__figure .cover{max-width:196px}
-  .novella__title{font-size:clamp(1.85rem,9vw,2.5rem)}
-  .novella__hook{font-size:1.22rem;max-width:none}
-  .novella__cta .btn{width:100%}
+  .book__label{letter-spacing:.16em;gap:2px 10px}
+  .book__label > *:not(:last-child)::after{margin-left:10px}
 
-  .praise__grid{grid-template-columns:minmax(0,1fr)}
-  .praise__grid blockquote p{font-size:1.25rem}
+  .themes__list li{grid-template-columns:38px minmax(0,1fr);gap:0 14px}
+  .themes__w{font-size:clamp(1.6rem,9.5vw,2.4rem)}
 
-  .closing__title{font-size:clamp(1.95rem,9.5vw,2.7rem)}
+  .closing__title{font-size:clamp(2.1rem,10.5vw,3rem)}
   .closing__cta .btn{width:100%}
 
   .site-footer__grid{grid-template-columns:minmax(0,1fr);gap:32px}
@@ -876,7 +825,7 @@ a.cover:hover img,
           <span class="submenu__label">Browse the collection</span>
           <a href="books.html#standalones">Standalones</a>
           <a href="fearless-series.html">Fearless Series</a>
-          <a href="miami-elite.html" aria-current="page">Miami Elite</a>
+          <a href="miami-elite-thrillers.html" aria-current="page">Miami Elite Thrillers</a>
           <a href="books.html#malicious">Malicious Games</a>
           <a href="books.html#novellas">Novellas</a>
           <a href="books.html#audiobooks">Audiobooks</a>
@@ -904,7 +853,7 @@ a.cover:hover img,
         <ul class="mobile-nav__sub">
           <li><a href="books.html#standalones">Standalones</a></li>
           <li><a href="fearless-series.html">Fearless Series</a></li>
-          <li><a href="miami-elite.html" aria-current="page">Miami Elite</a></li>
+          <li><a href="miami-elite-thrillers.html" aria-current="page">Miami Elite Thrillers</a></li>
           <li><a href="books.html#malicious">Malicious Games</a></li>
           <li><a href="books.html#novellas">Novellas</a></li>
           <li><a href="books.html#audiobooks">Audiobooks</a></li>
@@ -929,257 +878,138 @@ a.cover:hover img,
   <div class="shell series-hero__inner">
 
     <div>
-      <p class="eyebrow eyebrow--light">Novella Series</p>
+      <p class="eyebrow eyebrow--light">Miami Elite</p>
 
       <h1 class="series-title" id="series-title">
-        <span>Miami</span>
-        <span>Elite</span>
+        <span>Miami Elite</span>
+        <span>Thrillers</span>
       </h1>
-      <p class="series-title__sub">Novellas</p>
 
-      <p class="series-hero__tagline">
-        Money buys power. Power buys silence. <em>But secrets always find a way out.</em>
+      <p class="positioning">
+        <span>Wealth</span><span>Privilege</span><span>Deadly Secrets</span>
+      </p>
+
+      <p class="lede body--light series-hero__copy">
+        Welcome to Miami, where money buys power, privilege buys silence, and the truth can get
+        you killed.
       </p>
 
       <div class="series-hero__cta">
-        <a class="btn btn--gold btn--wide" href="#fatal-match">Explore the Series</a>
+        <a class="btn btn--gold btn--wide" href="#the-series">Explore the Series</a>
       </div>
     </div>
 
-    <div class="series-hero__art">
-      <ul class="jackets" aria-label="The Miami Elite novellas">
-        <li>
-          <figure>
-            <span class="cover">
-              <img src="https://static.wixstatic.com/media/461d77_fde8532af2844cc39bce80cd58b7b9ff~mv2.png/v1/crop/x_356,y_120,w_760,h_1110/fill/w_440,h_643,al_c,q_90,enc_auto/fatal-match.png"
-                   width="440" height="643"
-                   alt="Fatal Match — Miami Elite novella cover">
-            </span>
-            <figcaption>Fatal Match · Out Now</figcaption>
-          </figure>
-        </li>
-        <li>
-          <figure>
-            <span class="cover">
-              <img src="https://static.wixstatic.com/media/461d77_92546adb27094708bff1404ac3b58ad8~mv2.png/v1/crop/x_120,y_0,w_720,h_1000/fill/w_440,h_611,al_c,q_90,enc_auto/the-last-concierge.png"
-                   width="440" height="611"
-                   alt="The Last Concierge — Miami Elite novella cover">
-            </span>
-            <figcaption>The Last Concierge · Fall 2026</figcaption>
-          </figure>
-        </li>
-      </ul>
+    <figure class="series-hero__art plate">
+      <img src="https://static.wixstatic.com/media/461d77_a30851481f4e4a77966bd34ad54a3d07~mv2.jpg/v1/fill/w_1100,h_1375,al_c,q_85,enc_auto/miami-skyline.jpg"
+           width="1100" height="1375"
+           alt="The Miami skyline at night, seen across the water">
+      <span class="plate__veil" aria-hidden="true"></span>
+      <figcaption class="plate__cap">Miami · After Dark</figcaption>
+    </figure>
+
+  </div>
+</section>
+
+<!-- ============================ SERIES STATEMENT ============================ -->
+<section class="section statement" aria-labelledby="statement-lines">
+  <div class="shell">
+
+    <p class="statement__lines" id="statement-lines">
+      <span>Wealth.</span>
+      <span>Privilege.</span>
+      <span>Deadly secrets.</span>
+    </p>
+
+    <div class="statement__rule" aria-hidden="true"></div>
+
+    <div class="statement__copy">
+      <p>
+        Brilliant Caribbean-American women navigate the city’s most exclusive circles, where
+        beautiful lives hide dangerous secrets, and the powerful will do anything to keep them
+        buried.
+      </p>
+      <p>
+        The Miami Elite Thrillers are a collection of addictive psychological thrillers set among
+        the city’s most powerful circles—power brokers who believe their wealth makes them
+        untouchable. Perfect for readers who love twisty psychological thrillers, powerful women,
+        and dangerous secrets.
+      </p>
     </div>
 
   </div>
-
-  <figure class="skyline">
-    <img src="https://static.wixstatic.com/media/461d77_a30851481f4e4a77966bd34ad54a3d07~mv2.jpg/v1/fill/w_1600,h_540,al_c,q_85,enc_auto/miami-skyline.jpg"
-         width="1600" height="540"
-         alt="The Miami skyline at dusk, seen across the water">
-    <span class="skyline__veil" aria-hidden="true"></span>
-  </figure>
 </section>
 
 <!-- ============================ THE SERIES ============================ -->
-<section class="section series" aria-labelledby="series-label">
+<section class="section books" id="the-series" aria-labelledby="series-label">
   <div class="shell">
-    <h2 class="section-label" id="series-label">The Series</h2>
+    <h2 class="section-label" id="series-label">The Miami Elite Series</h2>
 
-    <div class="series__inner">
+    <!-- 01 — cover left, content right -->
+    <article class="book" id="fatal-match" aria-labelledby="fatal-match-title">
+      <figure class="book__figure">
+        <span class="cover">
+          <img src="https://static.wixstatic.com/media/461d77_fde8532af2844cc39bce80cd58b7b9ff~mv2.png/v1/crop/x_356,y_120,w_760,h_1110/fill/w_560,h_818,al_c,q_90,enc_auto/fatal-match.png"
+               width="560" height="818" loading="lazy"
+               alt="Fatal Match by Gledé Browne Kabongo — book cover">
+        </span>
+      </figure>
 
-      <div class="series__copy">
-        <p>
-          The Miami Elite Novellas are a collection of addictive psychological thrillers set among
-          the city’s most powerful circles—power brokers who believe their wealth makes them
-          untouchable. Each story follows a brilliant Caribbean-American heroine navigating spaces
-          where <em class="mark">privilege is currency and truth is dangerous.</em>
-        </p>
-        <p>
-          Perfect for readers who love twisty psychological thrillers, powerful women, and dangerous
-          secrets, the Miami Elite Novella Series will keep you turning pages late into the night.
-        </p>
-      </div>
-
-      <div>
-        <h3 class="women__title">Four women, four ways in</h3>
-        <ul class="women">
-          <li>
-            <span class="women__n">01</span>
-            <span class="women__line">A matchmaker whose perfect algorithm hides a predator.</span>
-            <span class="women__tag">Fatal Match</span>
-          </li>
-          <li>
-            <span class="women__n">02</span>
-            <span class="women__line">A concierge who knows the secrets the rich want to keep buried at all costs.</span>
-            <span class="women__tag">The Last Concierge</span>
-          </li>
-          <li>
-            <span class="women__n">03</span>
-            <span class="women__line">An art curator who discovers a masterpiece worth killing for.</span>
-          </li>
-          <li>
-            <span class="women__n">04</span>
-            <span class="women__line">A reputation fixer protecting the powerful—until the truth turns on her.</span>
-          </li>
-        </ul>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ============================ FATAL MATCH ============================ -->
-<section class="section novella" id="fatal-match" aria-labelledby="fatal-match-title">
-  <div class="shell novella__inner">
-
-    <figure class="novella__figure">
-      <span class="cover">
-        <img src="https://static.wixstatic.com/media/461d77_fde8532af2844cc39bce80cd58b7b9ff~mv2.png/v1/crop/x_356,y_120,w_760,h_1110/fill/w_600,h_876,al_c,q_90,enc_auto/fatal-match.png"
-             width="600" height="876" loading="lazy"
-             alt="Fatal Match by Gledé Browne Kabongo — book cover">
-      </span>
-    </figure>
-
-    <div class="novella__body">
-      <p class="status">Published May 2026</p>
-      <h2 class="novella__title" id="fatal-match-title">Fatal Match</h2>
-      <p class="novella__strap">Perfectly charming. Perfectly deadly.</p>
-
-      <p class="novella__hook">She built a matchmaking empire. Then she matched a monster.</p>
-
-      <div class="novella__text">
-        <p>
+      <div class="book__body">
+        <p class="book__label"><span>Miami Elite Thriller</span> <b>Book One</b> <span>Published May 2026</span></p>
+        <h3 class="book__title" id="fatal-match-title">Fatal Match</h3>
+        <p class="book__strap">Perfectly charming. Perfectly deadly.</p>
+        <p class="book__hook">She built a matchmaking empire. Then she matched a monster.</p>
+        <p class="book__copy">
           Harvard-trained psychologist Dr. Sabrina Ambrose built her Miami elite matchmaking empire
           on a near-perfect algorithm and a 98% success rate pairing the powerful, wealthy, and
           famous. But perfection can hide monsters.
         </p>
-        <p>
-          When a devastated client accuses Sabrina of matching her with a man who seduces successful
-          women only to destroy their careers, Sabrina starts digging, and uncovers a chilling
-          pattern she somehow missed. Dominic Blackwell is everything her female clients want:
-          brilliant, wealthy, irresistible. And devastatingly dangerous to ambitious women. When
-          Sabrina confronts him, Dominic doesn’t deny anything. Instead, he delivers a threat of his
-          own: back off or he’ll expose the Boston scandal that nearly ended Sabrina’s career.
+        <p class="book__cta">
+          <a class="btn btn--navy" role="link" tabindex="0">Learn More</a>
         </p>
-        <p>
-          Then Dominic is found murdered. Now the police are asking questions. And as her carefully
-          built empire begins to crack, Sabrina realizes someone else has been keeping score. Someone
-          who knows what Dominic did and was willing to stop him before he ruined another woman.
-        </p>
-        <p class="novella__close">Because sometimes the perfect match…is a deadly mistake.</p>
       </div>
+    </article>
 
-      <p class="novella__cta">
-        <a class="btn btn--gold btn--wide" role="link" tabindex="0">Shop Now</a>
-      </p>
-    </div>
+    <!-- 02 — content left, cover right -->
+    <article class="book book--flip" id="the-last-concierge" aria-labelledby="concierge-title">
+      <figure class="book__figure">
+        <span class="cover">
+          <img src="https://static.wixstatic.com/media/461d77_92546adb27094708bff1404ac3b58ad8~mv2.png/v1/crop/x_120,y_0,w_720,h_1000/fill/w_560,h_778,al_c,q_90,enc_auto/the-last-concierge.png"
+               width="560" height="778" loading="lazy"
+               alt="The Last Concierge by Gledé Browne Kabongo — book cover">
+        </span>
+      </figure>
+
+      <div class="book__body">
+        <p class="book__label book__label--soon"><span>Miami Elite Thriller</span> <b>Book Two</b> <span>Release Date: September 1, 2026</span></p>
+        <h3 class="book__title" id="concierge-title">The Last Concierge</h3>
+        <p class="book__strap">She knows their darkest secrets. Now they want her silenced.</p>
+        <p class="book__hook">She built her business on discretion. Now her silence could get her killed.</p>
+        <p class="book__copy">
+          As the founder of an elite concierge service for billionaires, celebrities, and tech
+          moguls, Julie-Ann Shillingford’s business is built on one rule: Know everything. Say
+          nothing.
+        </p>
+        <p class="book__cta">
+          <a class="btn btn--navy" role="link" tabindex="0">Learn More</a>
+        </p>
+      </div>
+    </article>
 
   </div>
 </section>
 
-<!-- ============================ THE LAST CONCIERGE ============================ -->
-<section class="section novella novella--dark" id="the-last-concierge" aria-labelledby="concierge-title">
-  <div class="shell novella__inner">
-
-    <figure class="novella__figure">
-      <span class="cover">
-        <img src="https://static.wixstatic.com/media/461d77_92546adb27094708bff1404ac3b58ad8~mv2.png/v1/crop/x_120,y_0,w_720,h_1000/fill/w_600,h_833,al_c,q_90,enc_auto/the-last-concierge.png"
-             width="600" height="833" loading="lazy"
-             alt="The Last Concierge by Gledé Browne Kabongo — book cover">
-      </span>
-    </figure>
-
-    <div class="novella__body">
-      <p class="status status--light status--soon">Coming Fall 2026</p>
-      <h2 class="novella__title" id="concierge-title">The Last Concierge</h2>
-      <p class="novella__strap">She knows their darkest secrets. Now they want her silenced.</p>
-
-      <p class="novella__hook">Every client has a secret. One was worth killing for.</p>
-
-      <div class="novella__text">
-        <p>
-          Julie-Ann Shillingford built Miami’s most exclusive concierge firm on one promise:
-          discretion above all else. For eleven years, she’s guarded the secrets of the wealthy and
-          powerful without asking questions. Until one of her clients is murdered.
-        </p>
-        <p>
-          Hours after the glittering Ashcroft Foundation Gala, philanthropist Isabel Dresden is found
-          dead. The event had appeared flawless, but Julie-Ann remembers what lurked beneath the
-          champagne and designer gowns: whispered confrontations, fractured loyalties, and a fear in
-          Isabel she recognized too late.
-        </p>
-        <p>
-          As police close in on Isabel’s powerful husband, Julie-Ann quietly retraces her final
-          hours, and discovers nearly everyone at the gala was hiding something. A husband with
-          secrets. A business partner whose loyalty may be a lie. A mysterious hotelier with a
-          carefully buried past.
-        </p>
-        <p>
-          Then Julie-Ann realizes someone is watching her. Someone believes Isabel trusted her with
-          the truth. And if Julie-Ann uncovers what really happened twenty-five years ago, one of
-          Miami’s most powerful families will lose everything.
-        </p>
-        <p class="novella__close">Including the killer.</p>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- ============================ PRAISE ============================ -->
-<section class="section praise" aria-labelledby="praise-label">
+<!-- ============================ THEMES ============================ -->
+<section class="section themes" aria-labelledby="themes-label">
   <div class="shell">
-    <h2 class="section-label" id="praise-label">Praise for Gledé Browne Kabongo</h2>
-
-    <div class="praise__grid">
-
-      <figure>
-        <blockquote><p>“A bold, brilliant thriller.”</p></blockquote>
-        <figcaption class="praise__by">Reader Views</figcaption>
-      </figure>
-
-      <figure>
-        <blockquote><p>“The plot is sheer poetry.”</p></blockquote>
-        <figcaption class="praise__by">Readers Favorite</figcaption>
-      </figure>
-
-      <figure>
-        <blockquote><p>“One of the best thrillers of the Year.”</p></blockquote>
-        <figcaption class="praise__by">Bestthrillers.com</figcaption>
-      </figure>
-
-      <figure>
-        <blockquote><p>“Gripping and Powerful.”</p></blockquote>
-        <figcaption class="praise__by">Goodreads Reviewer</figcaption>
-      </figure>
-
-      <figure>
-        <blockquote><p>“Unbelievably addictive.”</p></blockquote>
-        <figcaption class="praise__by">Amazon Reviewer</figcaption>
-      </figure>
-
-      <figure>
-        <blockquote><p>“A masterpiece of a psychological thriller.”</p></blockquote>
-        <figcaption class="praise__by">LaDonna’s Book Nook</figcaption>
-      </figure>
-
-      <figure>
-        <blockquote><p>“Freakin genius.”</p></blockquote>
-        <figcaption class="praise__by">Romance Bytes</figcaption>
-      </figure>
-
-      <figure>
-        <blockquote><p>“A brilliant read.”</p></blockquote>
-        <figcaption class="praise__by">NaturalBri Reviews</figcaption>
-      </figure>
-
-      <figure>
-        <blockquote><p>“This book knocked my socks off.”</p></blockquote>
-        <figcaption class="praise__by">Bookbub Reviewer</figcaption>
-      </figure>
-
-    </div>
+    <h2 class="section-label section-label--light" id="themes-label">The Currency of the City</h2>
+    <ul class="themes__list">
+      <li><span class="themes__n">01</span><span class="themes__w">Wealth</span></li>
+      <li><span class="themes__n">02</span><span class="themes__w">Privilege</span></li>
+      <li><span class="themes__n">03</span><span class="themes__w">Power</span></li>
+      <li><span class="themes__n">04</span><span class="themes__w">Secrets</span></li>
+      <li><span class="themes__n">05</span><span class="themes__w">Silence</span></li>
+    </ul>
   </div>
 </section>
 
@@ -1187,23 +1017,21 @@ a.cover:hover img,
 <section class="section closing" aria-labelledby="closing-title">
   <div class="shell">
     <div class="closing__inner">
-    <p class="eyebrow eyebrow--light">Miami Elite Novellas</p>
+      <p class="eyebrow eyebrow--light">Miami Elite Thrillers</p>
 
-    <h2 class="closing__title" id="closing-title">
-      Power buys silence. <em>But secrets always find a way out.</em>
-    </h2>
+      <h2 class="closing__title" id="closing-title">Welcome to Miami.</h2>
 
-    <p class="closing__line">
-      Perfect for readers who love twisty psychological thrillers, powerful women, and dangerous
-      secrets, the Miami Elite Novella Series will keep you turning pages late into the night.
-    </p>
+      <p class="closing__pair">
+        <span>Beautiful lives.</span>
+        <span>Dangerous secrets.</span>
+      </p>
 
-    <div class="closing__cta">
-      <a class="btn btn--gold btn--wide" role="link" tabindex="0">Buy Fatal Match</a>
-      <a class="link-arrow link-arrow--light" href="books.html">
-        All Books <span class="arw" aria-hidden="true">&rarr;</span>
-      </a>
-    </div>
+      <div class="closing__cta">
+        <a class="btn btn--gold btn--wide" href="#the-series">Explore the Series</a>
+        <a class="link-arrow link-arrow--light" href="books.html">
+          All Books <span class="arw" aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
     </div>
   </div>
 </section>
@@ -1219,16 +1047,6 @@ a.cover:hover img,
     </div>
 
     <div class="more__grid">
-
-      <article class="more__item">
-        <a class="cover" href="fearless-series.html" aria-label="Reign of Fear, from the Fearless Series">
-          <img src="https://static.wixstatic.com/media/461d77_5b19373a046b4d92809e4dcd2d23007f~mv2.png/v1/crop/x_154,y_0,w_692,h_1000/fill/w_420,h_607,al_c,q_90,enc_auto/reign-of-fear.png"
-               width="420" height="607" loading="lazy"
-               alt="Reign of Fear by Gledé Browne Kabongo — book cover">
-        </a>
-        <div class="more__kicker"><span class="meta meta--blue">Fearless Series</span></div>
-        <h3 class="h3 more__title">Reign of Fear</h3>
-      </article>
 
       <article class="more__item">
         <a class="cover" href="the-forbidden-heiress.html" aria-label="The Forbidden Heiress">
@@ -1248,6 +1066,16 @@ a.cover:hover img,
         </a>
         <div class="more__kicker"><span class="meta meta--blue">Standalone</span></div>
         <h3 class="h3 more__title">Our Wicked Lies</h3>
+      </article>
+
+      <article class="more__item">
+        <a class="cover" href="fool-me-twice.html" aria-label="Fool Me Twice">
+          <img src="https://static.wixstatic.com/media/461d77_c74e1193748346afadb72819c7fffff9~mv2.png/v1/crop/x_363,y_135,w_750,h_1081/fill/w_420,h_605,al_c,q_90,enc_auto/fool-me-twice.png"
+               width="420" height="605" loading="lazy"
+               alt="Fool Me Twice by Gledé Browne Kabongo — book cover">
+        </a>
+        <div class="more__kicker"><span class="meta meta--blue">Standalone</span></div>
+        <h3 class="h3 more__title">Fool Me Twice</h3>
       </article>
 
     </div>
